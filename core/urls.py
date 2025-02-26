@@ -21,9 +21,7 @@ urlpatterns = [
     # HOA Taxes page
     path('hoa-taxes/', views.hoa_taxes, name='hoa_taxes'),
     
-    # Blog pages - Note the order matters for slug patterns
-    path('blog/category/<slug:category_slug>/', views.blog_category, name='blog_category'),
-    path('blog/<slug:slug>/', views.blog_detail, name='blog_detail'),
+    # Blog page
     path('blog/', views.blog, name='blog'),
     
     # Contact page
