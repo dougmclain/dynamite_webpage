@@ -118,7 +118,7 @@ def hoa_taxes(request):
     """
     return render(request, 'core/hoa_taxes.html')
 
-@check_honeypot  # Add this decorator to protect the contact form
+@check_honeypot
 def contact(request):
     """
     View for the contact page and form handling
@@ -127,28 +127,32 @@ def contact(request):
         form = ContactForm(request.POST)
         
         if form.is_valid():
-            # Extract form data
-            first_name = form.cleaned_data['first_name']
-            last_name = form.cleaned_data['last_name']
-            email = form.cleaned_data['email']
-            phone = form.cleaned_data['phone']
-            comments = form.cleaned_data['comments']
-            
-            # Prepare email content
-            subject = f'New Contact Form Submission from {first_name} {last_name}'
-            message = f"""
-            Contact Form Details:
-            
-            Name: {first_name} {last_name}
-            Email: {email}
-            Phone: {phone if phone else 'Not provided'}
-            
-            Message:
-            {comments}
-            """
-            
-            # Send email
             try:
+                # Extract form data
+                first_name = form.cleaned_data['first_name']
+                last_name = form.cleaned_data['last_name']
+                email = form.cleaned_data['email']
+                phone = form.cleaned_data['phone']
+                comments = form.cleaned_data['comments']
+                
+                # Prepare email content
+                subject = f'New Contact Form Submission from {first_name} {last_name}'
+                message = f"""
+                Contact Form Details:
+                
+                Name: {first_name} {last_name}
+                Email: {email}
+                Phone: {phone if phone else 'Not provided'}
+                
+                Message:
+                {comments}
+                """
+                
+                # Log to console in development/debug environments
+                print(f"Sending email with subject: {subject}")
+                print(f"To: info@hoafiscal.com")
+                
+                # Send email
                 send_mail(
                     subject,
                     message,
@@ -156,10 +160,19 @@ def contact(request):
                     ['info@hoafiscal.com'],
                     fail_silently=False,
                 )
+                
                 messages.success(request, "Thank you for contacting us! Your message has been sent successfully.")
                 return redirect('core:contact')
+                
             except Exception as e:
-                messages.error(request, f"Sorry, there was an error sending your message. Please try again later.")
+                # Log the error
+                print(f"Error sending email: {str(e)}")
+                messages.error(request, "Sorry, there was an error sending your message. Please try again later or contact us directly at (888) 575-0563.")
+        else:
+            # If form is invalid, display validation errors
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
     else:
         form = ContactForm()
     

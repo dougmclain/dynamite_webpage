@@ -31,7 +31,7 @@ DEBUG = False
 # The default here is a comma-separated string without protocol prefixes.
 ALLOWED_HOSTS = os.environ.get(
     "ALLOWED_HOSTS",
-    "dynamitemanagement.com,www.dynamitemanagement.com,dynamite-webpage.onrender.com,localhost,"
+    "dynamitemanagement.com,www.dynamitemanagement.com,dynamite-webpage.onrender.com"
 ).split(",")
 
 
@@ -124,14 +124,19 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 RECAPTCHA_SITE_KEY = os.environ.get('RECAPTCHA_SITE_KEY', '')
 RECAPTCHA_SECRET_KEY = os.environ.get('RECAPTCHA_SECRET_KEY', '')
 
-# Email Settings
+# Email Settings - Secure configuration using environment variables
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp-mail.outlook.com')
 EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@hoafiscal.com')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'info@hoafiscal.com')
+
+# For development, if DEBUG is True, use console backend to see emails in the console
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    print("Using console email backend for development")
 
 # Honeypot settings
 HONEYPOT_FIELD_NAME = 'website'  # Field bots typically fill
