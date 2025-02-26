@@ -29,7 +29,7 @@ DEBUG = False
 
 # Configure allowed hosts. You can set this via an environment variable,
 # or directly add your Render hostname.
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "https://dynamite-webpage.onrender.com").split(",")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","https://dynamitemanagement.com", "www.dynamitemanagement.com", "https://www.dynamitemanagement.com", "https://dynamite-webpage.onrender.com").split(",")
 
 # Application definition
 
