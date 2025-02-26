@@ -1,0 +1,222 @@
+/* Location Page Specific Styles */
+
+/* Location Header Section */
+.location-header {
+    background-color: var(--dynamite-navy);
+    color: white;
+    padding: 2rem 0;
+}
+
+.location-main-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.location-subtitle {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--dynamite-orange);
+}
+
+/* Featured Section with Image on Right */
+.location-featured-section {
+    background-color: #fff;
+    padding: 3rem 0;
+}
+
+/* Location Image Styling */
+.location-image {
+    max-width: 100%;
+    width: 100%;
+    min-height: 300px;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.location-image:hover {
+    transform: scale(1.02);
+}
+
+/* Featured Section with Image on Right */
+.location-featured-section {
+    background-color: #fff;
+    padding: 3rem 0;
+}
+
+/* Use container-fluid with controlled padding for wider content */
+.location-featured-section .container-fluid {
+    max-width: 1800px; /* Match the home page container max-width */
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+/* Location Image Styling */
+.location-image {
+    max-height: 300px; /* Increased height for desktop */
+    width: 100%; /* Use full width of container */
+    object-fit: contain; /* Preserve aspect ratio without cropping */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.location-image:hover {
+    transform: scale(1.05);
+}
+
+/* Content Section */
+.location-content-section {
+    background-color: #fff;
+    font-family: 'Roboto', sans-serif;
+}
+
+.section-title {
+    color: var(--dynamite-navy);
+    font-size: 1.8rem;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 1.5rem;
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 60px;
+    background-color: var(--dynamite-orange);
+}
+
+.section-content p {
+    color: #444;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+    font-weight: 300;
+}
+
+/* Services Highlight Section */
+.services-highlight-section {
+    background-color: #f8f9fa;
+    padding: 3rem 0;
+}
+
+.services-highlight-section .section-title {
+    text-align: center;
+}
+
+.services-highlight-section .section-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.service-highlight-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.service-highlight-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.service-highlight-icon {
+    margin-bottom: 1.2rem;
+}
+
+.service-highlight-title {
+    color: var(--dynamite-navy);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.service-highlight-text {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+/* Responsive Image Sizing */
+@media (max-width: 1200px) {
+    .location-image {
+        max-height: 250px; /* Slightly smaller for smaller desktops */
+    }
+}
+
+@media (max-width: 992px) {
+    .location-main-title {
+        font-size: 2.2rem;
+    }
+    
+    .location-subtitle {
+        font-size: 1.6rem;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .location-image {
+        max-height: 220px; /* Smaller for tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .location-header {
+        padding: 1.5rem 0;
+        text-align: center;
+    }
+    
+    .location-main-title {
+        font-size: 2rem;
+    }
+    
+    .location-subtitle {
+        font-size: 1.4rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .section-content p {
+        font-size: 1rem;
+    }
+    
+    .location-image {
+        max-height: 200px; /* Even smaller for mobile */
+    }
+    
+    .services-highlight-section {
+        padding: 2rem 0;
+    }
+    
+    .contact-cta {
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .location-main-title {
+        font-size: 1.8rem;
+    }
+    
+    .location-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .location-image {
+        max-height: 130px; /* Smallest for small mobile */
+    }
+}

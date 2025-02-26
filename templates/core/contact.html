@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load honeypot %}
+
+{% block title %}Dynamite Management - Contact Us{% endblock %}
+
+{% block content %}
+<!-- Contact Header Section -->
+<div class="location-header py-3">
+    <div class="container-fluid px-4">
+        <h1 class="location-main-title">Contact Us</h1>
+    </div>
+</div>
+
+<!-- Contact Form Section -->
+<section class="contact-section py-5">
+    <div class="container-fluid px-4">
+        <div class="row">
+            <!-- Contact Information (Left) -->
+            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                <div class="contact-info-box h-100">
+                    <h2 class="section-title mb-4">Get in Touch</h2>
+                    <p class="section-text mb-4">
+                        We'd love to hear from you. Whether you have a question about our services, 
+                        pricing, or need assistance with your association's financial management, 
+                        our team is ready to help.
+                    </p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <h3>Phone</h3>
+                                <p>(888) 575-0563</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h3>Email</h3>
+                                <p>info@hoafiscal.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h3>Business Hours</h3>
+                                <p>Monday - Friday: 9:00 AM - 5:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Form (Right) -->
+            <div class="col-lg-8 col-md-12">
+                <div class="contact-form-box">
+                    <h2 class="section-title mb-4">Send Us a Message</h2>
+                    <p class="mb-4"><small>Fields marked with an asterisk (*) are required</small></p>
+                    
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <form method="post" action="{% url 'core:contact' %}" id="contactForm">
+                        {% csrf_token %}
+                        {% render_honeypot_field %}
+                        
+                        <div class="row">
+                            <!-- First Name -->
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="form-label">First Name *</label>
+                                <input type="text" class="form-control" id="firstName" name="first_name" required>
+                                <div class="invalid-feedback">
+                                    Please provide your first name.
+                                </div>
+                            </div>
+                            
+                            <!-- Last Name -->
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="form-label">Last Name *</label>
+                                <input type="text" class="form-control" id="lastName" name="last_name" required>
+                                <div class="invalid-feedback">
+                                    Please provide your last name.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <!-- Email -->
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email Address *</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid email address.
+                                </div>
+                            </div>
+                            
+                            <!-- Phone -->
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" name="phone">
+                            </div>
+                        </div>
+                        
+                        <!-- Comments -->
+                        <div class="mb-3">
+                            <label for="comments" class="form-label">Comments *</label>
+                            <textarea class="form-control" id="comments" name="comments" rows="5" required></textarea>
+                            <div class="invalid-feedback">
+                                Please provide your message.
+                            </div>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Form validation (client-side)
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+        const requiredFields = this.querySelectorAll('[required]');
+        let isValid = true;
+        
+        requiredFields.forEach(function(field) {
+            if (!field.value.trim()) {
+                isValid = false;
+                field.classList.add('is-invalid');
+            } else {
+                field.classList.remove('is-invalid');
+            }
+        });
+        
+        // Email validation
+        const emailField = document.getElementById('email');
+        if (emailField.value && !isValidEmail(emailField.value)) {
+            isValid = false;
+            emailField.classList.add('is-invalid');
+        }
+        
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+    
+    // Simple email validation
+    function isValidEmail(email) {
+        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return pattern.test(email);
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,17 @@
+{
+    "python.defaultInterpreterPath": "./venv/bin/python",
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.env.osx": {
+        "VIRTUAL_ENV": "${workspaceFolder}/venv"
+    },
+    "terminal.integrated.profiles.osx": {
+        "zsh": {
+            "path": "zsh",
+            "args": ["-l"],
+            "env": {
+                "VIRTUAL_ENV": "${workspaceFolder}/venv",
+                "PATH": "${workspaceFolder}/venv/bin:${env:PATH}"
+            }
+        }
+    }
+}

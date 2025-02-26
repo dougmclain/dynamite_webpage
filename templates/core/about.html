@@ -1,0 +1,265 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dynamite Management - About Us{% endblock %}
+
+{% block content %}
+<!-- About Header Section -->
+<div class="location-header py-3">
+    <div class="container-fluid px-4">
+        <h1 class="location-main-title">About Us</h1>
+    </div>
+</div>
+
+<!-- Vision Section -->
+<section class="process-section py-5">
+    <div class="container-fluid px-4">
+        <div class="row">
+            <!-- Text Content (Left) -->
+            <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+                <div class="process-box h-100">
+                    <h2 class="section-title mb-3">Our Vision</h2>
+                    <p class="section-text mb-4">
+                        Our vision, to offer condominium and homeowner associations a service dedicated 
+                        to fraud detection and elimination. Our years of practice has provided far too many examples 
+                        of poor behavior and outright actions which were detrimental to associations.
+                    </p>
+                    <p class="section-text mb-4">
+                        Our vision is simple: money can be protected. It requires constant vigilance, a dedication to perfection, 
+                        and a willingness to re-evaluate processes to find new ways to safeguard association money. 
+                        We believe our system can deliver this successfully and at a scale which can't be matched by 
+                        any management company with its own internal accounting department.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Image (Right) -->
+            <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+                <div class="process-image-container">
+                    <img src="{% static 'images/computer-desk.jpg' %}" alt="computer desk" class="process-image">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Focus Section -->
+<section class="blue-section py-5">
+    <div class="container-fluid px-4">
+        <div class="row">
+            <!-- Text Column (Left) -->
+            <div class="col-lg-5 col-md-12 mb-4 mb-lg-0">
+                <div class="blue-box h-100">
+                    <h2 class="section-title mb-3">Our Focus</h2>
+                    <p class="section-text mb-4">
+                        Dynamite Management, LLC is focused on the belief that fraud can be detected and prevented. 
+                        To detect and prevent fraud requires a dedication to process, documentation and education. 
+                        These three core areas are passions for all members of the Dynamite Management, LLC team.
+                    </p>
+                    
+                    <h2 class="section-title mb-3 mt-4">Transparency & Excellence</h2>
+                    <p class="section-text">
+                        We believe the community information belongs to the community not to the Association. 
+                        Information is posted in real time for members and board members to see. Our goal is 
+                        to provide the highest level of service with complete transparency.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Image Column (Right) -->
+            <div class="col-lg-7 col-md-12 mb-4 mb-lg-0">
+                <div class="blue-image-container">
+                    <img src="{% static 'images/conference-room.jpg' %}" alt="Conference Room" class="blue-image">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Members Section -->
+<section class="team-section py-5">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <h2 class="section-title text-center mb-5">Our Team</h2>
+                
+                <div class="row">
+                    <!-- Doug McLain -->
+                    <div class="col-lg-6 col-md-12 mb-5">
+                        <div class="team-member">
+                            <div class="row">
+                                <div class="col-md-4 mb-3 mb-md-0">
+                                    <div class="team-member-image">
+                                        <img src="{% static 'images/doug-profile.jpg' %}" alt="Doug McLain" class="img-fluid rounded shadow">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h3 class="team-member-name">Doug McLain</h3>
+                                    <h4 class="team-member-position">Partner</h4>
+                                    <div class="team-member-bio">
+                                        <p>
+                                            Doug has been providing audit, management, and tax services to HOAs for more than 20 years. 
+                                            He is the co-author of "Trade HOA Stress for Success" a board of directors' guide for managing 
+                                            an association, the all time best selling book on managing homeowner associations. 
+                                        </p>
+                                        <p>
+                                            Prior to founding Dynamite Management, LLC Services he was a partner in C.O.R.E. Services, LLC
+                                            a firm that provided auditing and tax filing for homeowner associations throughout the United States. 
+                                            Doug's experience with homeowner associations has led him to participate in the Oregon and Washington 
+                                            state chapters of Community Association Institute (CAI).
+                                        </p>
+                                        <p>
+                                            Doug co-founded Dynamite Management, LLC Services for the purpose of providing affordable 
+                                            management services to both condominium and homeowner associations throughout the country.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Anthony Leverman -->
+                    <div class="col-lg-6 col-md-12 mb-5">
+                        <div class="team-member">
+                            <div class="row">
+                                <div class="col-md-4 mb-3 mb-md-0">
+                                    <div class="team-member-image">
+                                        <img src="{% static 'images/tony-profile.jpg' %}" alt="Anthony Leverman" class="img-fluid rounded shadow">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h3 class="team-member-name">Anthony Leverman</h3>
+                                    <h4 class="team-member-position">Partner</h4>
+                                    <div class="team-member-bio">
+                                        <p>
+                                            Anthony is a businessman with experience in many areas. Started in the Marines as a helicopter mechanic 
+                                            before getting licensed as a registered nurse. Pursued an entrepreneurial route with a successful travel 
+                                            vaccination business for 12 years.
+                                        </p>
+                                        <p>
+                                            Currently active in the Air National Guard as a medical administrative officer. Operates an assisted 
+                                            living facility in Orlando, FL for the past 6 years. Currently resides in a home with an HOA; 
+                                            giving him the ground level knowledge you're looking for as a non-financial person.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section py-5" style="background-color: #f8f9fa;">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <h2 class="section-title text-center mb-5">Frequently Asked Questions</h2>
+                
+                <div class="accordion" id="faqAccordion">
+                    <!-- FAQ Item 1 -->
+                    <div class="accordion-item mb-3 border rounded shadow-sm">
+                        <h3 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Do you want to cut your association's costs, and have better service?
+                            </button>
+                        </h3>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    While some management companies have may have excellent service, it is rare to find a management company that has excellent service and low costs.
+                                </p>
+                                <p>
+                                    Dynamite Management, LLC is different, we are so confident that our prices are the lowest out there, we post our prices online for anyone to see, even our competitors. You won't have to setup a meeting with a potential management company in order to see what services they will provide and at what cost. You can put in your Association's information into our proposal tool and you will receive a pdf copy of the proposal instantly.
+                                </p>
+                                <p>
+                                    We keep our costs low and pass that savings on to you. We have developed our own financial management system which doesn't rely on expensive third parties. All Dynamite Management, LLC services employees work remotely, eliminating expensive real estate and office expenses. After all, your Association's property is what's important, not your management company's property.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 2 -->
+                    <div class="accordion-item mb-3 border rounded shadow-sm">
+                        <h3 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Do you have to wait weeks or months to get Association documents from your management company?
+                            </button>
+                        </h3>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    At Dynamite Management, LLC we don't just talk transparency we live it. We believe the community information belongs to the community not to the Association. Information is posted in real time for members and board members to see. In addition, we post information on the Association's website, we allow members and board members to go online and see their financial accounts, and relevant association information, while keeping individual member information private.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 3 -->
+                    <div class="accordion-item mb-3 border rounded shadow-sm">
+                        <h3 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                What makes Dynamite Management's expertise unique?
+                            </button>
+                        </h3>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    Dynamite Management, LLC began as a CPA firm specializing in Association Audits and Reviews. Over the years we realized that the HOA industry was lacking the expertise needed in the most important aspect of HOA management, Finances and Accounting!
+                                </p>
+                                <p>
+                                    As auditors we heard every excuse in the book from managers as to why they couldn't produce an accurate financial statement. The excuses ranged from we are not "accountants" or "our system can't do that", to "the auditor will fix that during the audit".
+                                </p>
+                                <p>
+                                    Why should your association not have accurate financials all the time, why wait for the auditor to fix the financials in another year or so? Dynamite Management, LLC are not only experts in HOA accounting, but we also prepare HOA taxes and provided audit support. 
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 4 -->
+                    <div class="accordion-item mb-3 border rounded shadow-sm">
+                        <h3 class="accordion-header" id="headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                How does Dynamite Management handle support for associations?
+                            </button>
+                        </h3>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    We know sometimes that your Association may need a little help from the experts. While most management companies will charge a premium for most support services, and will bill you for the entire year whether you used the support or not, we believe in providing services based on what the Association actually needs and uses.
+                                </p>
+                                <p>
+                                    Do you only want support at the owners annual meeting, or do you want support for all board meetings? Does your Association need assistance mailing out meeting packets to all the members? Your association is in control of the amount of support that is needed.
+                                </p>
+                                <p>
+                                    How confident are we that you will love our process? So confident that we have the industry best guarantee, if our services don't work for your association you can cancel our service at anytime, without prior notice or a termination fee. Check your current management contract, there is probably a lengthy termination notice and a pricey termination fee.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-5">
+                    <a href="/contact" class="btn btn-primary btn-lg">Contact Us With Your Questions</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Initialize the first accordion item as open
+    document.addEventListener('DOMContentLoaded', function() {
+        const firstAccordionButton = document.querySelector('.accordion-button');
+        if (firstAccordionButton) {
+            firstAccordionButton.classList.add('show');
+        }
+    });
+</script>
+{% endblock %}

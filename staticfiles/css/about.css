@@ -1,0 +1,128 @@
+/* About Page Specific Styles */
+
+/* Team Members Section */
+.team-section {
+    background-color: #fff;
+    padding: 4rem 0;
+}
+
+.team-member {
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    height: 100%;
+    border-radius: 8px;
+}
+
+.team-member:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.team-member-image {
+    margin-bottom: 1rem;
+}
+
+.team-member-name {
+    color: var(--dynamite-navy);
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.team-member-position {
+    color: var(--dynamite-orange);
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.team-member-bio p {
+    color: #444;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* FAQ Section */
+.faq-section {
+    padding: 4rem 0;
+}
+
+.accordion-item {
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.accordion-button {
+    font-weight: 600;
+    color: var(--dynamite-navy);
+    padding: 1.2rem 1.5rem;
+    background-color: #fff;
+}
+
+.accordion-button:not(.collapsed) {
+    color: white;
+    background-color: var(--dynamite-navy);
+}
+
+.accordion-body {
+    padding: 1.5rem;
+}
+
+.accordion-body p {
+    color: #444;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.accordion-body p:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .team-section {
+        padding: 3rem 0;
+    }
+    
+    .team-member {
+        margin-bottom: 2rem;
+    }
+    
+    .team-member-name {
+        font-size: 1.6rem;
+    }
+    
+    .team-member-position {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .team-section {
+        padding: 2rem 0;
+    }
+    
+    .team-member {
+        padding: 1rem;
+    }
+    
+    .team-member-name {
+        font-size: 1.4rem;
+    }
+    
+    .team-member-position {
+        font-size: 1rem;
+    }
+    
+    .team-member-bio p {
+        font-size: 0.95rem;
+    }
+    
+    .accordion-button {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+}

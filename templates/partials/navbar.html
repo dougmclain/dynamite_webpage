@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto"> <!-- Changed to ms-auto to align right -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                
+                <!-- Services Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        Services
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="/condo-financial-management">Condo Financial Management</a></li>
+                        <li><a class="dropdown-item" href="https://engage.goenumerate.com/connect_login.php">Owners Portal</a></li>
+                    </ul>
+                </li>
+
+                <!-- Locations Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        Locations
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="{% url 'core:state_detail' location_name='california' %}">California</a></li>
+                        <li><a class="dropdown-item ps-4" href="{% url 'core:city_detail' state_name='california' location_name='san-francisco' %}">San Francisco</a></li>
+                        <li><a class="dropdown-item" href="{% url 'core:state_detail' location_name='florida' %}">Florida</a></li>
+                        <li><a class="dropdown-item ps-4" href="{% url 'core:city_detail' state_name='florida' location_name='miami' %}">Miami</a></li>
+                        <li><a class="dropdown-item" href="{% url 'core:state_detail' location_name='georgia' %}">Georgia</a></li>
+                        <li><a class="dropdown-item" href="{% url 'core:state_detail' location_name='hawaii' %}">Hawaii</a></li>
+                        <li><a class="dropdown-item" href="{% url 'core:state_detail' location_name='illinois' %}">Illinois</a></li>
+                        <li><a class="dropdown-item ps-4" href="{% url 'core:city_detail' state_name='illinois' location_name='chicago' %}">Chicago</a></li>
+                        <li><a class="dropdown-item" href="{% url 'core:state_detail' location_name='new-york' %}">New York</a></li>
+                        <li><a class="dropdown-item" href="{% url 'core:state_detail' location_name='oregon' %}">Oregon</a></li>
+                        <li><a class="dropdown-item ps-4" href="{% url 'core:city_detail' state_name='oregon' location_name='portland' %}">Portland</a></li>
+                        <li><a class="dropdown-item" href="{% url 'core:state_detail' location_name='texas' %}">Texas</a></li>
+                        <li><a class="dropdown-item" href="{% url 'core:state_detail' location_name='washington' %}">Washington</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact Us</a>
+                </li>
+
+                <!-- Documents and Tools Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        Documents & Tools
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="https://budget-tool-vhld.onrender.com">Budget Tool</a></li>
+                        <li><a class="dropdown-item" href="https://hoa-board-minutes.onrender.com/">Board Minutes Tool</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

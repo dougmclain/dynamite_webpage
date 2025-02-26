@@ -1,0 +1,397 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dynamite Management - Trusted Financial Management for Condominiums{% endblock %}
+
+{% block content %}
+    {% include 'partials/hero.html' %}
+    
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container-fluid px-4">
+        <div class="row">
+            <!-- Responsive Column -->
+            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                <div class="feature-box">
+                    <div>
+                        <h3 class="feature-title mb-3">Responsive</h3>
+                        <p class="feature-text">
+                            In condominium financial management today you need a team member who is always ready to help 
+                            the treasurers and owners identify priorities and get the work done.
+                        </p>
+                        <p class="feature-text">
+                            You need a team focused on answering the call to help maximize the value and utility of 
+                            the property. Dynamite Management, LLC delivers industry-setting responsiveness to your 
+                            condo's financial needs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Image Column -->
+            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                <div class="feature-box feature-image-box">
+                    <img src="{% static 'images/condo-accounting-financial-data.jpg' %}" alt="Financial Management" class="img-fluid feature-image rounded shadow">
+                </div>
+            </div>
+            
+            <!-- Integrity Column -->
+            <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                <div class="feature-box">
+                    <div>
+                        <h3 class="feature-title mb-3">Integrity</h3>
+                        <p class="feature-text">
+                            As a condo board, you need someone who is focused on the condominium and Association, 
+                            not themselves. Dynamite Management, LLC brings its accounting-based ethics to 
+                            everything we do.
+                        </p>
+                    </div>
+                    <div class="contact-cta text-center">
+                        <a href="/contact" class="btn btn-primary cta-button">Contact Us!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    
+<!-- Blue Section (Professionalism) -->
+<section class="blue-section py-5">
+    <div class="container-fluid px-4">
+        <div class="row">
+            <!-- Text Column (Left) -->
+            <div class="col-lg-5 col-md-12 mb-4 mb-lg-0">
+                <div class="blue-box h-100">
+                    <h2 class="section-title mb-3">Professionalism</h2>
+                    <p class="section-text mb-4">
+                        The owners and condo board need to trust that condo management's financial decisions 
+                        are fair and in line with the condominium's declaration. You need someone who takes 
+                        the time to read and understand what your CC&R's say and mean so that you can have 
+                        a healthy community. Dynamite Management, LLC is always focused on your Association's financial documents.
+                    </p>
+                    
+                    <h2 class="section-title mb-3 mt-3">Principled</h2>
+                    <p class="section-text">
+                        Decisions made by the condo board are often difficult as they are about spending money – 
+                        money which must come from the owners through dues and assessments. 
+                        The board needs to know that condo financial management is dedicated to the best interest 
+                        of the Association.
+                    </p>
+                    
+                    <div class="contact-cta mt-3 text-center">
+                        <a href="/contact" class="btn btn-outline-light cta-button">Contact Us!</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Image Column (Right) -->
+            <div class="col-lg-7 col-md-12 mb-4 mb-lg-0">
+                <div class="blue-image-container">
+                    <img src="{% static 'images/condo-pool-chair.jpg' %}" alt="Condominium Pool" class="blue-image">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Process-Driven Section -->
+<section class="process-section py-5">
+    <div class="container-fluid px-4">
+        <div class="row">
+            <!-- Image Column (Left) -->
+            <div class="col-lg-7 col-md-12 mb-4 mb-lg-0">
+                <div class="process-image-container">
+                    <img src="{% static 'images/condos-balcony.jpg' %}" alt="Modern Condominium" class="process-image">
+                </div>
+            </div>
+            
+            <!-- Text Column (Right) -->
+            <div class="col-lg-5 col-md-12 mb-4 mb-lg-0">
+                <div class="process-box h-100">
+                    <h2 class="section-title mb-3">Process Driven</h2>
+                    <p class="section-text mb-4">
+                        As a condo board, you want to minimize your time investment while maximizing 
+                        your effectiveness. Dynamite Management, LLC believes in strong process controls 
+                        to keep your assets safe.
+                    </p>
+                    
+                    <h2 class="section-title mb-3 mt-3">Results Oriented</h2>
+                    <p class="section-text">
+                        As a condo board and as owners, you want to know that your dues and assessments 
+                        are being invested effectively in your community. You need condominium financial 
+                        management which is dedicated to providing you effective reporting to support 
+                        your board duties and sharing information with owners.
+                    </p>
+                    
+                    <div class="contact-cta mt-3 text-center">
+                        <a href="/contact" class="btn btn-primary cta-button">Contact Us!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section py-5">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12">
+                <div class="services-header text-center mb-5">
+                    <h2 class="services-title">Accounting and Financial Services We Specialize In:</h2>
+                    <p class="services-intro">
+                        Dynamite's vision, to offer condominium and homeowner associations a service dedicated 
+                        to fraud detection and elimination.  Our years of practice has provided far too many examples 
+                        of poor behavior and outright actions which were detrimental to associations.
+                    </p>
+                </div>
+                
+                <div class="row">
+                    <!-- First Column -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <img src="{% static 'images/lit-fuse.png' %}" alt="Dynamite Icon" width="30">
+                                <span>Financial Statements</span>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <img src="{% static 'images/lit-fuse.png' %}" alt="Dynamite Icon" width="30">
+                                <span>ACH Dues Processing</span>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <img src="{% static 'images/lit-fuse.png' %}" alt="Dynamite Icon" width="30">
+                                <span>Association Tax Preparation</span>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <img src="{% static 'images/lit-fuse.png' %}" alt="Dynamite Icon" width="30">
+                                <span>Reserve Fund Reporting</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Second Column -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <img src="{% static 'images/lit-fuse.png' %}" alt="Dynamite Icon" width="30">
+                                <span>Control Procedures</span>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <img src="{% static 'images/lit-fuse.png' %}" alt="Dynamite Icon" width="30">
+                                <span>Check Collection Processing</span>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <img src="{% static 'images/lit-fuse.png' %}" alt="Dynamite Icon" width="30">
+                                <span>Vendor Payment Processing</span>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <img src="{% static 'images/lit-fuse.png' %}" alt="Dynamite Icon" width="30">
+                                <span>Budget Preparation</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Third Column -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <img src="{% static 'images/lit-fuse.png' %}" alt="Dynamite Icon" width="30">
+                                <span>Board Support and Consulting</span>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <img src="{% static 'images/lit-fuse.png' %}" alt="Dynamite Icon" width="30">
+                                <span>PO Box Setup</span>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <img src="{% static 'images/lit-fuse.png' %}" alt="Dynamite Icon" width="30">
+                                <span>Mail Collection Services</span>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <img src="{% static 'images/lit-fuse.png' %}" alt="Dynamite Icon" width="30">
+                                <span>Accounts Receivable</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Locations Gallery Section -->
+<section class="locations-section py-5">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12">
+                <div class="locations-header text-center mb-5">
+                    <h2 class="locations-title">Nationwide Reach</h2>
+                    <p class="locations-intro">
+                        Whether you live in the California sun or you are enjoying the hustle and bustle of New York, 
+                        Dynamite Management, LLC has your condo associations accounting needs covered. We are confident 
+                        we meet the ever changing needs of our clients no matter the community you call home.
+                    </p>
+                </div>
+                
+                <div class="locations-gallery">
+                    <!-- States Row -->
+                    <div class="row mb-4">
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="location-card">
+                                <img src="{% static 'images/locations/california.jpg' %}" alt="California" class="location-image">
+                                <div class="location-overlay">
+                                    <h3>California</h3>
+                                    <a href="{% url 'core:state_detail' location_name='california' %}" class="btn btn-light btn-sm">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="location-card">
+                                <img src="{% static 'images/locations/florida.jpg' %}" alt="Florida" class="location-image">
+                                <div class="location-overlay">
+                                    <h3>Florida</h3>
+                                    <a href="{% url 'core:state_detail' location_name='florida' %}" class="btn btn-light btn-sm">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="location-card">
+                                <img src="{% static 'images/locations/georgia.jpg' %}" alt="Georgia" class="location-image">
+                                <div class="location-overlay">
+                                    <h3>Georgia</h3>
+                                    <a href="{% url 'core:state_detail' location_name='georgia' %}" class="btn btn-light btn-sm">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="location-card">
+                                <img src="{% static 'images/locations/hawaii.jpg' %}" alt="Hawaii" class="location-image">
+                                <div class="location-overlay">
+                                    <h3>Hawaii</h3>
+                                    <a href="{% url 'core:state_detail' location_name='hawaii' %}" class="btn btn-light btn-sm">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="location-card">
+                                <img src="{% static 'images/locations/illinois.jpg' %}" alt="Illinois" class="location-image">
+                                <div class="location-overlay">
+                                    <h3>Illinois</h3>
+                                    <a href="{% url 'core:state_detail' location_name='illinois' %}" class="btn btn-light btn-sm">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="location-card">
+                                <img src="{% static 'images/locations/new-york.jpg' %}" alt="New York" class="location-image">
+                                <div class="location-overlay">
+                                    <h3>New York</h3>
+                                    <a href="{% url 'core:state_detail' location_name='new-york' %}" class="btn btn-light btn-sm">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="location-card">
+                                <img src="{% static 'images/locations/oregon.jpg' %}" alt="Oregon" class="location-image">
+                                <div class="location-overlay">
+                                    <h3>Oregon</h3>
+                                    <a href="{% url 'core:state_detail' location_name='oregon' %}" class="btn btn-light btn-sm">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="location-card">
+                                <img src="{% static 'images/locations/texas.jpg' %}" alt="Texas" class="location-image">
+                                <div class="location-overlay">
+                                    <h3>Texas</h3>
+                                    <a href="{% url 'core:state_detail' location_name='texas' %}" class="btn btn-light btn-sm">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cities Row -->
+                    <div class="row mb-4">
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="location-card">
+                                <img src="{% static 'images/locations/cities/san-francisco.jpg' %}" alt="San Francisco" class="location-image">
+                                <div class="location-overlay">
+                                    <h3>San Francisco</h3>
+                                    <a href="{% url 'core:city_detail' state_name='california' location_name='san-francisco' %}" class="btn btn-light btn-sm">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="location-card">
+                                <img src="{% static 'images/locations/cities/miami.jpg' %}" alt="Miami" class="location-image">
+                                <div class="location-overlay">
+                                    <h3>Miami</h3>
+                                    <a href="{% url 'core:city_detail' state_name='florida' location_name='miami' %}" class="btn btn-light btn-sm">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="location-card">
+                                <img src="{% static 'images/locations/cities/chicago.jpg' %}" alt="Chicago" class="location-image">
+                                <div class="location-overlay">
+                                    <h3>Chicago</h3>
+                                    <a href="{% url 'core:city_detail' state_name='illinois' location_name='chicago' %}" class="btn btn-light btn-sm">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="location-card">
+                                <img src="{% static 'images/locations/cities/portland.jpg' %}" alt="Portland" class="location-image">
+                                <div class="location-overlay">
+                                    <h3>Portland</h3>
+                                    <a href="{% url 'core:city_detail' state_name='oregon' location_name='portland' %}" class="btn btn-light btn-sm">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="location-card">
+                                <img src="{% static 'images/locations/washington.jpg' %}" alt="Washington" class="location-image">
+                                <div class="location-overlay">
+                                    <h3>Washington</h3>
+                                    <a href="{% url 'core:state_detail' location_name='washington' %}" class="btn btn-light btn-sm">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+  
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dynamite Management - Blog{% endblock %}
+
+{% block content %}
+<!-- Blog Header Section -->
+<div class="location-header py-3">
+    <div class="container-fluid px-4">
+        <h1 class="location-main-title">Our Blog</h1>
+    </div>
+</div>
+
+<!-- Coming Soon Section -->
+<section class="blog-coming-soon py-5">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10 text-center">
+                <div class="coming-soon-box">
+                    <img src="{% static 'images/lit-fuse.png' %}" alt="Dynamite Icon" class="coming-soon-icon mb-4">
+                    <h2 class="coming-soon-title mb-4">Coming Soon!</h2>
+                    <p class="coming-soon-text mb-4">
+                        We're working on some explosive content for our blog. Stay tuned for insightful articles, 
+                        helpful tips, and expert advice on condominium and homeowner association financial management.
+                    </p>
+                    <p class="coming-soon-text mb-5">
+                        Our team is committed to sharing valuable information that will help your association thrive. 
+                        Check back soon to access resources designed to improve your financial oversight and management.
+                    </p>
+                    <div class="newsletter-box p-4 rounded">
+                        <h3 class="newsletter-title mb-3">Get Notified When We Launch</h3>
+                        <p class="newsletter-text mb-3">
+                            Subscribe to our newsletter to be the first to know when our blog goes live!
+                        </p>
+                        <form class="newsletter-form" action="#" method="post">
+                            {% csrf_token %}
+                            <div class="row g-2">
+                                <div class="col-md-8">
+                                    <input type="email" class="form-control form-control-lg" placeholder="Your Email Address" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-primary w-100 btn-lg">Subscribe</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Other Resources Section -->
+<section class="other-resources py-5 bg-light">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <h2 class="section-title text-center mb-4">Other Resources</h2>
+                <p class="section-text text-center mb-5">
+                    While you wait for our blog, check out these other valuable resources:
+                </p>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <img src="{% static 'images/lit-fuse.png' %}" alt="Dynamite Icon" width="40">
+                            </div>
+                            <h3 class="resource-title">Budget Tool</h3>
+                            <p class="resource-text">
+                                Use our free budget tool to plan and manage your association's finances effectively.
+                            </p>
+                            <a href="https://budget-tool-vhld.onrender.com" class="btn btn-outline-primary">Access Tool</a>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4">
+                        <div class="resource-card">
+                            <div class="resource-icon">
+                                <img src="{% static 'images/lit-fuse.png' %}" alt="Dynamite Icon" width="40">
+                            </div>
+                            <h3 class="resource-title">Board Minutes Tool</h3>
+                            <p class="resource-text">
+                                Simplify your meeting documentation with our board minutes tool.
+                            </p>
+                            <a href="https://hoa-board-minutes.onrender.com/" class="btn btn-outline-primary">Access Tool</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="/contact" class="btn btn-primary btn-lg">Contact Us For More Information</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

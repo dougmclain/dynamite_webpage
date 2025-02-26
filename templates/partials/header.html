@@ -1,0 +1,30 @@
+{% load static %}
+<div class="top-header">
+    <div class="container">
+        <div class="row align-items-center g-0">
+            <!-- Logo Column -->
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <a href="/" class="logo ps-3"> <!-- Added padding to left -->
+                    <img src="{% static 'images/dynamite_logo-removebg.png' %}" alt="Dynamite Management" class="img-fluid">
+                </a>
+            </div>
+            <!-- Contact Info Column -->
+            <div class="col-lg-8 col-md-8 col-sm-6">
+                <div class="contact-info text-end pe-4"> <!-- Added padding to right -->
+                    <span class="phone d-none d-md-inline">
+                        <i class="fas fa-phone"></i> (888) 575-0563
+                    </span>
+                    <span class="email ms-3 d-none d-md-inline">
+                        <i class="fas fa-envelope"></i> info@hoafiscal.com
+                    </span>
+                    <!-- Mobile version (only shows phone) -->
+                    <span class="d-inline d-md-none pe-2">
+                        <a href="tel:9046190859" class="text-decoration-none" style="color: #003366;">
+                            <i class="fas fa-phone"></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
