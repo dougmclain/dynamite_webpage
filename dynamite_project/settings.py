@@ -27,9 +27,13 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-# Configure allowed hosts. You can set this via an environment variable,
-# or directly add your Render hostname.
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS","https://dynamitemanagement.com", "www.dynamitemanagement.com", "https://www.dynamitemanagement.com", "https://dynamite-webpage.onrender.com").split(",")
+# Configure allowed hosts. For production, set ALLOWED_HOSTS as an environment variable.
+# The default here is a comma-separated string without protocol prefixes.
+ALLOWED_HOSTS = os.environ.get(
+    "ALLOWED_HOSTS",
+    "dynamitemanagement.com,www.dynamitemanagement.com,dynamite-webpage.onrender.com"
+).split(",")
+
 
 # Application definition
 
