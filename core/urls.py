@@ -15,6 +15,9 @@ urlpatterns = [
     # Financial Management page
     path('condo-financial-management/', views.financial_management, name='financial_management'),
     
+    # Inside urlpatterns list in core/urls.py
+    path('hoa-taxes/', views.hoa_taxes, name='hoa_taxes'),
+    
     # About page
     path('about/', views.about, name='about'),
     

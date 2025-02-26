@@ -112,6 +112,12 @@ def blog(request):
     """
     return render(request, 'core/blog.html')
 
+def hoa_taxes(request):
+    """
+    View for the HOA Taxes page
+    """
+    return render(request, 'core/hoa_taxes.html')
+
 @check_honeypot  # Add this decorator to protect the contact form
 def contact(request):
     """

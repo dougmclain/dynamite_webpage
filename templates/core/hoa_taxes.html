@@ -1,0 +1,277 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dynamite Management - HOA Tax Preparation{% endblock %}
+
+{% block content %}
+<!-- Tax Header Section -->
+<div class="location-header py-3">
+    <div class="container-fluid px-4">
+        <h1 class="location-main-title">HOA Tax Preparation</h1>
+    </div>
+</div>
+
+<!-- Tax Service Content Section -->
+<section class="process-section py-5" style="margin-bottom: 3rem !important;">
+    <div class="container-fluid px-4">
+        <div class="row">
+            <!-- Text Content (Left) -->
+            <div class="col-lg-5 col-md-12 order-2 order-lg-1 mb-4 mb-lg-0">
+                <div class="process-box h-100">
+                    <h2 class="section-title mb-3">Professional Tax Preparation for Homeowner Associations</h2>
+                    <p class="section-text mb-4">
+                        At Dynamite Management, we specialize in preparing Form 1120-H, "U.S. Income Tax Return for Homeowner Associations," 
+                        ensuring your association remains compliant with federal tax requirements.
+                    </p>
+                    
+                    <p class="section-text mb-4">
+                        Our experienced team understands the unique tax considerations for HOAs and condominiums, 
+                        helping to maximize legitimate deductions while maintaining full compliance.
+                    </p>
+                    
+                    <h3 class="tax-pricing-title mt-4 mb-3">Flat Rate Pricing: <span class="tax-price">$150</span></h3>
+                    <p class="section-text">
+                        Unlike other firms that charge variable or hourly rates, we offer a simple, transparent flat fee 
+                        of just $150 for complete HOA tax return preparation.
+                    </p>
+                    
+                    <div class="contact-cta mt-4">
+                        <a href="{% url 'core:contact' %}" class="btn btn-primary cta-button">Contact Us Today</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Image (Right) -->
+            <div class="col-lg-7 col-md-12 mb-4 mb-lg-0 order-1 order-lg-2">
+                <div class="process-image-container">
+                    <img src="{% static 'images/condo-accounting-financial-data.jpg' %}" alt="HOA Tax Preparation" class="process-image">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tax Process Steps Section -->
+<section class="tax-process-section py-5 bg-light">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12">
+                <h2 class="section-title text-center mb-5">Our Simple Tax Preparation Process</h2>
+                
+                <div class="row">
+                    <!-- Step 1 -->
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="tax-step-card">
+                            <div class="tax-step-number">1</div>
+                            <div class="tax-step-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3 class="tax-step-title">Contact Us</h3>
+                            <p class="tax-step-text">
+                                Reach out to us with your association's basic information to get the process started.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2 -->
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="tax-step-card">
+                            <div class="tax-step-number">2</div>
+                            <div class="tax-step-icon">
+                                <i class="fas fa-file-contract"></i>
+                            </div>
+                            <h3 class="tax-step-title">Engagement Letter</h3>
+                            <p class="tax-step-text">
+                                We'll send you an electronic engagement letter outlining our services and responsibilities.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3 -->
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="tax-step-card">
+                            <div class="tax-step-number">3</div>
+                            <div class="tax-step-icon">
+                                <i class="fas fa-list-check"></i>
+                            </div>
+                            <h3 class="tax-step-title">Document Collection</h3>
+                            <p class="tax-step-text">
+                                We'll provide a list of required documents and work with you to collect all necessary information.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4 -->
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="tax-step-card">
+                            <div class="tax-step-number">4</div>
+                            <div class="tax-step-icon">
+                                <i class="fas fa-check-double"></i>
+                            </div>
+                            <h3 class="tax-step-title">Preparation & Filing</h3>
+                            <p class="tax-step-text">
+                                We prepare your return and send it to you for review and filing with the IRS.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="{% url 'core:contact' %}" class="btn btn-primary">Get Started Today</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tax Benefits Section -->
+<section class="blue-section py-5">
+    <div class="container-fluid px-4">
+        <div class="row">
+            <!-- Text Column (Left) -->
+            <div class="col-lg-5 col-md-12 mb-4 mb-lg-0">
+                <div class="blue-box h-100">
+                    <h2 class="section-title mb-3">Benefits of Professional HOA Tax Preparation</h2>
+                    <p class="section-text mb-4">
+                        Filing taxes for homeowner associations requires specialized knowledge of tax laws and regulations that apply 
+                        specifically to HOAs and condominiums. Our team has the expertise needed to correctly prepare your Form 1120-H.
+                    </p>
+                    
+                    <h2 class="section-title mb-3 mt-4">What We Need From You</h2>
+                    <p class="section-text">
+                        To prepare your association's taxes, we'll need some basic information including:
+                    </p>
+                    <ul class="section-list">
+                        <li>Association's legal name and EIN</li>
+                        <li>Name and contact information for an officer</li>
+                        <li>Financial statements for the tax year</li>
+                        <li>Previous year's tax return (if available)</li>
+                    </ul>
+                    
+                    <div class="contact-cta mt-4">
+                        <a href="{% url 'core:contact' %}" class="btn btn-primary cta-button">Contact Us For Details</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Image Column (Right) -->
+            <div class="col-lg-7 col-md-12 mb-4 mb-lg-0">
+                <div class="blue-image-container">
+                    <img src="{% static 'images/conference-room.jpg' %}" alt="HOA Tax Benefits" class="blue-image">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section py-5" style="background-color: #f8f9fa;">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <h2 class="section-title text-center mb-5">Frequently Asked Questions</h2>
+                
+                <div class="accordion" id="taxFaqAccordion">
+                    <!-- FAQ Item 1 -->
+                    <div class="accordion-item mb-3 border rounded shadow-sm">
+                        <h3 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                What is Form 1120-H and why does my HOA need to file it?
+                            </button>
+                        </h3>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#taxFaqAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    Form 1120-H is the "U.S. Income Tax Return for Homeowner Associations." HOAs are required to file annual tax returns with the IRS, even if they operate as nonprofit organizations. This form allows associations to be taxed only on specific income like interest earnings and fees for services, rather than membership dues and assessments.
+                                </p>
+                                <p>
+                                    Filing this form helps maintain your association's tax-exempt status for membership income and protects your organization from potential penalties or audits.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 2 -->
+                    <div class="accordion-item mb-3 border rounded shadow-sm">
+                        <h3 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                When is the filing deadline for Form 1120-H?
+                            </button>
+                        </h3>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#taxFaqAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    For most HOAs operating on a calendar year (January 1 - December 31), Form 1120-H is due by April 15th of the following year. If your association operates on a fiscal year, the return is due on the 15th day of the 4th month after the close of your fiscal year.
+                                </p>
+                                <p>
+                                    Extensions are available if needed, but must be requested before the original due date. We recommend starting the preparation process at least 6-8 weeks before the deadline to ensure timely filing.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 3 -->
+                    <div class="accordion-item mb-3 border rounded shadow-sm">
+                        <h3 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                What if our association has never filed taxes before?
+                            </button>
+                        </h3>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#taxFaqAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    If your association has never filed taxes, we can help you get into compliance. The IRS has programs for organizations that have fallen behind on filing requirements, and we can guide you through this process.
+                                </p>
+                                <p>
+                                    We'll work with you to gather historical information as needed and develop a strategy to bring your association current with tax filings while minimizing potential penalties.
+                                </p>
+                                <p>
+                                    Contact us for a consultation specific to your association's situation.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 4 -->
+                    <div class="accordion-item mb-3 border rounded shadow-sm">
+                        <h3 class="accordion-header" id="headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                Why is your flat rate so much lower than other firms?
+                            </button>
+                        </h3>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#taxFaqAccordion">
+                            <div class="accordion-body">
+                                <p>
+                                    We're able to offer our flat rate of $150 because we've specialized in HOA and condominium association tax preparation, allowing us to develop efficient processes specifically for Form 1120-H preparation.
+                                </p>
+                                <p>
+                                    Unlike general accounting firms that may charge higher rates due to less familiarity with HOA-specific returns, our focus allows us to pass savings on to our clients while still providing expert service.
+                                </p>
+                                <p>
+                                    Our goal is to make professional tax preparation accessible to associations of all sizes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-5">
+                    <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg">Contact Us With Your Questions</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Initialize the first accordion item as open
+    document.addEventListener('DOMContentLoaded', function() {
+        const firstAccordionButton = document.querySelector('.accordion-button');
+        if (firstAccordionButton) {
+            firstAccordionButton.classList.add('show');
+        }
+    });
+</script>
+{% endblock %}

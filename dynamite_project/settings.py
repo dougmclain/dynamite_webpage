@@ -31,7 +31,7 @@ DEBUG = False
 # The default here is a comma-separated string without protocol prefixes.
 ALLOWED_HOSTS = os.environ.get(
     "ALLOWED_HOSTS",
-    "dynamitemanagement.com,www.dynamitemanagement.com,dynamite-webpage.onrender.com"
+    "dynamitemanagement.com,www.dynamitemanagement.com,dynamite-webpage.onrender.com,localhost,"
 ).split(",")
 
 
