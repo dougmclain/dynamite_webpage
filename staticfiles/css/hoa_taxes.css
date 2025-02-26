@@ -1,0 +1,167 @@
+/* HOA Taxes Page Specific Styles */
+
+/* Tax Pricing Styles */
+.tax-pricing-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--dynamite-navy);
+}
+
+.tax-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dynamite-orange);
+}
+
+/* Tax Process Steps Styles */
+.tax-process-section {
+    background-color: #f8f9fa;
+}
+
+.tax-step-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    height: 100%;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.tax-step-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+}
+
+.tax-step-number {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--dynamite-orange);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.tax-step-icon {
+    margin-bottom: 1.5rem;
+}
+
+.tax-step-icon i {
+    font-size: 2.5rem;
+    color: var(--dynamite-navy);
+}
+
+.tax-step-title {
+    color: var(--dynamite-navy);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.tax-step-text {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* List styles in the blue section */
+.section-list {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.section-list li {
+    margin-bottom: 0.5rem;
+}
+
+/* FAQ Styles */
+.accordion-item {
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.accordion-button {
+    font-weight: 600;
+    padding: 1.2rem;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: var(--dynamite-navy);
+    color: white;
+}
+
+.accordion-body {
+    padding: 1.5rem;
+}
+
+.accordion-body p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.accordion-body ul {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.accordion-body li {
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .tax-step-card {
+        padding: 1.5rem 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .tax-step-icon i {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .tax-pricing-title {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+    
+    .tax-price {
+        font-size: 1.8rem;
+    }
+    
+    .contact-cta {
+        text-align: center;
+    }
+    
+    .tax-step-card {
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .accordion-button {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+    
+    .section-list {
+        font-size: 1rem;
+    }
+}
