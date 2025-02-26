@@ -10,39 +10,26 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from pathlib import Path
-from dotenv import load_dotenv
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
-# Assume .env is located in the project root
+# Base directory of the project
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Load environment variables from .env file (for local development)
+# In production, Render's environment variables will override these.
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
-
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
-
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
-
-import os
-from dotenv import load_dotenv
-
-load_dotenv()  # This loads the variables from .env into your environment
-
-SECRET_KEY = os.environ.get('SECRET_KEY')
+# Configure allowed hosts. You can set this via an environment variable,
+# or directly add your Render hostname.
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "https://dynamite-webpage.onrender.com").split(",")
 
 # Application definition
 
@@ -62,7 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this line
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # Serve static files efficiently
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -76,7 +63,7 @@ ROOT_URLCONF = "dynamite_project.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],   
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -91,10 +78,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "dynamite_project.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -102,49 +87,33 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
-
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-STATIC_URL = "static/"
-STATICFILES_DIRS = [
-    BASE_DIR / "static"
-]
-STATIC_ROOT = BASE_DIR / "staticfiles"  # Add this line
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# Use Whitenoise's storage backend for compression and caching
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # reCAPTCHA Settings
@@ -161,10 +130,10 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@hoafiscal.com')
 
 # Honeypot settings
-HONEYPOT_FIELD_NAME = 'website'  # This is the field name bots will try to fill
-HONEYPOT_VALUE = ''  # Leave empty to require an empty value (bots typically fill it)
+HONEYPOT_FIELD_NAME = 'website'  # Field bots typically fill
+HONEYPOT_VALUE = ''  # Must be empty
 def honeypot_validator(value):
-    """Simple validator that just checks if the honeypot field is empty."""
+    """Check that the honeypot field is empty."""
     return not value
 
 HONEYPOT_VERIFIER = honeypot_validator
