@@ -57,6 +57,12 @@
                     <a class="nav-link" href="/contact">Contact Us</a>
                 </li>
 
+                {% if user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/staff/"><i class="fas fa-lock me-1"></i>Staff Portal</a>
+                </li>
+                {% endif %}
+
                 <!-- Documents and Tools Dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">

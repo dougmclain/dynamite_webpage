@@ -1,0 +1,94 @@
+{% extends 'staff_portal/base_staff.html' %}
+
+{% block title %}Manage Posts{% endblock %}
+{% block nav_posts %}active{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Manage Posts</h2>
+        <a href="{% url 'staff_portal:post_create' %}" class="btn btn-primary"><i class="fas fa-plus me-1"></i>New Post</a>
+    </div>
+
+    <!-- Filters -->
+    <div class="mb-3">
+        <a href="{% url 'staff_portal:post_list' %}" class="btn btn-sm {% if not status_filter %}btn-primary{% else %}btn-outline-secondary{% endif %}">All</a>
+        <a href="{% url 'staff_portal:post_list' %}?status=published" class="btn btn-sm {% if status_filter == 'published' %}btn-success{% else %}btn-outline-secondary{% endif %}">Published</a>
+        <a href="{% url 'staff_portal:post_list' %}?status=draft" class="btn btn-sm {% if status_filter == 'draft' %}btn-secondary{% else %}btn-outline-secondary{% endif %}">Drafts</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body p-0">
+            {% if posts %}
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for post in posts %}
+                        <tr>
+                            <td><strong>{{ post.title|truncatewords:8 }}</strong></td>
+                            <td>{{ post.author.get_full_name|default:post.author.username }}</td>
+                            <td>{{ post.category.name|default:"-" }}</td>
+                            <td>
+                                {% if post.status == 'published' %}
+                                <span class="badge bg-success">Published</span>
+                                {% else %}
+                                <span class="badge bg-secondary">Draft</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ post.created_at|date:"M d, Y" }}</td>
+                            <td>
+                                <a href="{% url 'staff_portal:post_edit' pk=post.pk %}" class="btn btn-sm btn-outline-primary" title="Edit"><i class="fas fa-edit"></i></a>
+                                {% if post.status == 'published' %}
+                                <a href="{% url 'blog:post_detail' slug=post.slug %}" class="btn btn-sm btn-outline-success" target="_blank" title="View"><i class="fas fa-eye"></i></a>
+                                {% endif %}
+                                <button type="button" class="btn btn-sm btn-outline-danger" title="Delete"
+                                    data-bs-toggle="modal" data-bs-target="#deleteModal{{ post.pk }}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+
+                                <!-- Delete Modal -->
+                                <div class="modal fade" id="deleteModal{{ post.pk }}" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Confirm Delete</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to delete "<strong>{{ post.title }}</strong>"? This action cannot be undone.
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <form method="post" action="{% url 'staff_portal:post_delete' pk=post.pk %}" class="d-inline">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-4 text-muted">
+                <p>No posts found. <a href="{% url 'staff_portal:post_create' %}">Create one now!</a></p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

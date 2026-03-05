@@ -16,3 +16,6 @@ venv/
 
 # OS specific files
 .DS_Store
+
+# Media uploads
+media/

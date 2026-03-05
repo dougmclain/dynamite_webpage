@@ -16,16 +16,31 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.views.static import serve
 
 from django.conf import settings
-from django.conf.urls.static import static  
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("blog/", include("blog.urls")),
+    path("staff/", include("staff_portal.urls")),
+    path("tinymce/", include("tinymce.urls")),
     path("", include("core.urls")),
-
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# Serve media files directly using django.views.static.serve.
+# This bypasses the DEBUG check in django.conf.urls.static.static(),
+# which returns an empty list when DEBUG=False and breaks media serving.
+# In a full production deployment, the web server (e.g. Nginx) should handle /media/.
+urlpatterns += [
+    re_path(
+        r"^media/(?P<path>.*)$",
+        serve,
+        {"document_root": settings.MEDIA_ROOT},
+    ),
+]

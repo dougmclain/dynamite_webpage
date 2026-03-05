@@ -21,9 +21,6 @@ urlpatterns = [
     # HOA Taxes page
     path('hoa-taxes/', views.hoa_taxes, name='hoa_taxes'),
     
-    # Blog page
-    path('blog/', views.blog, name='blog'),
-    
     # Contact page
     path('contact/', views.contact, name='contact'),
 ]

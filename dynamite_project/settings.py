@@ -46,7 +46,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "widget_tweaks",
     "django_htmx",
+    "tinymce",
     "core",
+    "blog",
+    "staff_portal",
     "honeypot",
     "captcha",
 ]
@@ -113,6 +116,10 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# Media files (uploads)
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
 # Use Whitenoise's storage backend for compression and caching
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
@@ -146,3 +153,26 @@ def honeypot_validator(value):
     return not value
 
 HONEYPOT_VERIFIER = honeypot_validator
+
+# Authentication
+LOGIN_URL = "/staff/login/"
+LOGIN_REDIRECT_URL = "/staff/"
+LOGOUT_REDIRECT_URL = "/"
+
+# Anthropic API Key for Claude AI
+ANTHROPIC_API_KEY = os.environ.get('BLOG_API_KEY', '')
+PEXELS_API_KEY = os.environ.get('PEXELS_API_KEY', '')
+
+# TinyMCE Configuration
+TINYMCE_DEFAULT_CONFIG = {
+    "theme": "silver",
+    "height": 500,
+    "menubar": "file edit view insert format tools table help",
+    "plugins": "advlist autolink lists link image charmap preview anchor "
+               "searchreplace visualblocks code fullscreen "
+               "insertdatetime media table code help wordcount",
+    "toolbar": "undo redo | blocks | bold italic backcolor | "
+               "alignleft aligncenter alignright alignjustify | "
+               "bullist numlist outdent indent | removeformat | help",
+    "content_css": "default",
+}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tag: {{ tag.name }} - Dynamite Management Blog{% endblock %}
+
+{% block content %}
+<section class="blog-header">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-2">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'blog:post_list' %}">Blog</a></li>
+                <li class="breadcrumb-item active">Tag: {{ tag.name }}</li>
+            </ol>
+        </nav>
+        <h1>Tag: {{ tag.name }}</h1>
+    </div>
+</section>
+
+<section class="blog-listing py-5">
+    <div class="container">
+        {% if posts %}
+        <div class="row">
+            {% for post in posts %}
+                {% include 'blog/_post_card.html' with post=post %}
+            {% endfor %}
+        </div>
+        {% include 'blog/_pagination.html' with posts=posts %}
+        {% else %}
+        <div class="text-center py-5">
+            <h3>No posts with this tag yet.</h3>
+            <a href="{% url 'blog:post_list' %}" class="btn btn-primary mt-3">Back to Blog</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

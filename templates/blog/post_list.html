@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Blog - Dynamite Management{% endblock %}
+{% block meta_description %}<meta name="description" content="Expert insights on HOA and condo financial management from Dynamite Management.">{% endblock %}
+
+{% block content %}
+<section class="blog-header">
+    <div class="container">
+        <h1>Dynamite Management Blog</h1>
+        <p>Expert insights on HOA and condominium financial management</p>
+    </div>
+</section>
+
+<section class="blog-listing py-5">
+    <div class="container">
+        <!-- Category Filter Bar -->
+        {% if categories %}
+        <div class="blog-filter-bar mb-4">
+            <a href="{% url 'blog:post_list' %}" class="blog-filter-btn {% if not current_category %}active{% endif %}">All</a>
+            {% for cat in categories %}
+            <a href="{% url 'blog:post_list' %}?category={{ cat.slug }}" class="blog-filter-btn {% if current_category == cat.slug %}active{% endif %}">{{ cat.name }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if posts %}
+        <div class="row">
+            {% for post in posts %}
+                {% include 'blog/_post_card.html' with post=post %}
+            {% endfor %}
+        </div>
+
+        {% include 'blog/_pagination.html' with posts=posts %}
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-pen-nib fa-3x mb-3" style="color: var(--dynamite-orange);"></i>
+            <h3>No Posts Yet</h3>
+            <p class="text-muted">We're working on some great content. Check back soon!</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

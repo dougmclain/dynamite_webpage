@@ -1,0 +1,31 @@
+{% load static %}
+<div class="col-md-6 col-lg-4 mb-4">
+    <div class="blog-card h-100">
+        <a href="{% url 'blog:post_detail' slug=post.slug %}" class="text-decoration-none">
+            {% if post.featured_image %}
+            <div class="blog-card-image">
+                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+            </div>
+            {% else %}
+            <div class="blog-card-image blog-card-image-placeholder">
+                <i class="fas fa-newspaper"></i>
+            </div>
+            {% endif %}
+        </a>
+        <div class="blog-card-body">
+            {% if post.category %}
+            <a href="{% url 'blog:category_detail' slug=post.category.slug %}" class="blog-category-badge">
+                {{ post.category.name }}
+            </a>
+            {% endif %}
+            <h3 class="blog-card-title">
+                <a href="{% url 'blog:post_detail' slug=post.slug %}">{{ post.title }}</a>
+            </h3>
+            <p class="blog-card-excerpt">{{ post.excerpt }}</p>
+            <div class="blog-card-meta">
+                <span><i class="far fa-calendar-alt me-1"></i>{{ post.published_at|date:"M d, Y" }}</span>
+                <span><i class="far fa-clock me-1"></i>{{ post.reading_time }} min read</span>
+            </div>
+        </div>
+    </div>
+</div>

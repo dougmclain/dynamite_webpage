@@ -106,12 +106,6 @@ def about(request):
     """
     return render(request, 'core/about.html')
 
-def blog(request):
-    """
-    View for the blog page
-    """
-    return render(request, 'core/blog.html')
-
 def hoa_taxes(request):
     """
     View for the HOA Taxes page

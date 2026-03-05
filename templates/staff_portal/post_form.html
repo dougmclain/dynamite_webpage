@@ -1,0 +1,355 @@
+{% extends 'staff_portal/base_staff.html' %}
+{% load static %}
+
+{% block title %}{% if is_edit %}Edit Post{% else %}Create Post{% endif %}{% endblock %}
+{% block nav_new_post %}{% if not is_edit %}active{% endif %}{% endblock %}
+{% block nav_posts %}{% if is_edit %}active{% endif %}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .offcanvas { max-width: 450px; }
+    .ai-loading { display: none; }
+    .ai-loading.show { display: block; }
+    .ai-result { display: none; }
+    .ai-result.show { display: block; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>{% if is_edit %}Edit Post{% else %}Create New Post{% endif %}</h2>
+        <div>
+            <button class="btn btn-outline-primary me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#aiPanel">
+                <i class="fas fa-robot me-1"></i>AI Generate
+            </button>
+            {% if is_edit and post.status == 'published' %}
+            <a href="{% url 'blog:post_detail' slug=post.slug %}" class="btn btn-outline-success" target="_blank">
+                <i class="fas fa-eye me-1"></i>View Post
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" id="postForm">
+        {% csrf_token %}
+        <div class="row">
+            <!-- Left Column: Main Content -->
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="id_title" class="form-label fw-bold">Title</label>
+                            {{ form.title }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_slug" class="form-label fw-bold">Slug</label>
+                            {{ form.slug }}
+                            <small class="text-muted">Leave blank to auto-generate from title.</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_content" class="form-label fw-bold">Content</label>
+                            {{ form.content }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_excerpt" class="form-label fw-bold">Excerpt</label>
+                            {{ form.excerpt }}
+                            <small class="text-muted">Auto-generated from content if left blank.</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEO Section -->
+                <div class="card mb-4">
+                    <div class="card-header"><h6 class="mb-0">SEO Settings</h6></div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="id_meta_description" class="form-label">Meta Description</label>
+                            {{ form.meta_description }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_meta_keywords" class="form-label">Meta Keywords</label>
+                            {{ form.meta_keywords }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Sidebar -->
+            <div class="col-lg-4">
+                <!-- Publish Box -->
+                <div class="card mb-4">
+                    <div class="card-header"><h6 class="mb-0">Publish</h6></div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="id_status" class="form-label">Status</label>
+                            {{ form.status }}
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i>{% if is_edit %}Update Post{% else %}Save Post{% endif %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Image -->
+                <div class="card mb-4">
+                    <div class="card-header"><h6 class="mb-0">Featured Image</h6></div>
+                    <div class="card-body">
+                        {% if post and post.featured_image %}
+                        <div class="mb-2">
+                            <img src="{{ post.featured_image.url }}" alt="Current image" class="img-fluid rounded mb-2">
+                        </div>
+                        {% endif %}
+                        {{ form.featured_image }}
+                        <input type="hidden" name="ai_featured_image" id="aiFeaturedImagePath" value="">
+                        <div id="aiImagePreview" style="display:none;" class="mt-2">
+                            <small class="text-success"><i class="fas fa-check me-1"></i>AI-generated image ready</small>
+                            <img id="aiImagePreviewImg" src="" alt="AI image" class="img-fluid rounded mt-1">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category & Tags -->
+                <div class="card mb-4">
+                    <div class="card-header"><h6 class="mb-0">Category & Tags</h6></div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="id_category" class="form-label">Category</label>
+                            {{ form.category }}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">New Category</label>
+                            {{ form.new_category }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_tags" class="form-label">Tags</label>
+                            {{ form.tags }}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">New Tags</label>
+                            {{ form.new_tags }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- AI Generation Offcanvas Panel -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="aiPanel">
+    <div class="offcanvas-header" style="background-color: var(--bs-dark); color: white;">
+        <h5 class="offcanvas-title"><i class="fas fa-robot me-2"></i>AI Blog Generator</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form id="aiForm">
+            <div class="mb-3">
+                <label class="form-label fw-bold">Topic</label>
+                {{ ai_form.topic }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">Tone</label>
+                {{ ai_form.tone }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">Length</label>
+                {{ ai_form.length }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label fw-bold">Target Audience</label>
+                {{ ai_form.audience }}
+            </div>
+            <button type="submit" class="btn btn-primary w-100" id="generateBtn">
+                <i class="fas fa-magic me-1"></i>Generate Blog Post
+            </button>
+        </form>
+
+        <!-- Loading State -->
+        <div class="ai-loading text-center py-4" id="aiLoading">
+            <div class="spinner-border text-primary mb-3" role="status">
+                <span class="visually-hidden">Generating...</span>
+            </div>
+            <p class="text-muted">Generating your blog post...<br><small>This may take 15-30 seconds.</small></p>
+        </div>
+
+        <!-- Error State -->
+        <div class="ai-error mt-3" id="aiError" style="display:none;">
+            <div class="alert alert-danger" id="aiErrorMsg"></div>
+        </div>
+
+        <!-- Result Preview -->
+        <div class="ai-result mt-4" id="aiResult">
+            <h6 class="fw-bold">Generated Content</h6>
+            <div class="mb-2">
+                <small class="text-muted">Title:</small>
+                <p class="fw-bold mb-1" id="aiTitle"></p>
+            </div>
+            <div class="mb-2">
+                <small class="text-muted">Excerpt:</small>
+                <p class="small mb-1" id="aiExcerpt"></p>
+            </div>
+            <div class="mb-2">
+                <small class="text-muted">Category:</small>
+                <span class="badge bg-info" id="aiCategory"></span>
+            </div>
+            <div class="mb-2">
+                <small class="text-muted">Tags:</small>
+                <span class="small" id="aiTags"></span>
+            </div>
+            <div class="mb-3" id="aiImageSection" style="display:none;">
+                <small class="text-muted">Featured Image:</small>
+                <img id="aiImageThumb" src="" alt="AI image" class="img-fluid rounded mt-1">
+                <small class="text-muted d-block mt-1">Photo by <span id="aiPhotographer"></span> on Pexels</small>
+            </div>
+            <button type="button" class="btn btn-success w-100" id="applyAiBtn">
+                <i class="fas fa-check me-1"></i>Apply to Editor
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{{ form.media }}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let aiData = null;
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    // Auto-generate slug from title
+    const titleField = document.getElementById('id_title');
+    const slugField = document.getElementById('id_slug');
+    let slugManuallyEdited = slugField.value && slugField.value !== '';
+
+    slugField.addEventListener('input', function() {
+        slugManuallyEdited = this.value !== '';
+    });
+
+    titleField.addEventListener('input', function() {
+        if (!slugManuallyEdited) {
+            slugField.value = this.value
+                .toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .substring(0, 200);
+        }
+    });
+
+    // AI Generate
+    document.getElementById('aiForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = {
+            topic: document.querySelector('[name=topic]').value,
+            tone: document.querySelector('[name=tone]').value,
+            length: document.querySelector('[name=length]').value,
+            audience: document.querySelector('[name=audience]').value,
+        };
+
+        if (!formData.topic.trim()) {
+            alert('Please enter a topic.');
+            return;
+        }
+
+        // Show loading
+        document.getElementById('aiLoading').classList.add('show');
+        document.getElementById('aiResult').classList.remove('show');
+        document.getElementById('aiError').style.display = 'none';
+        document.getElementById('generateBtn').disabled = true;
+
+        fetch('{% url "staff_portal:generate_blog_api" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+            },
+            body: JSON.stringify(formData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('aiLoading').classList.remove('show');
+            document.getElementById('generateBtn').disabled = false;
+
+            if (data.success) {
+                aiData = data.data;
+                document.getElementById('aiTitle').textContent = aiData.title || '';
+                document.getElementById('aiExcerpt').textContent = aiData.excerpt || '';
+                document.getElementById('aiCategory').textContent = aiData.suggested_category || '';
+                document.getElementById('aiTags').textContent = aiData.suggested_tags || '';
+
+                // Show image preview if available
+                const imgSection = document.getElementById('aiImageSection');
+                if (aiData.featured_image && aiData.featured_image.path) {
+                    document.getElementById('aiImageThumb').src = '/media/' + aiData.featured_image.path;
+                    document.getElementById('aiPhotographer').textContent = aiData.featured_image.photographer || '';
+                    imgSection.style.display = 'block';
+                } else {
+                    imgSection.style.display = 'none';
+                }
+
+                document.getElementById('aiResult').classList.add('show');
+            } else {
+                document.getElementById('aiError').style.display = 'block';
+                document.getElementById('aiErrorMsg').textContent = data.error || 'An error occurred.';
+            }
+        })
+        .catch(err => {
+            document.getElementById('aiLoading').classList.remove('show');
+            document.getElementById('generateBtn').disabled = false;
+            document.getElementById('aiError').style.display = 'block';
+            document.getElementById('aiErrorMsg').textContent = 'Network error. Please try again.';
+        });
+    });
+
+    // Apply AI content to editor
+    document.getElementById('applyAiBtn').addEventListener('click', function() {
+        if (!aiData) return;
+
+        // Set title and auto-generate slug
+        if (aiData.title) {
+            document.getElementById('id_title').value = aiData.title;
+            document.getElementById('id_slug').value = aiData.title
+                .toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .substring(0, 200);
+        }
+
+        // Set TinyMCE content
+        if (aiData.content && typeof tinyMCE !== 'undefined') {
+            const editor = tinyMCE.get('id_content');
+            if (editor) editor.setContent(aiData.content);
+        }
+
+        // Set excerpt
+        const excerptField = document.getElementById('id_excerpt');
+        if (excerptField && aiData.excerpt) excerptField.value = aiData.excerpt;
+
+        // Set meta description
+        const metaDescField = document.getElementById('id_meta_description');
+        if (metaDescField && aiData.meta_description) metaDescField.value = aiData.meta_description;
+
+        // Set meta keywords
+        const metaKeywordsField = document.getElementById('id_meta_keywords');
+        if (metaKeywordsField && aiData.meta_keywords) metaKeywordsField.value = aiData.meta_keywords;
+
+        // Apply featured image
+        if (aiData.featured_image && aiData.featured_image.path) {
+            document.getElementById('aiFeaturedImagePath').value = aiData.featured_image.path;
+            const preview = document.getElementById('aiImagePreview');
+            document.getElementById('aiImagePreviewImg').src = '/media/' + aiData.featured_image.path;
+            preview.style.display = 'block';
+        }
+
+        // Close offcanvas
+        const offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('aiPanel'));
+        if (offcanvas) offcanvas.hide();
+    });
+});
+</script>
+{% endblock %}
