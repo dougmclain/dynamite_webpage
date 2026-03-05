@@ -45,3 +45,5 @@ whitenoise==6.9.0
 django-tinymce==4.1.0
 anthropic
 bleach
+dj-database-url
+psycopg2-binary
