@@ -19,3 +19,6 @@ venv/
 
 # Media uploads
 media/
+
+# Collected static files
+staticfiles/
