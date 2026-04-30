@@ -41,7 +41,8 @@ class BlogPostForm(forms.ModelForm):
         model = BlogPost
         fields = [
             "title", "slug", "content", "excerpt", "featured_image",
-            "category", "tags", "status", "meta_description", "meta_keywords",
+            "category", "tags", "status", "published_at",
+            "meta_description", "meta_keywords",
         ]
         widgets = {
             "title": forms.TextInput(attrs={"class": "form-control", "placeholder": "Post title"}),
@@ -51,13 +52,26 @@ class BlogPostForm(forms.ModelForm):
             "category": forms.Select(attrs={"class": "form-select"}),
             "tags": forms.SelectMultiple(attrs={"class": "form-select", "size": 5}),
             "status": forms.Select(attrs={"class": "form-select"}),
+            "published_at": forms.DateTimeInput(
+                attrs={"class": "form-control", "type": "datetime-local"},
+                format="%Y-%m-%dT%H:%M",
+            ),
             "meta_description": forms.Textarea(attrs={"class": "form-control", "rows": 2, "placeholder": "SEO meta description (160 chars max)"}),
             "meta_keywords": forms.TextInput(attrs={"class": "form-control", "placeholder": "keyword1, keyword2, keyword3"}),
+        }
+        labels = {
+            "published_at": "Publish date",
+        }
+        help_texts = {
+            "published_at": "When the post was actually written. Leave blank to auto-set to now when first published.",
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["slug"].required = False
+        self.fields["published_at"].required = False
+        # The HTML datetime-local input needs the right input format
+        self.fields["published_at"].input_formats = ["%Y-%m-%dT%H:%M", "%Y-%m-%d %H:%M:%S", "%Y-%m-%d"]
 
     def save(self, commit=True):
         instance = super().save(commit=False)

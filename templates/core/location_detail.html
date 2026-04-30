@@ -33,17 +33,43 @@
                         and have helped many {{ location.name }} Condo Associations regain their financial stability.
                     </p>
                     
-                    <div class="contact-cta mt-3">
-                        <a href="/contact" class="btn btn-primary cta-button">Contact Us in {{ location.name }}</a>
-                    </div>
                 </div>
             </div>
-            
+
             <!-- Image Column (Left) - Using EXACT same structure as process-section -->
             <div class="col-lg-7 col-md-12 mb-4 mb-lg-0 order-1 order-lg-2">
                 <div class="process-image-container">
                     <img src="{% static location.image_path %}" alt="{{ location.name }}" class="process-image">
                 </div>
+            </div>
+        </div>
+
+        {% if location.name == 'Washington' %}
+        <!-- Self-managed condo callout — sized to match the picture column, right-aligned -->
+        <div class="row mt-3" style="height:auto !important">
+            <div class="col-lg-7 offset-lg-5 col-md-12">
+                <div class="wa-condo-callout" style="background:linear-gradient(135deg,#fff1e9 0%,#ffffff 100%);border:1px solid rgba(255,111,49,.35);border-left:5px solid #FF6F31;border-radius:6px;box-shadow:0 6px 16px -10px rgba(255,111,49,.25);padding:18px 22px;">
+                    <div style="font-size:10.5px;letter-spacing:.18em;font-weight:800;color:#cc4f1a;text-transform:uppercase;margin-bottom:6px">
+                        Self-Managed Washington Condos · 8–99 Units
+                    </div>
+                    <h3 style="color:#003366;font-family:Georgia,serif;font-weight:700;font-size:20px;margin:0 0 6px;line-height:1.2">
+                        A flat-fee package built for self-managed boards.
+                    </h3>
+                    <p style="color:#3d4a5c;font-size:14px;line-height:1.5;margin:0 0 12px">
+                        Full team plus the HOA Fiscal platform — one monthly invoice, no setup fees.
+                    </p>
+                    <a href="{% url 'core:wa_condo' %}" style="display:inline-block;background:#FF6F31;color:#fff;font-weight:700;font-size:13.5px;padding:10px 20px;border-radius:4px;text-decoration:none;letter-spacing:.01em;box-shadow:0 4px 10px -3px rgba(255,111,49,.45)">
+                        View the self-managed package →
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Contact CTA below the callout, centered for prominence -->
+        <div class="row mt-3" style="height:auto !important">
+            <div class="col-12 text-center">
+                <a href="/contact" class="btn btn-primary cta-button">Contact Us in {{ location.name }}</a>
             </div>
         </div>
     </div>

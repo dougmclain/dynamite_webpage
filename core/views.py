@@ -112,6 +112,13 @@ def hoa_taxes(request):
     """
     return render(request, 'core/hoa_taxes.html')
 
+def wa_condo(request):
+    """
+    Landing page for the Washington self-managed condo postcard campaign.
+    QR code on the postcard targets this URL (/wa-condo/).
+    """
+    return render(request, 'core/wa_condo.html')
+
 @check_honeypot
 def contact(request):
     """

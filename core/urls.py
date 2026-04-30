@@ -20,7 +20,10 @@ urlpatterns = [
     
     # HOA Taxes page
     path('hoa-taxes/', views.hoa_taxes, name='hoa_taxes'),
-    
+
+    # Washington self-managed condo postcard campaign landing page
+    path('wa-condo/', views.wa_condo, name='wa_condo'),
+
     # Contact page
     path('contact/', views.contact, name='contact'),
 ]

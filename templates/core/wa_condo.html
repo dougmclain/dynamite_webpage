@@ -1,0 +1,912 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Trusted Financial Management for Washington Condominiums | Dynamite Management + HOA Fiscal{% endblock %}
+{% block meta_description %}<meta name="description" content="Self-managed Washington condominium associations get a full administrative + accounting team plus the HOA Fiscal platform — one flat $750/mo fee, one invoice, no setup fees. For 8–99 unit buildings.">{% endblock %}
+
+{% block content %}
+<style>
+  /* ============ Dynamite + HOA Fiscal — WA Self-Managed Landing ============ */
+  .wa-page{
+    /* Dynamite brand */
+    --navy:#003366;
+    --navy-deep:#001f42;
+    --navy-mid:#1a4577;
+    --navy-light:#eaf0f7;
+    --fuse:#FF6F31;
+    --fuse-soft:#fff1e9;
+    --fuse-deep:#cc4f1a;
+    /* Neutrals */
+    --ink:#1a2332;
+    --body:#3d4a5c;
+    --muted:#6b7785;
+    --line:#dfe5ec;
+    --line-soft:#eef1f6;
+    --bg:#ffffff;
+    --bg-alt:#f6f8fb;
+    --bg-warm:#fbf6f1;
+    /* HOA Fiscal product accents (used inside app mocks only) */
+    --hf-green:#5DB435;
+    --hf-green-light:#EAF7E5;
+    --hf-purple:#6F42C2;
+    --hf-purple-light:#F3EEFA;
+    --hf-slate:#475B7B;
+    --hf-slate-light:#EEF1F6;
+    --hf-terra:#E67E23;
+    --hf-terra-light:#FDF1E9;
+
+    --display:Georgia,"Times New Roman","Iowan Old Style",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+
+    background:#fff;color:var(--ink);font-family:var(--sans);
+  }
+  .wa-page *{box-sizing:border-box}
+  .wa-page button:focus-visible,.wa-page a:focus-visible{outline:2px solid var(--fuse);outline-offset:2px}
+
+  /* ---- Shared ---- */
+  .wa-wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+  .wa-kicker{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.18em;font-weight:700;color:var(--fuse);text-transform:uppercase}
+  .wa-kicker::before{content:"";display:inline-block;width:24px;height:2px;background:var(--fuse)}
+  .wa-h2{font-family:var(--display);font-weight:700;font-size:clamp(32px,4vw,46px);color:var(--navy);margin:8px 0 16px;letter-spacing:-.01em;line-height:1.05}
+  .wa-h3{font-family:var(--display);font-weight:700;font-size:26px;color:var(--navy);margin:0 0 14px;letter-spacing:-.01em;line-height:1.1}
+
+  /* Buttons */
+  .wa-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-weight:700;font-size:14px;letter-spacing:.01em;text-decoration:none;padding:12px 22px;border-radius:4px;border:none;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+  .wa-btn-primary{background:var(--fuse);color:#fff}
+  .wa-btn-primary:hover{background:var(--fuse-deep);color:#fff;transform:translateY(-1px);box-shadow:0 8px 16px -8px rgba(255,111,49,.55)}
+  .wa-btn-ghost{background:transparent;color:var(--navy);border:2px solid var(--navy);padding:10px 22px}
+  .wa-btn-ghost:hover{background:var(--navy);color:#fff}
+
+  /* Fuse bullet — small navy circle with orange spark */
+  .wa-fuse{width:22px;height:22px;flex:0 0 auto}
+
+  /* ============ HERO ============ */
+  .wa-hero{position:relative;overflow:hidden;background:#fff;border-bottom:1px solid var(--line)}
+  .wa-hero-stripe{height:4px;background:linear-gradient(90deg,var(--navy) 0,var(--navy) 70%,var(--fuse) 70%,var(--fuse) 100%)}
+  .wa-hero-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:64px;align-items:center;padding:64px 0 80px}
+  .wa-hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;background:var(--fuse-soft);border:1px solid var(--fuse);border-radius:30px;font-size:12px;color:var(--fuse-deep);font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:24px;text-decoration:none;transition:transform .15s ease,background .15s ease,box-shadow .15s ease;cursor:pointer}
+  a.wa-hero-eyebrow{box-shadow:0 2px 6px -2px rgba(255,111,49,.4)}
+  a.wa-hero-eyebrow:hover{background:var(--fuse);color:#fff;transform:translateY(-1px);box-shadow:0 6px 14px -4px rgba(255,111,49,.6)}
+  a.wa-hero-eyebrow:hover svg circle{fill:#fff!important}
+  .wa-hero h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,5vw,60px);line-height:1.05;color:var(--navy);margin:0;letter-spacing:-.01em}
+  .wa-hero h1 .em{color:var(--fuse);display:block}
+  .wa-hero-lede{font-size:18px;color:var(--body);line-height:1.6;margin:24px 0 0;max-width:580px}
+  .wa-hero-lede strong{color:var(--navy)}
+  .wa-hero-ctas{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:36px}
+  .wa-hero-trust{margin-top:36px;display:flex;gap:28px;align-items:center;font-size:13px;color:var(--muted);flex-wrap:wrap}
+  .wa-hero-trust span{display:flex;align-items:center;gap:8px}
+
+  /* Hero spec card */
+  .wa-spec{position:relative}
+  .wa-spec-card{background:#fff;border:1px solid var(--line);border-radius:6px;box-shadow:0 24px 48px -28px rgba(0,51,102,.35);overflow:hidden}
+  .wa-spec-head{background:var(--navy);color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .wa-spec-head .lbl{font-size:11px;letter-spacing:.16em;font-weight:700;color:#a8c1d8}
+  .wa-spec-head .val{font-family:var(--display);font-weight:700;font-size:22px;margin-top:2px}
+  .wa-spec-head .price{font-family:var(--display);font-weight:700;font-size:26px;margin-top:2px}
+  .wa-spec-head .price small{font-size:13px;font-weight:400;color:#a8c1d8}
+  .wa-spec-body{padding:22px 24px}
+  .wa-spec-body .lbl{font-size:11px;letter-spacing:.14em;font-weight:700;color:var(--muted);margin-bottom:12px;text-transform:uppercase}
+  .wa-spec-row{display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--line-soft);align-items:flex-start}
+  .wa-spec-row:first-of-type{border-top:none}
+  .wa-spec-row h4{margin:0;font-size:14px;font-weight:700;color:var(--navy);font-family:var(--sans)}
+  .wa-spec-row p{margin:2px 0 0;font-size:12.5px;color:var(--body);line-height:1.45}
+  .wa-spec-foot{padding:14px 24px;background:var(--bg-alt);border-top:1px solid var(--line);font-size:12px;color:var(--muted);font-style:italic}
+  .wa-spec-star{position:absolute;top:-28px;right:-28px;opacity:.85}
+
+  /* ============ VALUES STRIP ============ */
+  .wa-values{background:var(--bg-alt);padding:64px 0;border-bottom:1px solid var(--line)}
+  .wa-values-head{text-align:center;margin-bottom:40px}
+  .wa-values-grid{display:grid;grid-template-columns:repeat(3,1fr);background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .wa-value{padding:28px 26px}
+  .wa-value:not(:nth-child(3n)){border-right:1px solid var(--line)}
+  .wa-value:nth-child(-n+3){border-bottom:1px solid var(--line)}
+  .wa-value .row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .wa-value h3{font-family:var(--display);font-weight:700;font-size:22px;color:var(--navy);margin:0}
+  .wa-value p{font-size:14.5px;color:var(--body);line-height:1.55;margin:0}
+
+  /* ============ HOW IT WORKS ============ */
+  .wa-how{background:#fff;padding:90px 0;border-bottom:1px solid var(--line)}
+  .wa-how-head{margin-bottom:36px}
+  .wa-how-head p{font-size:17px;color:var(--body);line-height:1.6;max-width:760px;margin:0}
+  .wa-how-head p strong{color:var(--navy)}
+  .wa-how-tabs{display:flex;gap:0;margin-bottom:24px;border-bottom:2px solid var(--line)}
+  .wa-how-tab{border:none;background:transparent;padding:14px 24px;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;cursor:pointer;margin-bottom:-2px;transition:color .15s ease,border-color .15s ease}
+  .wa-how-tab.is-active{color:var(--navy);border-bottom-color:var(--fuse)}
+  .wa-how-panel{display:none}
+  .wa-how-panel.is-active{display:block}
+
+  /* Hub diagram */
+  .wa-hub{background:var(--bg-alt);border-radius:6px;border:1px solid var(--line);padding:40px}
+  .wa-hub-stage{position:relative;height:480px;max-width:820px;margin:0 auto}
+  .wa-hub-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .wa-hub-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:200px;height:200px;border-radius:50%;background:var(--navy);color:#fff;border:3px solid var(--fuse);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;box-shadow:0 16px 32px -10px rgba(0,51,102,.4)}
+  .wa-hub-center .lbl{font-size:10.5px;letter-spacing:.18em;font-weight:700;color:var(--fuse);margin-bottom:6px}
+  .wa-hub-center .name{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:.02em;line-height:1.05}
+  .wa-hub-center .sub{font-size:12px;color:#a8c1d8;margin-top:8px;font-style:italic}
+  .wa-hub-spoke{position:absolute;transform:translate(-50%,-50%);width:140px;background:#fff;border:1.5px solid var(--line);border-radius:6px;padding:14px;text-align:center;box-shadow:0 2px 4px rgba(0,0,0,.04);transition:all .2s ease;cursor:default}
+  .wa-hub-spoke:hover{border-color:var(--fuse);box-shadow:0 12px 24px -10px rgba(255,111,49,.25)}
+  .wa-hub-spoke .ic{display:flex;justify-content:center;margin-bottom:6px}
+  .wa-hub-spoke .name{font-family:var(--display);font-weight:700;font-size:16px;color:var(--navy);line-height:1.1}
+  .wa-hub-spoke .sub{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .wa-hub-note{margin:32px auto 0;padding:18px 22px;background:#fff;border-radius:4px;font-size:14px;color:var(--body);line-height:1.55;text-align:center;max-width:760px;border:1px solid var(--line)}
+  .wa-hub-note strong{color:var(--navy)}
+
+  /* Roles diagram */
+  .wa-roles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .wa-role-col{background:#fff;border-radius:6px;border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column;border-top:4px solid var(--navy)}
+  .wa-role-col.is-mid{border-top-color:var(--fuse)}
+  .wa-role-head{padding:24px 24px 18px;border-bottom:1px solid var(--line)}
+  .wa-role-head .lbl{font-size:11px;letter-spacing:.18em;font-weight:700;color:var(--navy);margin-bottom:4px}
+  .wa-role-col.is-mid .wa-role-head .lbl{color:var(--fuse)}
+  .wa-role-head .sub{font-style:italic;font-size:13px;color:var(--muted);margin-bottom:14px;font-family:var(--display)}
+  .wa-role-head .tag{font-family:var(--display);font-weight:700;font-size:28px;color:var(--navy);letter-spacing:-.01em;line-height:1}
+  .wa-role-body{padding:20px 24px 24px;flex:1}
+  .wa-role-body .lbl{font-size:11px;letter-spacing:.14em;font-weight:700;color:var(--muted);margin-bottom:12px;text-transform:uppercase}
+  .wa-role-body ul{list-style:none;padding:0;margin:0}
+  .wa-role-body li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line-soft);font-size:14px;color:var(--body);line-height:1.45}
+  .wa-role-body li:first-child{border-top:none}
+  .wa-role-foot{padding:12px 24px;background:var(--bg-alt);border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+  .wa-role-foot strong{color:var(--navy)}
+
+  /* Scenario diagram */
+  .wa-scenario{background:var(--bg-alt);border-radius:6px;border:1px solid var(--line);padding:32px}
+  .wa-step-rail{display:flex;align-items:center;gap:0;margin-bottom:28px}
+  .wa-step{border:none;background:transparent;cursor:pointer;padding:0;display:flex;flex-direction:column;align-items:center;gap:8px}
+  .wa-step-circle{width:36px;height:36px;border-radius:50%;background:#fff;border:2px solid var(--line);color:var(--muted);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:14px;position:relative;transition:all .25s ease}
+  .wa-step.is-done .wa-step-circle,.wa-step.is-current .wa-step-circle{background:var(--navy);border-color:var(--navy);color:#fff}
+  .wa-step.is-current .wa-step-circle::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid var(--fuse);pointer-events:none}
+  .wa-step-label{font-size:10.5px;letter-spacing:.14em;font-weight:700;color:var(--muted)}
+  .wa-step.is-current .wa-step-label{color:var(--navy)}
+  .wa-step-line{flex:1;height:2px;background:var(--line);margin:0 12px;margin-bottom:24px;transition:background .25s ease}
+  .wa-step-line.is-done{background:var(--navy)}
+  .wa-scenario-body{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:start}
+  .wa-scenario-body .surface{font-size:11px;letter-spacing:.16em;font-weight:700;color:var(--fuse);margin-bottom:6px;text-transform:uppercase}
+  .wa-scenario-body h3{font-family:var(--display);font-weight:700;font-size:28px;color:var(--navy);letter-spacing:-.01em;line-height:1.1;margin:0 0 16px}
+  .wa-scenario-body p{font-size:16px;color:var(--body);line-height:1.6;margin:0}
+  .wa-scenario-nav{margin-top:24px;display:flex;gap:10px}
+  .wa-scenario-nav .wa-btn{padding:10px 16px;font-size:13px}
+  .wa-scenario-nav .wa-btn[disabled]{opacity:.4;cursor:not-allowed}
+  .wa-scenario-visual{background:#fff;border-radius:6px;border:1px solid var(--line);min-height:280px;padding:4px}
+
+  /* Mini app components inside scenario */
+  .wa-mini{padding:22px;font-family:var(--sans);font-size:12px}
+  .wa-mini .crumb{font-size:11px;font-weight:600;margin-bottom:6px}
+  .wa-mini .card{background:#fff;border-radius:6px;padding:16px 18px;border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+  .wa-mini .lbl{font-size:12px;color:var(--muted);margin-bottom:4px}
+  .wa-mini .big{font-size:28px;font-weight:700;color:var(--hf-slate);line-height:1}
+  .wa-mini .tiny{font-size:11px;color:var(--muted);margin-top:4px}
+  .wa-mini .pay-btn{margin-top:14px;width:100%;padding:10px;background:var(--hf-green);color:#fff;border:none;border-radius:30px;font-weight:600;font-size:13px}
+  .wa-mini-ledger{font-family:var(--mono);font-size:11.5px}
+  .wa-mini-ledger .row{display:grid;grid-template-columns:50px 1fr 70px 70px;gap:6px;padding:5px 0;border-top:1px solid var(--line-soft);color:var(--body)}
+  .wa-mini-ledger .row:first-child{border-top:none}
+  .wa-mini-ledger .row .dr{text-align:right;color:var(--hf-green);font-weight:600}
+  .wa-mini-ledger .row .cr{text-align:right;color:var(--hf-terra);font-weight:600}
+  .wa-mini-ledger .note{margin-top:10px;padding-top:8px;border-top:1px solid var(--line);font-size:10.5px;font-family:var(--sans);color:var(--muted)}
+  .wa-mini-rec .line{display:flex;justify-content:space-between;padding:6px 0;color:var(--body)}
+  .wa-mini-rec .line .pos{color:var(--hf-green);font-weight:600}
+  .wa-mini-rec .matches{border-top:1px solid var(--line-soft);padding-top:8px;margin-top:4px}
+  .wa-mini-rec .ok{margin-top:10px;padding:6px 10px;background:var(--hf-green-light);border-radius:4px;font-size:11px;color:#2C7A38;font-weight:600}
+  .wa-mini-board .stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .wa-mini-board .stat{border-radius:4px;padding:10px}
+  .wa-mini-board .stat.g{background:var(--hf-green-light)}
+  .wa-mini-board .stat.s{background:var(--hf-slate-light)}
+  .wa-mini-board .stat .h{font-size:10px;font-weight:700;letter-spacing:.06em}
+  .wa-mini-board .stat.g .h{color:#2C7A38}
+  .wa-mini-board .stat.s .h{color:var(--hf-slate)}
+  .wa-mini-board .stat .v{font-size:22px;font-weight:700;color:var(--navy);line-height:1.1}
+  .wa-mini-board .stat .t{font-size:10px;color:var(--muted)}
+  .wa-mini-board .approval{margin-top:10px;background:#fff;border-radius:4px;padding:10px;border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+  .wa-mini-board .approval .h{font-size:11px;font-weight:600;color:var(--fuse);margin-bottom:4px}
+  .wa-mini-board .approval .item{font-size:12px;color:var(--body);padding:4px 0;border-bottom:1px solid var(--line-soft)}
+  .wa-mini-board .approval .item:last-child{border-bottom:none}
+
+  /* ============ SERVICES ============ */
+  .wa-services{background:var(--bg-alt);padding:90px 0;border-bottom:1px solid var(--line)}
+  .wa-services-head{margin-bottom:36px}
+  .wa-services-head p{font-size:17px;color:var(--body);line-height:1.6;max-width:780px;margin:0}
+  .wa-services-grid{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .wa-svc{padding:22px;display:flex;align-items:center;gap:12px;font-size:14.5px;color:var(--navy);font-weight:600}
+  .wa-svc:not(:nth-child(4n)){border-right:1px solid var(--line)}
+  .wa-svc:nth-child(-n+8){border-bottom:1px solid var(--line)}
+
+  /* ============ BOARD VS OWNER ============ */
+  .wa-bvo{background:#fff;padding:90px 0;border-bottom:1px solid var(--line)}
+  .wa-bvo-head{margin-bottom:28px}
+  .wa-bvo-head p{font-size:17px;color:var(--body);line-height:1.6;max-width:760px;margin:0}
+  .wa-bvo-toggle{display:inline-flex;gap:0;margin-bottom:20px;padding:4px;background:var(--bg-alt);border-radius:4px;border:1px solid var(--line)}
+  .wa-bvo-pill{padding:10px 22px;border-radius:4px;border:none;background:transparent;color:var(--muted);font-family:var(--sans);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s ease}
+  .wa-bvo-pill.is-active{background:var(--navy);color:#fff}
+  .wa-bvo-frame{background:#fff;border-radius:6px;border:1px solid var(--line);overflow:hidden;box-shadow:0 20px 40px -28px rgba(0,51,102,.25)}
+  .wa-bvo-panel{display:none;font-family:var(--sans);color:#3C3C41}
+  .wa-bvo-panel.is-active{display:block}
+  .wa-app-bar{background:#fff;border-bottom:1px solid var(--line);padding:10px 20px;display:flex;align-items:center;gap:16px}
+  .wa-app-logo{font-weight:800;font-size:14px;letter-spacing:.04em}
+  .wa-app-logo .g{color:var(--hf-green)}
+  .wa-app-logo .p{color:var(--hf-purple)}
+  .wa-app-bar .ctx{flex:1;text-align:right;font-size:13px;color:#62626D}
+  .wa-app-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+  .wa-app-avatar.p{background:var(--hf-purple-light);color:var(--hf-purple)}
+  .wa-app-avatar.t{background:var(--hf-terra-light);color:var(--hf-terra)}
+  .wa-app-shell{display:grid;grid-template-columns:200px 1fr}
+  .wa-app-shell.owner{grid-template-columns:220px 1fr}
+  .wa-app-side{background:#fff;border-right:1px solid var(--line);padding:20px 12px;font-size:13px}
+  .wa-app-side .heading{padding:0 12px 12px;font-size:10.5px;letter-spacing:.14em;font-weight:700;color:var(--muted);text-transform:uppercase}
+  .wa-nav-item{padding:8px 12px;border-radius:4px;color:#3C3C41;margin-bottom:2px;font-weight:400;display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px}
+  .wa-nav-item.is-active{background:var(--hf-green-light);color:#4A9029;font-weight:600}
+  .wa-nav-item .ic{width:18px;text-align:center;font-size:13px;color:var(--muted)}
+  /* Sidebar badges + dots that mirror HOA Fiscal */
+  .wa-badge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;font-size:10.5px;font-weight:700;color:#fff;background:#dc3545;border-radius:9px;padding:0 5px;margin-left:auto}
+  .wa-dot{display:inline-block;width:9px;height:9px;background:#dc3545;border-radius:50%;margin-left:auto;box-shadow:0 0 0 2px rgba(220,53,69,.25);animation:wa-dot-pulse 2s infinite}
+  @keyframes wa-dot-pulse{0%,100%{box-shadow:0 0 0 2px rgba(220,53,69,.25)}50%{box-shadow:0 0 0 5px rgba(220,53,69,.1)}}
+  /* Board sidebar gets a touch more vertical room and a tighter feel since it has more items */
+  .wa-app-side-board{padding:16px 10px;font-size:12.5px}
+  .wa-app-side-board .wa-nav-item{padding:7px 12px}
+  .wa-app-side-board.is-active{background:var(--hf-green-light)}
+  .wa-app-side.owner .wa-nav-item.is-active{background:var(--hf-purple-light);color:var(--hf-purple)}
+  .wa-app-side.owner .wa-nav-item.is-active .ic{color:var(--hf-purple)}
+  .wa-help-card{margin-top:14px;padding:12px;background:var(--hf-green-light);border-radius:6px;font-size:11.5px;color:#2C7A38;line-height:1.45}
+  .wa-help-card strong{display:block;margin-bottom:2px}
+  .wa-app-main{padding:24px;background:#F5F5F5}
+  .wa-app-main.owner{padding:28px}
+  .wa-app-main h2{font-family:var(--sans);font-size:22px;color:var(--hf-purple);font-weight:600;margin:0 0 4px}
+  .wa-app-main .sub{font-size:13px;color:#62626D;margin-bottom:18px}
+  .wa-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+  .wa-stat{border-radius:6px;padding:14px 16px}
+  .wa-stat.g{background:var(--hf-green-light)}
+  .wa-stat.s{background:var(--hf-slate-light)}
+  .wa-stat.p{background:var(--hf-purple-light)}
+  .wa-stat.t{background:var(--hf-terra-light)}
+  .wa-stat .h{font-size:10.5px;font-weight:700;letter-spacing:.06em}
+  .wa-stat.g .h{color:var(--hf-green)}
+  .wa-stat.s .h{color:var(--hf-slate)}
+  .wa-stat.p .h{color:var(--hf-purple)}
+  .wa-stat.t .h{color:var(--hf-terra)}
+  .wa-stat .v{font-size:22px;font-weight:700;color:#3C3C41;margin-top:4px;line-height:1.1}
+  .wa-stat .t-sub{font-size:11px;color:#62626D;margin-top:2px}
+  .wa-board-bottom{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+  .wa-card{background:#fff;border-radius:6px;box-shadow:0 4px 6px rgba(0,0,0,.05)}
+  .wa-card-head{padding:12px 18px;border-bottom:1px solid var(--line);font-size:14px;color:var(--hf-purple);font-weight:500}
+  .wa-card table{width:100%;font-size:13px;border-collapse:collapse}
+  .wa-card td{padding:10px 18px;border-top:1px solid var(--line)}
+  .wa-card td.amt{text-align:right;font-weight:600}
+  .wa-card td .approve{background:var(--hf-green);color:#fff;font-size:11px;padding:4px 12px;border-radius:30px;font-weight:500}
+  .wa-card-side{padding:18px}
+  .wa-card-side .h{font-size:14px;color:var(--hf-purple);font-weight:500;margin-bottom:10px}
+  .wa-card-side .row{display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid var(--line);font-size:13px}
+  .wa-card-side .row:first-of-type{border-top:none}
+  .wa-card-side .row .day{color:#62626D;font-family:var(--mono);font-size:11px}
+
+  /* Owner mock */
+  .wa-owner-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
+  .wa-balance{background:#fff;border-radius:6px;box-shadow:0 4px 6px rgba(0,0,0,.05);padding:24px}
+  .wa-balance .h{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--hf-green);margin-bottom:8px}
+  .wa-balance .v{font-size:44px;font-weight:700;color:#3C3C41;line-height:1;margin-bottom:8px}
+  .wa-balance .t{font-size:13px;color:#62626D;margin-bottom:20px}
+  .wa-balance .actions{display:flex;gap:10px;flex-wrap:wrap}
+  .wa-balance .pay{background:var(--hf-green);color:#fff;border:none;padding:12px 24px;border-radius:30px;font-weight:600;font-size:14px;cursor:pointer}
+  .wa-balance .auto{background:transparent;color:var(--hf-purple);border:1px solid var(--hf-purple);padding:12px 22px;border-radius:30px;font-weight:500;font-size:14px;cursor:pointer}
+  .wa-balance .summary{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:#62626D}
+  .wa-balance .summary .row{display:flex;justify-content:space-between;padding:4px 0}
+  .wa-balance .summary .row.total{font-weight:600;color:#3C3C41;border-top:1px solid var(--line);margin-top:4px;padding-top:8px}
+  .wa-owner-side{display:flex;flex-direction:column;gap:12px}
+  .wa-notice{background:var(--hf-purple-light);border-radius:6px;padding:18px}
+  .wa-notice .h{font-size:11px;font-weight:700;color:var(--hf-purple);letter-spacing:.06em;margin-bottom:6px}
+  .wa-notice p{font-size:13.5px;color:#3C3C41;line-height:1.45;margin:0}
+  .wa-notice a{color:var(--hf-purple);font-weight:600}
+  .wa-activity{background:#fff;border-radius:6px;box-shadow:0 4px 6px rgba(0,0,0,.05);padding:18px}
+  .wa-activity .h{font-size:13px;color:var(--hf-purple);font-weight:500;margin-bottom:8px}
+  .wa-activity .row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-top:1px solid var(--line-soft);font-size:12.5px}
+  .wa-activity .row:first-of-type{border-top:none}
+  .wa-pill{background:var(--hf-green-light);color:var(--hf-green);font-size:10.5px;padding:2px 8px;border-radius:30px;font-weight:600;margin-right:8px}
+
+  /* ============ PRICING ============ */
+  .wa-pricing{padding:90px 0;background:var(--navy);color:#fff;position:relative;overflow:hidden}
+  .wa-pricing-star{position:absolute;top:-40px;right:-40px;opacity:.08;width:280px;height:280px}
+  .wa-pricing-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:center;position:relative}
+  .wa-pricing h2{font-family:var(--display);font-weight:700;font-size:clamp(36px,4.5vw,56px);line-height:1.05;color:#fff;margin:0 0 20px;letter-spacing:-.01em}
+  .wa-pricing .price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:16px}
+  .wa-pricing .price-big{font-family:var(--display);font-weight:700;font-size:84px;letter-spacing:-.02em;line-height:1;color:#fff}
+  .wa-pricing .price-per{font-size:22px;color:#a8c1d8}
+  .wa-pricing .lede{font-size:16px;color:#cdd9e6;line-height:1.6;margin:0;max-width:420px}
+  .wa-pricing-card{background:#fff;color:var(--ink);border-radius:6px;padding:32px 36px;box-shadow:0 30px 60px -25px rgba(0,0,0,.4)}
+  .wa-pricing-card .lbl{font-size:11px;letter-spacing:.16em;font-weight:700;color:var(--fuse);margin-bottom:14px}
+  .wa-incl-row{display:flex;gap:12px;align-items:center;padding:11px 0;font-size:14.5px;color:var(--body);border-top:1px solid var(--line-soft)}
+  .wa-incl-row:first-of-type{border-top:none}
+  .wa-pricing-card .wa-btn{margin-top:20px;display:flex;justify-content:center;width:100%}
+
+  /* ============ FINAL CTA ============ */
+  .wa-final{padding:90px 0;background:var(--bg-warm);border-bottom:1px solid var(--line);text-align:center}
+  .wa-final h2{font-family:var(--display);font-weight:700;font-size:clamp(36px,4.5vw,56px);color:var(--navy);margin:8px 0 16px;letter-spacing:-.01em}
+  .wa-final p.lede{font-size:18px;color:var(--body);line-height:1.55;max-width:640px;margin:0 auto 36px}
+  .wa-final-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
+  .wa-final-info{display:inline-flex;gap:32px;padding:20px 32px;background:#fff;border:1px solid var(--line);border-radius:6px;font-size:13.5px;color:var(--body);flex-wrap:wrap;justify-content:center}
+  .wa-final-info strong{color:var(--navy)}
+  .wa-final-more{margin-top:22px;font-size:13.5px;color:var(--muted)}
+  .wa-final-more a{color:var(--navy);text-decoration:none;font-weight:700;margin-left:6px;border-bottom:1px solid var(--line)}
+  .wa-final-more a:hover{color:var(--fuse);border-bottom-color:var(--fuse)}
+
+  /* ============ Responsive ============ */
+  @media (max-width:980px){
+    .wa-hero-grid{grid-template-columns:1fr;gap:36px;padding:48px 0 60px}
+    .wa-spec-star{width:60px;height:60px}
+    .wa-values-grid{grid-template-columns:repeat(2,1fr)}
+    .wa-value:not(:nth-child(3n)){border-right:none}
+    .wa-value:not(:nth-child(2n)){border-right:1px solid var(--line)}
+    .wa-value{border-bottom:1px solid var(--line)}
+    .wa-roles{grid-template-columns:1fr}
+    .wa-services-grid{grid-template-columns:repeat(2,1fr)}
+    .wa-svc:not(:nth-child(4n)){border-right:none}
+    .wa-svc:not(:nth-child(2n)){border-right:1px solid var(--line)}
+    .wa-svc{border-bottom:1px solid var(--line)}
+    .wa-scenario-body{grid-template-columns:1fr}
+    .wa-pricing-grid{grid-template-columns:1fr;gap:36px}
+    .wa-stat-grid{grid-template-columns:repeat(2,1fr)}
+    .wa-board-bottom,.wa-owner-grid{grid-template-columns:1fr}
+    .wa-app-shell,.wa-app-shell.owner{grid-template-columns:1fr}
+    .wa-app-side{display:none}
+  }
+  @media (max-width:640px){
+    .wa-wrap{padding:0 18px}
+    .wa-hero{padding-bottom:0}
+    .wa-values,.wa-how,.wa-services,.wa-bvo,.wa-pricing,.wa-final{padding:60px 0}
+    .wa-values-grid,.wa-services-grid{grid-template-columns:1fr}
+    .wa-value:not(:nth-child(2n)){border-right:none}
+    .wa-svc:not(:nth-child(2n)){border-right:none}
+    .wa-pricing .price-big{font-size:64px}
+    .wa-hub-stage{height:auto}
+    .wa-hub-svg{display:none}
+    .wa-hub-spoke{position:relative;left:auto!important;top:auto!important;transform:none;width:auto;margin:8px 0}
+    .wa-hub-center{position:relative;left:auto;top:auto;transform:none;width:auto;height:auto;border-radius:8px;margin:16px 0;padding:24px}
+  }
+</style>
+
+{# Inline SVG snippet for the fuse bullet — reused in many places #}
+{% with fuse_svg='<svg class="wa-fuse" viewBox="0 0 24 24"><circle cx="12" cy="14" r="7" fill="#003366"/><path d="M12 7 Q 14 4 12 1" stroke="#888" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="1.5" r="2.2" fill="#FF6F31"/><circle cx="12" cy="1.5" r="1" fill="#FFD56B"/></svg>' %}
+
+<div class="wa-page">
+
+  <!-- =================== HERO =================== -->
+  <section class="wa-hero">
+    <div class="wa-hero-stripe"></div>
+    <div class="wa-wrap">
+      <div class="wa-hero-grid">
+        <div>
+          <a class="wa-hero-eyebrow" href="{% url 'core:state_detail' location_name='washington' %}" title="More about Dynamite's Washington service area">
+            {{ fuse_svg|safe }} Serving Washington Self-Managed Condos
+            <span aria-hidden="true" style="margin-left:4px;font-weight:800">→</span>
+          </a>
+          <h1>Trusted Financial Management<span class="em">for Washington Condominiums.</span></h1>
+          <p class="wa-hero-lede">
+            For the past decade, Dynamite Management has provided sound financial services to condo associations throughout Washington. Now, self-managed buildings get our full administrative + accounting team — backed by the <strong>HOA Fiscal</strong> platform — for one flat monthly fee.
+          </p>
+          <div class="wa-hero-ctas">
+            <a href="{% url 'core:contact' %}" class="wa-btn wa-btn-primary">Contact Us in Washington <span>→</span></a>
+            <a href="#services" class="wa-btn wa-btn-ghost">See what's included</a>
+          </div>
+          <div class="wa-hero-trust">
+            <span>{{ fuse_svg|safe }} 10+ years in WA</span>
+            <span>{{ fuse_svg|safe }} Built for 8–99 unit boards</span>
+            <span>{{ fuse_svg|safe }} $750/mo all-in</span>
+          </div>
+        </div>
+
+        <div class="wa-spec">
+          <div class="wa-spec-card">
+            <div class="wa-spec-head">
+              <div>
+                <div class="lbl">SERVICE PACKAGE</div>
+                <div class="val">Washington Self-Managed</div>
+              </div>
+              <div style="text-align:right">
+                <div class="lbl">FLAT FEE</div>
+                <div class="price">$750<small>/mo</small></div>
+              </div>
+            </div>
+            <div class="wa-spec-body">
+              <div class="lbl">Includes</div>
+              <div class="wa-spec-row">
+                {{ fuse_svg|safe }}
+                <div><h4>Administrative Services</h4><p>Owner mailings, notices, elections, violations</p></div>
+              </div>
+              <div class="wa-spec-row">
+                {{ fuse_svg|safe }}
+                <div><h4>Accounting Services</h4><p>Monthly close, AP/AR, financials, tax prep</p></div>
+              </div>
+              <div class="wa-spec-row">
+                {{ fuse_svg|safe }}
+                <div><h4>HOA Fiscal Platform</h4><p>Owner portal, online payments, board dashboard</p></div>
+              </div>
+            </div>
+            <div class="wa-spec-foot">For associations of 8–99 units. Larger buildings quoted separately.</div>
+          </div>
+          <svg class="wa-spec-star" width="80" height="80" viewBox="0 0 80 80" aria-hidden="true">
+            <path d="M40 6 L46 30 L70 30 L50 44 L58 68 L40 54 L22 68 L30 44 L10 30 L34 30 Z" fill="#FF6F31" stroke="#cc4f1a" stroke-width="1"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== VALUES STRIP =================== -->
+  <section class="wa-values">
+    <div class="wa-wrap">
+      <div class="wa-values-head">
+        <div class="wa-kicker">The Dynamite Difference</div>
+        <h2 class="wa-h2">Six commitments. Every association. Every month.</h2>
+      </div>
+      <div class="wa-values-grid">
+        <div class="wa-value"><div class="row">{{ fuse_svg|safe }}<h3>Responsive</h3></div><p>A team always ready to help treasurers and owners get the work done.</p></div>
+        <div class="wa-value"><div class="row">{{ fuse_svg|safe }}<h3>Integrity</h3></div><p>Accounting-based ethics in everything we do — focused on the Association.</p></div>
+        <div class="wa-value"><div class="row">{{ fuse_svg|safe }}<h3>Professional</h3></div><p>Decisions in line with your CC&amp;Rs, not anyone's personal interests.</p></div>
+        <div class="wa-value"><div class="row">{{ fuse_svg|safe }}<h3>Principled</h3></div><p>Dedicated to the best interest of every Association we serve.</p></div>
+        <div class="wa-value"><div class="row">{{ fuse_svg|safe }}<h3>Process-Driven</h3></div><p>Strong process controls keep your assets safe.</p></div>
+        <div class="wa-value"><div class="row">{{ fuse_svg|safe }}<h3>Results-Oriented</h3></div><p>Effective reporting so you can support your board duties confidently.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== HOW IT WORKS =================== -->
+  <section class="wa-how" id="how">
+    <div class="wa-wrap">
+      <div class="wa-how-head">
+        <div class="wa-kicker">How It Works</div>
+        <h2 class="wa-h2">One platform. Three roles. Zero confusion.</h2>
+        <p>Your owners, your board, and the Dynamite team all work together through <strong>HOA Fiscal</strong> — our financial management platform. What changes is what each person sees and what they can do.</p>
+      </div>
+
+      <div class="wa-how-tabs" role="tablist">
+        <button class="wa-how-tab is-active" data-tab="hub" role="tab">Hub &amp; spoke</button>
+        <button class="wa-how-tab" data-tab="roles" role="tab">Role-by-role</button>
+        <button class="wa-how-tab" data-tab="scenario" role="tab">A real scenario</button>
+      </div>
+
+      <!-- HUB -->
+      <div class="wa-how-panel is-active" data-panel="hub">
+        <div class="wa-hub">
+          <div class="wa-hub-stage">
+            <svg class="wa-hub-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <line x1="50" y1="50" x2="50" y2="8"  stroke="#dfe5ec" stroke-width="0.25" stroke-dasharray="0.8 0.8" vector-effect="non-scaling-stroke"/>
+              <line x1="50" y1="50" x2="92" y2="35" stroke="#dfe5ec" stroke-width="0.25" stroke-dasharray="0.8 0.8" vector-effect="non-scaling-stroke"/>
+              <line x1="50" y1="50" x2="80" y2="85" stroke="#dfe5ec" stroke-width="0.25" stroke-dasharray="0.8 0.8" vector-effect="non-scaling-stroke"/>
+              <line x1="50" y1="50" x2="20" y2="85" stroke="#dfe5ec" stroke-width="0.25" stroke-dasharray="0.8 0.8" vector-effect="non-scaling-stroke"/>
+              <line x1="50" y1="50" x2="8"  y2="35" stroke="#dfe5ec" stroke-width="0.25" stroke-dasharray="0.8 0.8" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <div class="wa-hub-center">
+              <div class="lbl">THE PLATFORM</div>
+              <div class="name">HOA Fiscal</div>
+              <div class="sub">one source of truth</div>
+            </div>
+            <div class="wa-hub-spoke" style="left:50%;top:8%"><div class="ic">{{ fuse_svg|safe }}</div><div class="name">Board</div><div class="sub">Decides</div></div>
+            <div class="wa-hub-spoke" style="left:92%;top:35%"><div class="ic">{{ fuse_svg|safe }}</div><div class="name">Owners</div><div class="sub">Pay &amp; view</div></div>
+            <div class="wa-hub-spoke" style="left:80%;top:85%"><div class="ic">{{ fuse_svg|safe }}</div><div class="name">Dynamite team</div><div class="sub">Executes</div></div>
+            <div class="wa-hub-spoke" style="left:20%;top:85%"><div class="ic">{{ fuse_svg|safe }}</div><div class="name">Vendors</div><div class="sub">Get paid</div></div>
+            <div class="wa-hub-spoke" style="left:8%;top:35%"><div class="ic">{{ fuse_svg|safe }}</div><div class="name">Bank</div><div class="sub">Reconciles</div></div>
+          </div>
+          <div class="wa-hub-note">Every action flows through HOA Fiscal, so your books, your portal, and the Dynamite team are <strong>always saying the same thing</strong>.</div>
+        </div>
+      </div>
+
+      <!-- ROLES -->
+      <div class="wa-how-panel" data-panel="roles">
+        <div class="wa-roles">
+          <div class="wa-role-col">
+            <div class="wa-role-head">
+              <div class="lbl">YOUR BOARD</div>
+              <div class="sub">You</div>
+              <div class="tag">Decides</div>
+            </div>
+            <div class="wa-role-body">
+              <div class="lbl">What they do in HOA Fiscal</div>
+              <ul>
+                <li>{{ fuse_svg|safe }}Set assessment policy</li>
+                <li>{{ fuse_svg|safe }}Approve budgets &amp; reserves</li>
+                <li>{{ fuse_svg|safe }}Vote in online elections</li>
+                <li>{{ fuse_svg|safe }}Sign off on vendor bills</li>
+                <li>{{ fuse_svg|safe }}Review live financials</li>
+              </ul>
+            </div>
+            <div class="wa-role-foot">via <strong>HOA Fiscal</strong> · same data, different view</div>
+          </div>
+          <div class="wa-role-col is-mid">
+            <div class="wa-role-head">
+              <div class="lbl">DYNAMITE</div>
+              <div class="sub">Our Washington team</div>
+              <div class="tag">Executes</div>
+            </div>
+            <div class="wa-role-body">
+              <div class="lbl">What they do in HOA Fiscal</div>
+              <ul>
+                <li>{{ fuse_svg|safe }}Send owner notices &amp; late letters</li>
+                <li>{{ fuse_svg|safe }}Process AP, cut checks</li>
+                <li>{{ fuse_svg|safe }}Monthly close + reconciliation</li>
+                <li>{{ fuse_svg|safe }}Prep meeting packets</li>
+                <li>{{ fuse_svg|safe }}File 1120-H, answer auditors</li>
+              </ul>
+            </div>
+            <div class="wa-role-foot">via <strong>HOA Fiscal</strong> · same data, different view</div>
+          </div>
+          <div class="wa-role-col">
+            <div class="wa-role-head">
+              <div class="lbl">OWNERS</div>
+              <div class="sub">Your residents</div>
+              <div class="tag">Self-serve</div>
+            </div>
+            <div class="wa-role-body">
+              <div class="lbl">What they do in HOA Fiscal</div>
+              <ul>
+                <li>{{ fuse_svg|safe }}Pay assessments online</li>
+                <li>{{ fuse_svg|safe }}Set up autopay &amp; ACH</li>
+                <li>{{ fuse_svg|safe }}View ledger &amp; statements</li>
+                <li>{{ fuse_svg|safe }}Read targeted notices</li>
+                <li>{{ fuse_svg|safe }}Download governing docs</li>
+              </ul>
+            </div>
+            <div class="wa-role-foot">via <strong>HOA Fiscal</strong> · same data, different view</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENARIO -->
+      <div class="wa-how-panel" data-panel="scenario">
+        <div class="wa-scenario">
+          <div class="wa-kicker">Scenario</div>
+          <h3 class="wa-h3" style="margin-top:4px;margin-bottom:24px">An owner pays online — what happens.</h3>
+
+          <div class="wa-step-rail" id="wa-step-rail">
+            <button class="wa-step is-current" data-step="0"><span class="wa-step-circle">1</span><span class="wa-step-label">OWNER</span></button>
+            <span class="wa-step-line"></span>
+            <button class="wa-step" data-step="1"><span class="wa-step-circle">2</span><span class="wa-step-label">PLATFORM</span></button>
+            <span class="wa-step-line"></span>
+            <button class="wa-step" data-step="2"><span class="wa-step-circle">3</span><span class="wa-step-label">DYNAMITE</span></button>
+            <span class="wa-step-line"></span>
+            <button class="wa-step" data-step="3"><span class="wa-step-circle">4</span><span class="wa-step-label">BOARD</span></button>
+          </div>
+
+          <div class="wa-scenario-body">
+            <div>
+              <div class="surface" id="wa-step-surface">OWNER PORTAL</div>
+              <h3 id="wa-step-title">Linda pays her July assessment</h3>
+              <p id="wa-step-body">She logs into the owner portal at 9pm, pays $385 by ACH. Confirmation hits her inbox. Autopay set for next month.</p>
+              <div class="wa-scenario-nav">
+                <button class="wa-btn wa-btn-ghost" id="wa-step-prev" disabled>← Back</button>
+                <button class="wa-btn wa-btn-primary" id="wa-step-next">Next step →</button>
+              </div>
+            </div>
+            <div class="wa-scenario-visual" id="wa-step-visual">
+              {# Mini visual injected by JS #}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== SERVICES =================== -->
+  <section class="wa-services" id="services">
+    <div class="wa-wrap">
+      <div class="wa-services-head">
+        <div class="wa-kicker">Accounting &amp; Financial Services</div>
+        <h2 class="wa-h2">What every Washington association gets.</h2>
+        <p>Dynamite's vision is to offer condominium and homeowner associations a service dedicated to fraud detection and elimination. Self-managed buildings get the same comprehensive scope our larger clients receive.</p>
+      </div>
+      <div class="wa-services-grid">
+        <div class="wa-svc">{{ fuse_svg|safe }}Financial Statements</div>
+        <div class="wa-svc">{{ fuse_svg|safe }}ACH Dues Processing</div>
+        <div class="wa-svc">{{ fuse_svg|safe }}Association Tax Preparation</div>
+        <div class="wa-svc">{{ fuse_svg|safe }}Reserve Fund Reporting</div>
+        <div class="wa-svc">{{ fuse_svg|safe }}Control Procedures</div>
+        <div class="wa-svc">{{ fuse_svg|safe }}Check Collection Processing</div>
+        <div class="wa-svc">{{ fuse_svg|safe }}Vendor Payment Processing</div>
+        <div class="wa-svc">{{ fuse_svg|safe }}Budget Preparation</div>
+        <div class="wa-svc">{{ fuse_svg|safe }}Board Support and Consulting</div>
+        <div class="wa-svc">{{ fuse_svg|safe }}PO Box Setup</div>
+        <div class="wa-svc">{{ fuse_svg|safe }}Mail Collection Services</div>
+        <div class="wa-svc">{{ fuse_svg|safe }}Accounts Receivable</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== BOARD VS OWNER =================== -->
+  <section class="wa-bvo">
+    <div class="wa-wrap">
+      <div class="wa-bvo-head">
+        <div class="wa-kicker">The HOA Fiscal Platform</div>
+        <h2 class="wa-h2">What boards see. What owners see.</h2>
+        <p>Same platform. Two different worlds. Click between them.</p>
+      </div>
+
+      <div class="wa-bvo-toggle">
+        <button class="wa-bvo-pill is-active" data-view="board">Board view</button>
+        <button class="wa-bvo-pill" data-view="owner">Owner view</button>
+      </div>
+
+      <div class="wa-bvo-frame">
+        <!-- BOARD VIEW -->
+        <div class="wa-bvo-panel is-active" data-panel="board">
+          <div class="wa-app-bar">
+            <span class="wa-app-logo"><span class="g">HOA</span> <span class="p">Fiscal</span></span>
+            <span class="ctx">Cedar Ridge Condos · Board view</span>
+            <span class="wa-app-avatar p">JT</span>
+          </div>
+          <div class="wa-app-shell">
+            <div class="wa-app-side wa-app-side-board">
+              <div class="heading">Board Member Portal</div>
+              <div class="wa-nav-item is-active"><span class="ic"><i class="fas fa-gauge-high"></i></span>Board Dashboard</div>
+              <div class="wa-nav-item"><span class="ic"><i class="fas fa-calendar-days"></i></span>Calendar</div>
+              <div class="wa-nav-item"><span class="ic"><i class="fas fa-clipboard-list"></i></span>Meetings</div>
+              <div class="wa-nav-item"><span class="ic"><i class="fas fa-bullhorn"></i></span>Notices</div>
+              <div class="wa-nav-item"><span class="ic"><i class="fas fa-comments"></i></span>Unit Notices <span class="wa-dot" title="2 new"></span></div>
+              <div class="wa-nav-item"><span class="ic"><i class="fas fa-folder-open"></i></span>Documents</div>
+              <div class="wa-nav-item"><span class="ic"><i class="fas fa-id-badge"></i></span>Board Members</div>
+              <div class="wa-nav-item"><span class="ic"><i class="fas fa-users"></i></span>Owner Directory</div>
+              <div class="wa-nav-item"><span class="ic"><i class="fas fa-file-invoice-dollar"></i></span>Bills &amp; Payments</div>
+              <div class="wa-nav-item"><span class="ic"><i class="fas fa-screwdriver-wrench"></i></span>Work Orders</div>
+              <div class="wa-nav-item"><span class="ic"><i class="fas fa-clipboard-check"></i></span>ARC Requests <span class="wa-badge">3</span></div>
+              <div class="wa-nav-item"><span class="ic"><i class="fas fa-people-group"></i></span>Committees</div>
+              <div class="wa-nav-item"><span class="ic"><i class="fas fa-square-check"></i></span>Elections</div>
+              <div class="wa-nav-item"><span class="ic"><i class="fas fa-chart-column"></i></span>Polls</div>
+            </div>
+            <div class="wa-app-main">
+              <h2>Welcome back, Janet</h2>
+              <div class="sub">Cedar Ridge Condos · Treasurer</div>
+              <div class="wa-stat-grid">
+                <div class="wa-stat g"><div class="h">JULY COLLECTIONS</div><div class="v">96%</div><div class="t-sub">$92,160 / $96,000</div></div>
+                <div class="wa-stat s"><div class="h">OPERATING CASH</div><div class="v">$184,212</div><div class="t-sub">+ $4,920 today</div></div>
+                <div class="wa-stat p"><div class="h">RESERVE FUND</div><div class="v">$408,930</div><div class="t-sub">on target</div></div>
+                <div class="wa-stat t"><div class="h">OPEN A/R</div><div class="v">$3,840</div><div class="t-sub">4 owners · 30+ days</div></div>
+              </div>
+              <div class="wa-board-bottom">
+                <div class="wa-card">
+                  <div class="wa-card-head">Awaiting your approval</div>
+                  <table>
+                    <tbody>
+                      <tr><td><strong>Pacific Landscaping</strong></td><td style="color:#62626D;font-size:12px">Jul vendor invoice</td><td class="amt">$1,240.00</td><td style="text-align:right;padding:10px 12px"><span class="approve">Approve</span></td></tr>
+                      <tr><td><strong>Roof inspection (Olson)</strong></td><td style="color:#62626D;font-size:12px">Q3 reserve item</td><td class="amt">$850.00</td><td style="text-align:right;padding:10px 12px"><span class="approve">Approve</span></td></tr>
+                      <tr><td><strong>Janet Tan</strong></td><td style="color:#62626D;font-size:12px">Reimbursement</td><td class="amt">$94.50</td><td style="text-align:right;padding:10px 12px"><span class="approve">Approve</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="wa-card wa-card-side">
+                  <div class="h">This week</div>
+                  <div class="row"><span>Aug board meeting prep</span><span class="day">Tue</span></div>
+                  <div class="row"><span>Q2 financials review</span><span class="day">Wed</span></div>
+                  <div class="row"><span>Election notice draft</span><span class="day">Fri</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OWNER VIEW -->
+        <div class="wa-bvo-panel" data-panel="owner">
+          <div class="wa-app-bar">
+            <span class="wa-app-logo"><span class="g">HOA</span> <span class="p">Fiscal</span></span>
+            <span class="ctx">Cedar Ridge · Owner Portal</span>
+            <span class="wa-app-avatar t">LP</span>
+          </div>
+          <div class="wa-app-shell owner">
+            <div class="wa-app-side owner">
+              <div class="heading">Owner Menu</div>
+              <div class="wa-nav-item is-active"><span class="ic">⌂</span>My Account</div>
+              <div class="wa-nav-item"><span class="ic">$</span>Make a Payment</div>
+              <div class="wa-nav-item"><span class="ic">↻</span>Payment History</div>
+              <div class="wa-nav-item"><span class="ic">↺</span>Autopay Setup</div>
+              <div class="wa-nav-item"><span class="ic">☰</span>Statements</div>
+              <div class="wa-nav-item"><span class="ic">◫</span>Documents</div>
+              <div class="wa-nav-item"><span class="ic">✉</span>Notices from Board</div>
+              <div class="wa-nav-item"><span class="ic">⚒</span>Maintenance Request</div>
+              <div class="wa-nav-item"><span class="ic">☏</span>Contact Management</div>
+              <div class="wa-help-card">
+                <strong>Need help?</strong>
+                Call Dynamite Mgmt<br>
+                <span style="font-family:var(--mono);font-size:11px">(888) 575-0563</span>
+              </div>
+            </div>
+            <div class="wa-app-main owner">
+              <h2 style="font-size:22px">Welcome back, Linda!</h2>
+              <div class="sub" style="margin-bottom:22px">Unit 304 · Cedar Ridge Condominiums</div>
+              <div class="wa-owner-grid">
+                <div class="wa-balance">
+                  <div class="h">CURRENT BALANCE DUE</div>
+                  <div class="v">$385.00</div>
+                  <div class="t">July 2026 monthly assessment · due Jul 15</div>
+                  <div class="actions">
+                    <button class="pay">Pay $385.00 now</button>
+                    <button class="auto">Set up autopay</button>
+                  </div>
+                  <div class="summary">
+                    <div class="row"><span>Assessment Balance</span><span>$385.00</span></div>
+                    <div class="row"><span>Prepaid Balance</span><span>$0.00</span></div>
+                    <div class="row total"><span>Total Outstanding</span><span>$385.00</span></div>
+                  </div>
+                </div>
+                <div class="wa-owner-side">
+                  <div class="wa-notice">
+                    <div class="h">NOTICE FROM YOUR BOARD</div>
+                    <p>Annual election ballots open Aug 1. Two seats. <a href="#">Read more</a></p>
+                  </div>
+                  <div class="wa-activity">
+                    <div class="h">Recent activity</div>
+                    <div class="row"><span>Jun assessment</span><span><span class="wa-pill">Paid</span>$385.00</span></div>
+                    <div class="row"><span>May assessment</span><span><span class="wa-pill">Paid</span>$385.00</span></div>
+                    <div class="row"><span>Late fee</span><span><span class="wa-pill">Paid</span>$25.00</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== PRICING =================== -->
+  <section class="wa-pricing" id="pricing">
+    <svg class="wa-pricing-star" viewBox="0 0 80 80" aria-hidden="true">
+      <path d="M40 6 L46 30 L70 30 L50 44 L58 68 L40 54 L22 68 L30 44 L10 30 L34 30 Z" fill="#FF6F31"/>
+    </svg>
+    <div class="wa-wrap">
+      <div class="wa-pricing-grid">
+        <div>
+          <div class="wa-kicker" style="color:var(--fuse)">WASHINGTON SELF-MANAGED</div>
+          <h2>One flat fee. One invoice. No surprises.</h2>
+          <div class="price-row">
+            <span class="price-big">$750</span>
+            <span class="price-per">/month</span>
+          </div>
+          <p class="lede">For Washington condominium associations of 8 to 99 units. Includes the full Dynamite team and unlimited HOA Fiscal platform seats. Larger buildings quoted separately.</p>
+        </div>
+        <div class="wa-pricing-card">
+          <div class="lbl">WHAT'S INCLUDED</div>
+          <div class="wa-incl-row">{{ fuse_svg|safe }}Full administrative team — notices, mailings, elections</div>
+          <div class="wa-incl-row">{{ fuse_svg|safe }}Full accounting team — close, AP, AR, financials</div>
+          <div class="wa-incl-row">{{ fuse_svg|safe }}HOA Fiscal platform — unlimited owner &amp; board seats</div>
+          <div class="wa-incl-row">{{ fuse_svg|safe }}Online owner payments (ACH) included</div>
+          <div class="wa-incl-row">{{ fuse_svg|safe }}Annual 1120-H tax preparation</div>
+          <div class="wa-incl-row">{{ fuse_svg|safe }}Reserve fund reporting</div>
+          <div class="wa-incl-row">{{ fuse_svg|safe }}No setup fees · No long-term contract</div>
+          <a href="{% url 'core:contact' %}" class="wa-btn wa-btn-primary" style="justify-content:center;width:100%">Contact Us About Your Building →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== FINAL CTA =================== -->
+  <section class="wa-final" id="contact">
+    <div class="wa-wrap">
+      <div class="wa-kicker">Get In Touch</div>
+      <h2>Tell us about your association.</h2>
+      <p class="lede">We'd love to hear from you. Fifteen minutes — we'll tell you whether Dynamite is the right fit for your Washington association, and whether $750/mo makes sense for your building.</p>
+      <div class="wa-final-ctas">
+        <a href="{% url 'core:contact' %}" class="wa-btn wa-btn-primary" style="font-size:15px;padding:16px 30px">Contact Us →</a>
+        <a href="tel:8885750563" class="wa-btn wa-btn-ghost" style="font-size:15px;padding:16px 30px">Call (888) 575-0563</a>
+      </div>
+      <div class="wa-final-info">
+        <span><strong>Phone:</strong> (888) 575-0563</span>
+        <span><strong>Email:</strong> info@hoafiscal.com</span>
+        <span><strong>Hours:</strong> Mon–Fri, 9am–5pm PT</span>
+      </div>
+      <div class="wa-final-more">
+        Looking for the bigger picture?
+        <a href="{% url 'core:state_detail' location_name='washington' %}">More about Dynamite's Washington service area →</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+{% endwith %}
+
+<script>
+  (function(){
+    /* --- HOW IT WORKS tabs --- */
+    var tabs = document.querySelectorAll('.wa-how-tab');
+    var panels = document.querySelectorAll('.wa-how-panel');
+    tabs.forEach(function(t){
+      t.addEventListener('click', function(){
+        var key = t.getAttribute('data-tab');
+        tabs.forEach(function(x){ x.classList.toggle('is-active', x === t); });
+        panels.forEach(function(p){ p.classList.toggle('is-active', p.getAttribute('data-panel') === key); });
+      });
+    });
+
+    /* --- BOARD VS OWNER toggle --- */
+    var pills = document.querySelectorAll('.wa-bvo-pill');
+    var bpanels = document.querySelectorAll('.wa-bvo-panel');
+    pills.forEach(function(p){
+      p.addEventListener('click', function(){
+        var key = p.getAttribute('data-view');
+        pills.forEach(function(x){ x.classList.toggle('is-active', x === p); });
+        bpanels.forEach(function(panel){ panel.classList.toggle('is-active', panel.getAttribute('data-panel') === key); });
+      });
+    });
+
+    /* --- SCENARIO stepper --- */
+    var stepData = [
+      { surface:'OWNER PORTAL', title:'Linda pays her July assessment', body:'She logs into the owner portal at 9pm, pays $385 by ACH. Confirmation hits her inbox. Autopay set for next month.', visual:'portal' },
+      { surface:'BEHIND THE SCENES', title:'HOA Fiscal records the payment', body:'Funds allocate FIFO against her oldest open charge. Her ledger updates. The operating-fund cash account on the books moves in lockstep.', visual:'ledger' },
+      { surface:'BACK OFFICE', title:'Our Washington team reconciles the deposit', body:'When the bank batch lands, we match it. No data entry. The next monthly statement is already 90% built.', visual:'reconcile' },
+      { surface:'BOARD DASHBOARD', title:'You see it on the dashboard', body:'Treasurer opens the board view: A/R aging is current, July collections at 96%, no action needed. Approve the AP run for the landscaper and close the laptop.', visual:'board' }
+    ];
+
+    var visuals = {
+      portal: '<div class="wa-mini">'
+        + '<div class="crumb" style="color:var(--hf-slate)">Owner Portal · Linda Park · Unit 304</div>'
+        + '<div class="card">'
+        +   '<div class="lbl">Current Balance Due</div>'
+        +   '<div class="big">$385.00</div>'
+        +   '<div class="tiny">July 2026 assessment</div>'
+        +   '<button class="pay-btn">Pay $385.00 now</button>'
+        +   '<div class="tiny" style="text-align:center;margin-top:10px">☑ Set up autopay for future months</div>'
+        + '</div></div>',
+      ledger: '<div class="wa-mini wa-mini-ledger">'
+        + '<div class="crumb" style="font-family:var(--sans);color:var(--hf-purple)">General Ledger · Operating Fund</div>'
+        + '<div class="card" style="padding:12px">'
+        +   '<div class="row"><span>07/15</span><span>1010 Cash – Operating</span><span class="dr">385.00</span><span></span></div>'
+        +   '<div class="row"><span>07/15</span><span>1200 A/R – Linda Park</span><span></span><span class="cr">385.00</span></div>'
+        +   '<div class="note">✓ Auto-allocated FIFO · Linda\'s ledger updated</div>'
+        + '</div></div>',
+      reconcile: '<div class="wa-mini wa-mini-rec">'
+        + '<div class="crumb" style="color:var(--fuse)">Bank Reconciliation · Operating</div>'
+        + '<div class="card" style="padding:14px">'
+        +   '<div class="line"><span>Bank deposit batch #2407-15</span><span class="pos">+ $4,920.00</span></div>'
+        +   '<div class="matches">'
+        +     '<div style="font-size:10.5px;color:var(--muted);margin-bottom:4px">Matched payments</div>'
+        +     '<div style="font-size:11.5px;color:var(--body);padding:2px 0"><span style="color:var(--hf-green);margin-right:6px">✓</span>Linda Park · $385</div>'
+        +     '<div style="font-size:11.5px;color:var(--body);padding:2px 0"><span style="color:var(--hf-green);margin-right:6px">✓</span>M. Chen · $385</div>'
+        +     '<div style="font-size:11.5px;color:var(--body);padding:2px 0"><span style="color:var(--hf-green);margin-right:6px">✓</span>...11 more</div>'
+        +   '</div>'
+        +   '<div class="ok">Reconciled · 0 exceptions</div>'
+        + '</div></div>',
+      board: '<div class="wa-mini wa-mini-board">'
+        + '<div class="crumb" style="color:var(--navy)">Board Dashboard · Cedar Ridge Condos</div>'
+        + '<div class="stats">'
+        +   '<div class="stat g"><div class="h">JULY COLLECTIONS</div><div class="v">96%</div><div class="t">$92,160 of $96,000</div></div>'
+        +   '<div class="stat s"><div class="h">OPERATING CASH</div><div class="v">$184k</div><div class="t">+ $4.9k today</div></div>'
+        + '</div>'
+        + '<div class="approval">'
+        +   '<div class="h">Awaiting your approval</div>'
+        +   '<div class="item">Pacific Landscaping · $1,240 · AP run</div>'
+        +   '<div class="item">Roof inspection invoice · $850</div>'
+        + '</div></div>'
+    };
+
+    var step = 0;
+    var rail = document.getElementById('wa-step-rail');
+    var surfaceEl = document.getElementById('wa-step-surface');
+    var titleEl = document.getElementById('wa-step-title');
+    var bodyEl = document.getElementById('wa-step-body');
+    var visualEl = document.getElementById('wa-step-visual');
+    var prevBtn = document.getElementById('wa-step-prev');
+    var nextBtn = document.getElementById('wa-step-next');
+
+    function render(){
+      var d = stepData[step];
+      surfaceEl.textContent = d.surface;
+      titleEl.textContent = d.title;
+      bodyEl.textContent = d.body;
+      visualEl.innerHTML = visuals[d.visual];
+      // step circles
+      rail.querySelectorAll('.wa-step').forEach(function(s, i){
+        s.classList.toggle('is-current', i === step);
+        s.classList.toggle('is-done', i < step);
+      });
+      rail.querySelectorAll('.wa-step-line').forEach(function(l, i){
+        l.classList.toggle('is-done', i < step);
+      });
+      prevBtn.disabled = step === 0;
+      nextBtn.disabled = step === stepData.length - 1;
+    }
+
+    rail.querySelectorAll('.wa-step').forEach(function(s){
+      s.addEventListener('click', function(){
+        step = parseInt(s.getAttribute('data-step'), 10);
+        render();
+      });
+    });
+    prevBtn.addEventListener('click', function(){ if(step > 0){ step--; render(); } });
+    nextBtn.addEventListener('click', function(){ if(step < stepData.length - 1){ step++; render(); } });
+    render();
+  })();
+</script>
+{% endblock %}
