@@ -6,11 +6,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="Gu2LZbjSxqwyoVnTYtZq_SVnXvYIshph5Q5teWLTQc8" />
-    <title>{% block title %}Dynamite Management{% endblock %}
-    {% block meta_description %}{% endblock %}
-    {% block meta_keywords %}{% endblock %}</title>
 
-        <!-- Add this in the <head> section of your base.html -->
+    <title>{% block title %}Dynamite Management - Trusted Financial Management for HOAs and Condominiums{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Dynamite Management provides expert financial management, accounting, and tax preparation for homeowner and condominium associations across the United States.{% endblock %}">
+    {% block meta_keywords %}{% endblock %}
+
+    <link rel="canonical" href="https://dynamitemanagement.com{{ request.path }}">
+
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:site_name" content="Dynamite Management">
+    <meta property="og:url" content="https://dynamitemanagement.com{{ request.path }}">
+    <meta property="og:title" content="{% block og_title %}Dynamite Management - Trusted Financial Management for HOAs and Condominiums{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Dynamite Management provides expert financial management, accounting, and tax preparation for homeowner and condominium associations across the United States.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}https://dynamitemanagement.com{% static 'images/lit-fuse.png' %}{% endblock %}">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}Dynamite Management{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}HOA and condominium financial management, accounting, and tax preparation services.{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}https://dynamitemanagement.com{% static 'images/lit-fuse.png' %}{% endblock %}">
+
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
@@ -22,13 +36,29 @@
     <!-- Custom CSS -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
     <link href="{% static 'css/location_detail.css' %}" rel="stylesheet">
-  
+
     <link href="{% static 'css/about.css' %}" rel="stylesheet">
     <link href="{% static 'css/contact.css' %}" rel="stylesheet">
     <link href="{% static 'css/blog.css' %}" rel="stylesheet">
     <script src="https://unpkg.com/htmx.org"></script>
     <!-- Ahrefs Web Analytics -->
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="0krGrAUSWgRv3t8CsSo/+g" async></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Dynamite Management",
+      "url": "https://dynamitemanagement.com",
+      "logo": "https://dynamitemanagement.com{% static 'images/lit-fuse.png' %}",
+      "description": "Expert financial management, accounting, and tax preparation services for homeowner and condominium associations across the United States.",
+      "telephone": "(888) 575-0563",
+      "email": "info@hoafiscal.com",
+      "areaServed": "United States",
+      "priceRange": "$$"
+    }
+    </script>
+    {% block jsonld %}{% endblock %}
 </head>
 <body>
     {% include 'partials/header.html' %}

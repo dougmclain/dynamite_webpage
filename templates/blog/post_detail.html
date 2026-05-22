@@ -2,11 +2,18 @@
 {% load static %}
 
 {% block title %}{{ post.title }} - Dynamite Management Blog{% endblock %}
-{% block meta_description %}<meta name="description" content="{{ post.meta_description|default:post.excerpt }}">{% endblock %}
+{% block meta_description %}{{ post.meta_description|default:post.excerpt }}{% endblock %}
 {% block meta_keywords %}{% if post.meta_keywords %}<meta name="keywords" content="{{ post.meta_keywords }}">{% endif %}{% endblock %}
 
-{% block content %}
-<!-- JSON-LD Structured Data -->
+{% block og_type %}article{% endblock %}
+{% block og_title %}{{ post.title }}{% endblock %}
+{% block og_description %}{{ post.meta_description|default:post.excerpt }}{% endblock %}
+{% if post.featured_image %}{% block og_image %}{{ post.featured_image.url }}{% endblock %}{% endif %}
+{% block twitter_title %}{{ post.title }}{% endblock %}
+{% block twitter_description %}{{ post.meta_description|default:post.excerpt }}{% endblock %}
+{% if post.featured_image %}{% block twitter_image %}{{ post.featured_image.url }}{% endblock %}{% endif %}
+
+{% block jsonld %}
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -21,12 +28,22 @@
     "dateModified": "{{ post.updated_at|date:'c' }}",
     "publisher": {
         "@type": "Organization",
-        "name": "Dynamite Management"
+        "name": "Dynamite Management",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://dynamitemanagement.com{% load static %}{% static 'images/lit-fuse.png' %}"
+        }
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://dynamitemanagement.com{% url 'blog:post_detail' slug=post.slug %}"
     }{% if post.featured_image %},
     "image": "{{ post.featured_image.url }}"{% endif %}
 }
 </script>
+{% endblock %}
 
+{% block content %}
 <section class="blog-header">
     <div class="container">
         <!-- Breadcrumbs -->

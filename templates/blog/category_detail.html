@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}{{ category.name }} - Dynamite Management Blog{% endblock %}
-{% block meta_description %}<meta name="description" content="{{ category.description|default:'Browse articles in the category.' }}">{% endblock %}
+{% block meta_description %}{{ category.description|default:"Browse Dynamite Management blog articles in this category." }}{% endblock %}
 
 {% block content %}
 <section class="blog-header">
