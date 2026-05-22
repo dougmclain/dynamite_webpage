@@ -37,6 +37,11 @@ ALLOWED_HOSTS = os.environ.get(
 
 # Application definition
 
+# Cloudinary is used for MEDIA storage in production so uploaded files (e.g. blog
+# featured images) survive Render's ephemeral filesystem on every deploy.
+# When CLOUDINARY_URL is unset we fall back to local-disk MEDIA for development.
+USE_CLOUDINARY = bool(os.environ.get("CLOUDINARY_URL"))
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -53,6 +58,11 @@ INSTALLED_APPS = [
     "honeypot",
     "captcha",
 ]
+
+if USE_CLOUDINARY:
+    # cloudinary_storage must come before staticfiles per django-cloudinary-storage docs
+    INSTALLED_APPS.insert(INSTALLED_APPS.index("django.contrib.staticfiles"), "cloudinary_storage")
+    INSTALLED_APPS.append("cloudinary")
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -123,6 +133,12 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # Use Whitenoise's storage backend for compression and caching
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# When CLOUDINARY_URL is set (production on Render), store uploaded media in
+# Cloudinary so files persist across deploys. Locally this stays unset, so
+# uploads continue to write to MEDIA_ROOT for normal development.
+if USE_CLOUDINARY:
+    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

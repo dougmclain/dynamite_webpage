@@ -119,6 +119,12 @@ def wa_condo(request):
     """
     return render(request, 'core/wa_condo.html')
 
+def privacy_policy(request):
+    return render(request, 'core/privacy_policy.html')
+
+def terms_of_service(request):
+    return render(request, 'core/terms_of_service.html')
+
 @check_honeypot
 def contact(request):
     """
