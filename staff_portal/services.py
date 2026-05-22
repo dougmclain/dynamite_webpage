@@ -1,5 +1,4 @@
 import json
-import os
 import re
 import uuid
 
@@ -7,6 +6,7 @@ import bleach
 import requests
 from django.conf import settings
 from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 
 
 class BlogGenerationError(Exception):
@@ -154,26 +154,24 @@ def fetch_pexels_image(query):
         photo = data["photos"][0]
         image_url = photo["src"]["large"]
 
-        # Download the image
         img_response = requests.get(image_url, timeout=15)
         img_response.raise_for_status()
 
-        # Determine file extension
         content_type = img_response.headers.get("content-type", "image/jpeg")
         ext = "jpg" if "jpeg" in content_type else content_type.split("/")[-1]
         filename = f"blog_{uuid.uuid4().hex[:8]}.{ext}"
 
-        # Save to media/blog/featured_images/
-        save_dir = os.path.join(settings.MEDIA_ROOT, "blog", "featured_images")
-        os.makedirs(save_dir, exist_ok=True)
-        save_path = os.path.join(save_dir, filename)
-
-        with open(save_path, "wb") as f:
-            f.write(img_response.content)
+        # Route through Django's storage backend so the file lands in
+        # Cloudinary (or whatever DEFAULT_FILE_STORAGE points at) and
+        # survives ephemeral-disk deploys.
+        saved_name = default_storage.save(
+            f"blog/featured_images/{filename}",
+            ContentFile(img_response.content),
+        )
 
         return {
-            "filename": filename,
-            "path": f"blog/featured_images/{filename}",
+            "filename": saved_name.rsplit("/", 1)[-1],
+            "path": saved_name,
             "photographer": photo.get("photographer", ""),
             "url": photo.get("url", ""),
         }

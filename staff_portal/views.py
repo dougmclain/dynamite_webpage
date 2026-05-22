@@ -1,9 +1,8 @@
 import json
-import os
 
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.core.files.storage import default_storage
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
@@ -81,8 +80,7 @@ def post_create(request):
             # Apply AI-generated image if provided
             ai_image_path = request.POST.get("ai_featured_image", "")
             if ai_image_path and not request.FILES.get("featured_image"):
-                full_path = os.path.join(settings.MEDIA_ROOT, ai_image_path)
-                if os.path.exists(full_path):
+                if default_storage.exists(ai_image_path):
                     post.featured_image = ai_image_path
 
             post.save()
@@ -108,8 +106,7 @@ def post_edit(request, pk):
             # Apply AI-generated image if provided
             ai_image_path = request.POST.get("ai_featured_image", "")
             if ai_image_path and not request.FILES.get("featured_image"):
-                full_path = os.path.join(settings.MEDIA_ROOT, ai_image_path)
-                if os.path.exists(full_path):
+                if default_storage.exists(ai_image_path):
                     post_obj.featured_image = ai_image_path
 
             post_obj.save()
