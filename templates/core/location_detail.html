@@ -1,7 +1,70 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Dynamite Management - {{ location.name }} {% endblock %}
+{% block title %}HOA & Condo Financial Management in {{ location.name }} | Dynamite Management{% endblock %}
+{% block meta_description %}Dynamite Management provides HOA and condominium financial management, accounting, and Form 1120-H tax preparation for associations in {{ location.name }}. Flat-fee pricing, dedicated team.{% endblock %}
+{% block og_description %}Dynamite Management provides HOA and condominium financial management, accounting, and Form 1120-H tax preparation for associations in {{ location.name }}. Flat-fee pricing, dedicated team.{% endblock %}
+{% block og_image %}https://dynamitemanagement.com{% static location.image_path %}{% endblock %}
+{% block twitter_image %}https://dynamitemanagement.com{% static location.image_path %}{% endblock %}
+
+{% block jsonld %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "HOA & Condominium Financial Management in {{ location.name|escapejs }}",
+    "description": "Dynamite Management provides accounting, financial management, and Form 1120-H tax preparation for homeowner and condominium associations in {{ location.name|escapejs }}.",
+    "provider": {
+        "@type": "ProfessionalService",
+        "name": "Dynamite Management",
+        "url": "https://dynamitemanagement.com",
+        "telephone": "(888) 575-0563",
+        "email": "info@hoafiscal.com"
+    },
+    "areaServed": {
+        "@type": "{% if location_type == 'city' %}City{% else %}State{% endif %}",
+        "name": "{{ location.name|escapejs }}"{% if location_type == 'city' %},
+        "containedInPlace": {
+            "@type": "State",
+            "name": "{{ location.state|escapejs }}"
+        }{% endif %}
+    },
+    "serviceType": "Homeowner Association Financial Management"
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://dynamitemanagement.com/"
+        }{% if location_type == 'city' %},
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "{{ location.state|escapejs }}",
+            "item": "https://dynamitemanagement.com/locations/{{ location.state|lower }}/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "{{ location.name|escapejs }}",
+            "item": "https://dynamitemanagement.com{{ request.path }}"
+        }{% else %},
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "{{ location.name|escapejs }}",
+            "item": "https://dynamitemanagement.com{{ request.path }}"
+        }{% endif %}
+    ]
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <!-- Location Header Section -->
