@@ -3,4 +3,4 @@ Disallow: /admin/
 Disallow: /staff/
 Disallow: /tinymce/
 
-Sitemap: https://www.dynamitemanagement.com/sitemap.xml
+Sitemap: https://dynamitemanagement.com/sitemap.xml
