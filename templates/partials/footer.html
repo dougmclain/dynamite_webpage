@@ -5,18 +5,18 @@
             <div class="col-lg-2 col-md-4 mb-2 mb-md-0">
                 <h5 class="footer-title mb-2">Quick Links</h5>
                 <ul class="footer-links mb-0">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about">About</a></li>
-                    <li><a href="/condo-financial-management">Services</a></li>
-                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="{% url 'core:home' %}">Home</a></li>
+                    <li><a href="{% url 'core:about' %}">About</a></li>
+                    <li><a href="{% url 'core:financial_management' %}">Services</a></li>
+                    <li><a href="{% url 'core:contact' %}">Contact</a></li>
                 </ul>
             </div>
-            
+
             <div class="col-lg-3 col-md-4 mb-2 mb-md-0">
                 <h5 class="footer-title mb-2">Our Services</h5>
                 <ul class="footer-links mb-0">
-                    <li><a href="/condo-financial-management">Financial Management</a></li>
-                    <li><a href="/hoa-taxes">HOA Tax Preparation</a></li>
+                    <li><a href="{% url 'core:financial_management' %}">Financial Management</a></li>
+                    <li><a href="{% url 'core:hoa_taxes' %}">HOA Tax Preparation</a></li>
                     <li><a href="https://www.hoafiscal.com/login/">Owners Portal</a></li>
                     <li><a href="https://budget-tool-vhld.onrender.com">Budget Tool</a></li>
                 </ul>

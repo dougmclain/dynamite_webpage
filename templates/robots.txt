@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /staff/
+Disallow: /tinymce/
+
+Sitemap: https://www.dynamitemanagement.com/sitemap.xml

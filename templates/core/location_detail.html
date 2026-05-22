@@ -69,7 +69,7 @@
         <!-- Contact CTA below the callout, centered for prominence -->
         <div class="row mt-3" style="height:auto !important">
             <div class="col-12 text-center">
-                <a href="/contact" class="btn btn-primary cta-button">Contact Us in {{ location.name }}</a>
+                <a href="{% url 'core:contact' %}" class="btn btn-primary cta-button">Contact Us in {{ location.name }}</a>
             </div>
         </div>
     </div>

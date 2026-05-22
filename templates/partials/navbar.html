@@ -8,17 +8,17 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto"> <!-- Changed to ms-auto to align right -->
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="{% url 'core:home' %}">Home</a>
                 </li>
-                
+
                 <!-- Services Dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                         Services
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" href="/condo-financial-management">Condo Financial Management</a></li>
-                        <li><a class="dropdown-item" href="/hoa-taxes">HOA Tax Preparation</a></li>
+                        <li><a class="dropdown-item" href="{% url 'core:financial_management' %}">Condo Financial Management</a></li>
+                        <li><a class="dropdown-item" href="{% url 'core:hoa_taxes' %}">HOA Tax Preparation</a></li>
                         <li><a class="dropdown-item" href="https://www.hoafiscal.com/login/">Owners Portal</a></li>
                     </ul>
                 </li>
@@ -46,15 +46,15 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
+                    <a class="nav-link" href="{% url 'core:about' %}">About</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/blog">Blog</a>
+                    <a class="nav-link" href="{% url 'blog:post_list' %}">Blog</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contact Us</a>
+                    <a class="nav-link" href="{% url 'core:contact' %}">Contact Us</a>
                 </li>
 
                 {% if user.is_staff %}
