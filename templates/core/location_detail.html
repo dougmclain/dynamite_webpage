@@ -82,20 +82,15 @@
             <!-- Text Column (Right) - Using EXACT same structure as process-section -->
             <div class="col-lg-5 col-md-12 mb-4 mb-lg-0 order-2 order-lg-1">
                 <div class="process-box h-100">
-                    <h2 class="section-title mb-3">{{ location.name }} - Serving the community for over a decade</h2>
+                    <h2 class="section-title mb-3">HOA &amp; Condo Financial Management in {{ location.name }}</h2>
                     <p class="section-text mb-4">
-                        For the past decade, the Dynamite Management, LLC team has been providing sound financial services to condo associations throughout {{ location.name }}. 
-                        We are recognized for managing our clients' financial and budget issues with professionalism and attention to detail that enhances their condo associations' 
-                        financial stability, along with the responsive service that has helped make us the {{ location.name }} condo association accounting leader.
+                        {{ location.intro|default:"Dynamite Management provides homeowner and condominium associations dependable accounting, fraud protection, and financial oversight — with the responsiveness and attention to detail that protects owners' investments." }}
                     </p>
-                    
-                    <h2 class="section-title mb-3 mt-3">Experienced {{ location.name }} Condo Association Accounting</h2>
+
+                    <h2 class="section-title mb-3 mt-3">{{ location.name }} HOA &amp; Condo Law: What Boards Should Know</h2>
                     <p class="section-text">
-                        We understand the Association's finances are an integral part of the community therefore it is important for us to help our clients understand the finances, 
-                        identify areas of concern, and find solutions to help protect the financial integrity of the Association and the Owners' investment. Our services are proven 
-                        and have helped many {{ location.name }} Condo Associations regain their financial stability.
+                        {{ location.law|default:"We help boards understand their association's finances, identify areas of concern, and protect the financial integrity of the community and the owners' investment." }}
                     </p>
-                    
                 </div>
             </div>
 
