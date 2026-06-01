@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import Http404
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
@@ -109,15 +110,21 @@ def location_detail(request, location_type, location_name=None, state_name=None)
     
     # Determine which location data to use based on URL parameters
     if location_type == 'state':
-        location = states.get(location_name, {})
+        location = states.get(location_name)
     else:  # City
-        location = cities.get(location_name, {})
-    
+        location = cities.get(location_name)
+
+    # Unknown / legacy location slugs must return 404. Otherwise the template
+    # renders an empty page (HTTP 200) that Google flags as a thin duplicate
+    # (e.g. old URLs like /locations/washington-condo-association-accounting/...).
+    if not location:
+        raise Http404("Location not found")
+
     context = {
         'location': location,
         'location_type': location_type,
     }
-    
+
     return render(request, 'core/location_detail.html', context)
 
 def financial_management(request):
