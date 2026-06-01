@@ -22,3 +22,5 @@ media/
 
 # Collected static files
 staticfiles/
+
+.venv/
