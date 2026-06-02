@@ -132,14 +132,42 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# Use Whitenoise's storage backend for compression and caching
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# Storage backends.
+#
+# Django 5.1 REMOVED the old STATICFILES_STORAGE and DEFAULT_FILE_STORAGE
+# settings — they are now silently ignored, and the unified STORAGES dict below
+# is the only thing Django reads. The previous config set DEFAULT_FILE_STORAGE
+# to Cloudinary, which Django 5.1 dropped on the floor, so uploaded media kept
+# landing on Render's ephemeral disk and vanished on every deploy. Define both
+# backends through STORAGES so the Cloudinary wiring actually takes effect.
+STORAGES = {
+    "default": {
+        # Local-disk uploads for development; overridden below for production.
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        # Whitenoise: compression + hashed filenames for long-lived caching.
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # When CLOUDINARY_URL is set (production on Render), store uploaded media in
-# Cloudinary so files persist across deploys. Locally this stays unset, so
-# uploads continue to write to MEDIA_ROOT for normal development.
+# Cloudinary so featured images persist across deploys. Locally CLOUDINARY_URL
+# is unset, so uploads continue to write to MEDIA_ROOT for normal development.
 if USE_CLOUDINARY:
-    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+    STORAGES["default"]["BACKEND"] = "cloudinary_storage.storage.MediaCloudinaryStorage"
+elif os.environ.get("RENDER"):
+    # Running on Render without Cloudinary means media is written to the
+    # ephemeral filesystem and wiped on the next deploy. Make that loud in the
+    # deploy/runtime logs so this misconfiguration can never silently recur.
+    import warnings
+
+    warnings.warn(
+        "CLOUDINARY_URL is not set on Render: uploaded media will be stored on "
+        "the ephemeral filesystem and LOST on the next deploy. Set CLOUDINARY_URL "
+        "in the Render environment to persist blog images.",
+        RuntimeWarning,
+    )
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

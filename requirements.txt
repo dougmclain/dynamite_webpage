@@ -47,5 +47,5 @@ anthropic
 bleach
 dj-database-url
 psycopg2-binary
-cloudinary
-django-cloudinary-storage
+cloudinary==1.44.2
+django-cloudinary-storage==0.3.0
