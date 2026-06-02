@@ -53,6 +53,12 @@ class BlogPost(models.Model):
     featured_image = models.ImageField(
         upload_to="blog/featured_images/", blank=True, null=True
     )
+    # Path (relative to STATIC_URL) of a featured image committed to the repo and
+    # served by WhiteNoise. Unlike featured_image — uploaded to MEDIA on Render's
+    # ephemeral disk and wiped on every deploy — a static image ships with the
+    # code and never disappears. When set it takes precedence; see
+    # featured_image_src / has_featured_image below.
+    featured_image_static = models.CharField(max_length=200, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="blog_posts")
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True, blank=True, related_name="posts"
@@ -97,6 +103,28 @@ class BlogPost(models.Model):
             self.excerpt = clean_text[:300].rsplit(" ", 1)[0] + "..."
 
         super().save(*args, **kwargs)
+
+    @property
+    def featured_image_src(self):
+        """URL for the featured image, preferring the persistent static asset
+        over the ephemeral MEDIA upload. Returns "" when neither is set."""
+        if self.featured_image_static:
+            from django.conf import settings
+            from django.templatetags.static import static
+
+            try:
+                return static(self.featured_image_static)
+            except ValueError:
+                # Missing manifest entry (e.g. collectstatic hasn't run yet).
+                # Fall back to the unhashed static URL rather than crash the page.
+                return settings.STATIC_URL + self.featured_image_static
+        if self.featured_image:
+            return self.featured_image.url
+        return ""
+
+    @property
+    def has_featured_image(self):
+        return bool(self.featured_image_static or self.featured_image)
 
     @property
     def reading_time(self):

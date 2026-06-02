@@ -2,9 +2,9 @@
 <div class="col-md-6 col-lg-4 mb-4">
     <div class="blog-card h-100">
         <a href="{% url 'blog:post_detail' slug=post.slug %}" class="text-decoration-none">
-            {% if post.featured_image %}
+            {% if post.has_featured_image %}
             <div class="blog-card-image">
-                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                <img src="{{ post.featured_image_src }}" alt="{{ post.title }}">
             </div>
             {% else %}
             <div class="blog-card-image blog-card-image-placeholder">
