@@ -61,8 +61,16 @@ INSTALLED_APPS = [
 ]
 
 if USE_CLOUDINARY:
-    # cloudinary_storage must come before staticfiles per django-cloudinary-storage docs
-    INSTALLED_APPS.insert(INSTALLED_APPS.index("django.contrib.staticfiles"), "cloudinary_storage")
+    # We use Cloudinary for MEDIA only and WhiteNoise for static. The
+    # "cloudinary" app provides config from CLOUDINARY_URL; that's all we need —
+    # MediaCloudinaryStorage (wired via STORAGES below) works as a plain backend
+    # class without app registration.
+    #
+    # We deliberately do NOT add the "cloudinary_storage" app to INSTALLED_APPS:
+    # it overrides collectstatic with a static-on-Cloudinary variant that reads
+    # the legacy settings.STATICFILES_STORAGE, which Django 5.1 removed — that
+    # override crashed the build with AttributeError. Standard collectstatic plus
+    # WhiteNoise is the correct path for our static files.
     INSTALLED_APPS.append("cloudinary")
 
 MIDDLEWARE = [
