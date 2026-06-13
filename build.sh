@@ -6,7 +6,7 @@ pip install -r requirements.txt
 python manage.py collectstatic --noinput
 python manage.py migrate
 
-# Clear references to featured images that no longer exist in storage (Render's
-# MEDIA disk is wiped on every deploy). Keeps blog posts from rendering broken
-# <img> tags. Non-fatal: a failure here must never block a deploy.
-python manage.py prune_dead_featured_images || echo "prune_dead_featured_images failed (non-fatal)"
+# Clear references to blog images (featured + inline body images) that no longer
+# exist in storage (Render's MEDIA disk is wiped on every deploy). Keeps blog
+# posts from rendering broken <img> tags. Non-fatal: must never block a deploy.
+python manage.py prune_dead_blog_images || echo "prune_dead_blog_images failed (non-fatal)"
