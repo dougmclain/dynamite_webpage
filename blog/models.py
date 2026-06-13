@@ -105,26 +105,44 @@ class BlogPost(models.Model):
         super().save(*args, **kwargs)
 
     @property
-    def featured_image_src(self):
-        """URL for the featured image, preferring the persistent static asset
-        over the ephemeral MEDIA upload. Returns "" when neither is set."""
-        if self.featured_image_static:
-            from django.conf import settings
-            from django.templatetags.static import static
+    def _media_upload_persists(self):
+        """True only when an uploaded ``featured_image`` will actually survive a
+        Render deploy. MEDIA uploads live on Render's ephemeral disk and are
+        wiped on every deploy unless Cloudinary is the active media backend
+        (``CLOUDINARY_URL`` set). When it isn't, linking the upload would render
+        a broken <img> after the next deploy, so we treat the post as having no
+        image and let the template fall back to its placeholder instead."""
+        from django.conf import settings
 
-            try:
-                return static(self.featured_image_static)
-            except ValueError:
-                # Missing manifest entry (e.g. collectstatic hasn't run yet).
-                # Fall back to the unhashed static URL rather than crash the page.
-                return settings.STATIC_URL + self.featured_image_static
-        if self.featured_image:
+        return bool(self.featured_image) and getattr(settings, "USE_CLOUDINARY", False)
+
+    @staticmethod
+    def _static_url(path):
+        from django.conf import settings
+        from django.templatetags.static import static
+
+        try:
+            return static(path)
+        except ValueError:
+            # Missing manifest entry (e.g. collectstatic hasn't run yet). Fall
+            # back to the unhashed static URL rather than crash the page.
+            return settings.STATIC_URL + path
+
+    @property
+    def featured_image_src(self):
+        """URL for the featured image. Prefers the persistent static asset
+        committed to the repo, then a Cloudinary-backed upload. Never returns an
+        ephemeral /media/ URL that would 404 after a deploy. Returns "" when the
+        post has no image guaranteed to persist."""
+        if self.featured_image_static:
+            return self._static_url(self.featured_image_static)
+        if self._media_upload_persists:
             return self.featured_image.url
         return ""
 
     @property
     def has_featured_image(self):
-        return bool(self.featured_image_static or self.featured_image)
+        return bool(self.featured_image_static) or self._media_upload_persists
 
     @property
     def reading_time(self):
