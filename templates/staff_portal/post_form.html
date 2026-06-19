@@ -210,6 +210,9 @@
                 <small class="text-muted">Featured Image:</small>
                 <img id="aiImageThumb" src="" alt="AI image" class="img-fluid rounded mt-1">
                 <small class="text-muted d-block mt-1">Photo by <span id="aiPhotographer"></span> on Pexels</small>
+                <button type="button" class="btn btn-outline-success btn-sm w-100 mt-2" id="applyImageOnlyBtn">
+                    <i class="fas fa-image me-1"></i>Apply image only (keep my text)
+                </button>
             </div>
             <button type="button" class="btn btn-success w-100" id="applyAiBtn">
                 <i class="fas fa-check me-1"></i>Apply to Editor
@@ -346,17 +349,37 @@ document.addEventListener('DOMContentLoaded', function() {
         if (metaKeywordsField && aiData.meta_keywords) metaKeywordsField.value = aiData.meta_keywords;
 
         // Apply featured image
-        if (aiData.featured_image && aiData.featured_image.path) {
+        applyFeaturedImage();
+
+        closeAiPanel();
+    });
+
+    // Apply ONLY the featured image, leaving existing title/content/excerpt
+    // untouched — for adding an image to an already-written post.
+    document.getElementById('applyImageOnlyBtn').addEventListener('click', function() {
+        if (!aiData) return;
+        if (applyFeaturedImage()) {
+            closeAiPanel();
+        } else {
+            alert('No image was generated to apply.');
+        }
+    });
+
+    function applyFeaturedImage() {
+        if (aiData && aiData.featured_image && aiData.featured_image.path) {
             document.getElementById('aiFeaturedImagePath').value = aiData.featured_image.path;
             const preview = document.getElementById('aiImagePreview');
             document.getElementById('aiImagePreviewImg').src = aiData.featured_image.image_url || ('/media/' + aiData.featured_image.path);
             preview.style.display = 'block';
+            return true;
         }
+        return false;
+    }
 
-        // Close offcanvas
+    function closeAiPanel() {
         const offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('aiPanel'));
         if (offcanvas) offcanvas.hide();
-    });
+    }
 });
 </script>
 {% endblock %}
