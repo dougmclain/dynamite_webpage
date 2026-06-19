@@ -1,4 +1,5 @@
 import json
+import logging
 import re
 import uuid
 
@@ -7,6 +8,8 @@ import requests
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
+
+logger = logging.getLogger(__name__)
 
 
 class BlogGenerationError(Exception):
@@ -136,6 +139,7 @@ Return ONLY a JSON object with these exact keys:
 def fetch_pexels_image(query):
     api_key = settings.PEXELS_API_KEY
     if not api_key:
+        logger.warning("PEXELS_API_KEY is not set; skipping featured image fetch.")
         return None
 
     try:
@@ -176,4 +180,5 @@ def fetch_pexels_image(query):
             "url": photo.get("url", ""),
         }
     except Exception:
+        logger.exception("Failed to fetch/save Pexels image for query %r", query)
         return None
