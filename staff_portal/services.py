@@ -176,6 +176,10 @@ def fetch_pexels_image(query):
         return {
             "filename": saved_name.rsplit("/", 1)[-1],
             "path": saved_name,
+            # Actual URL from the active storage backend. Resolves to a
+            # /media/... path locally and a Cloudinary URL in production, so the
+            # preview <img> works in both environments (never hardcode /media/).
+            "image_url": default_storage.url(saved_name),
             "photographer": photo.get("photographer", ""),
             "url": photo.get("url", ""),
         }

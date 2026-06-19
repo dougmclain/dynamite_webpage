@@ -2,7 +2,6 @@ import json
 
 from django.contrib import messages
 from django.contrib.auth import login, logout
-from django.core.files.storage import default_storage
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
@@ -77,10 +76,14 @@ def post_create(request):
             post = form.save(commit=False)
             post.author = request.user
 
-            # Apply AI-generated image if provided
+            # Apply AI-generated image if provided. The path was produced by our
+            # own fetch_pexels_image() save() moments earlier, so we trust the
+            # prefix instead of calling default_storage.exists() — under
+            # Cloudinary that remote lookup is unreliable and can falsely return
+            # False, silently dropping the image.
             ai_image_path = request.POST.get("ai_featured_image", "")
             if ai_image_path and not request.FILES.get("featured_image"):
-                if default_storage.exists(ai_image_path):
+                if ai_image_path.startswith("blog/featured_images/"):
                     post.featured_image = ai_image_path
 
             post.save()
@@ -103,10 +106,11 @@ def post_edit(request, pk):
         if form.is_valid():
             post_obj = form.save(commit=False)
 
-            # Apply AI-generated image if provided
+            # Apply AI-generated image if provided (see post_create for why we
+            # trust the path prefix rather than default_storage.exists()).
             ai_image_path = request.POST.get("ai_featured_image", "")
             if ai_image_path and not request.FILES.get("featured_image"):
-                if default_storage.exists(ai_image_path):
+                if ai_image_path.startswith("blog/featured_images/"):
                     post_obj.featured_image = ai_image_path
 
             post_obj.save()
