@@ -137,10 +137,24 @@ Return ONLY a JSON object with these exact keys:
 
 
 def fetch_pexels_image(query):
+    """Non-raising wrapper used by the full blog generator: returns the image
+    dict or None so a Pexels hiccup never blocks generating the post text."""
+    try:
+        return fetch_pexels_image_or_raise(query)
+    except BlogGenerationError:
+        logger.exception("Failed to fetch/save Pexels image for query %r", query)
+        return None
+
+
+def fetch_pexels_image_or_raise(query):
+    """Fetch + store a featured image, raising BlogGenerationError with a
+    specific reason on failure. Lets the standalone image endpoint surface
+    exactly what went wrong instead of a generic message."""
     api_key = settings.PEXELS_API_KEY
     if not api_key:
-        logger.warning("PEXELS_API_KEY is not set; skipping featured image fetch.")
-        return None
+        raise BlogGenerationError(
+            "PEXELS_API_KEY is not set in this environment."
+        )
 
     try:
         response = requests.get(
@@ -149,40 +163,54 @@ def fetch_pexels_image(query):
             params={"query": query, "per_page": 1, "orientation": "landscape"},
             timeout=10,
         )
-        response.raise_for_status()
-        data = response.json()
+    except requests.RequestException as e:
+        raise BlogGenerationError(f"Could not reach Pexels: {e}")
 
-        if not data.get("photos"):
-            return None
+    if response.status_code == 401:
+        raise BlogGenerationError(
+            "Pexels rejected the API key (401). The PEXELS_API_KEY value is invalid."
+        )
+    if not response.ok:
+        raise BlogGenerationError(
+            f"Pexels search failed (HTTP {response.status_code})."
+        )
 
-        photo = data["photos"][0]
-        image_url = photo["src"]["large"]
+    data = response.json()
+    if not data.get("photos"):
+        raise BlogGenerationError(f"Pexels returned no photos for '{query}'.")
 
+    photo = data["photos"][0]
+    image_url = photo["src"]["large"]
+
+    try:
         img_response = requests.get(image_url, timeout=15)
         img_response.raise_for_status()
+    except requests.RequestException as e:
+        raise BlogGenerationError(f"Could not download the image from Pexels: {e}")
 
-        content_type = img_response.headers.get("content-type", "image/jpeg")
-        ext = "jpg" if "jpeg" in content_type else content_type.split("/")[-1]
-        filename = f"blog_{uuid.uuid4().hex[:8]}.{ext}"
+    content_type = img_response.headers.get("content-type", "image/jpeg")
+    ext = "jpg" if "jpeg" in content_type else content_type.split("/")[-1]
+    filename = f"blog_{uuid.uuid4().hex[:8]}.{ext}"
 
-        # Route through Django's storage backend so the file lands in
-        # Cloudinary (or whatever DEFAULT_FILE_STORAGE points at) and
-        # survives ephemeral-disk deploys.
+    # Route through Django's storage backend so the file lands in
+    # Cloudinary (or whatever DEFAULT_FILE_STORAGE points at) and
+    # survives ephemeral-disk deploys.
+    try:
         saved_name = default_storage.save(
             f"blog/featured_images/{filename}",
             ContentFile(img_response.content),
         )
+        image_storage_url = default_storage.url(saved_name)
+    except Exception as e:
+        raise BlogGenerationError(f"Could not save the image to storage: {e}")
 
-        return {
-            "filename": saved_name.rsplit("/", 1)[-1],
-            "path": saved_name,
-            # Actual URL from the active storage backend. Resolves to a
-            # /media/... path locally and a Cloudinary URL in production, so the
-            # preview <img> works in both environments (never hardcode /media/).
-            "image_url": default_storage.url(saved_name),
-            "photographer": photo.get("photographer", ""),
-            "url": photo.get("url", ""),
-        }
-    except Exception:
-        logger.exception("Failed to fetch/save Pexels image for query %r", query)
-        return None
+    return {
+        "filename": saved_name.rsplit("/", 1)[-1],
+        "path": saved_name,
+        # Actual URL from the active storage backend. Resolves to a
+        # /media/... path locally and a Cloudinary URL in production, so the
+        # preview <img> works in both environments (never hardcode /media/).
+        "image_url": image_storage_url,
+        "photographer": photo.get("photographer", ""),
+        "url": photo.get("url", ""),
+    }

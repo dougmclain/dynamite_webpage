@@ -9,7 +9,7 @@ from django.views.decorators.http import require_POST
 from blog.models import BlogPost
 from .decorators import staff_required
 from .forms import AIGenerationForm, BlogPostForm, StaffLoginForm
-from .services import BlogGenerationError, fetch_pexels_image, generate_blog_post
+from .services import BlogGenerationError, fetch_pexels_image_or_raise, generate_blog_post
 
 
 def staff_login(request):
@@ -174,10 +174,8 @@ def fetch_image_api(request):
     if not topic:
         return JsonResponse({"error": "A topic (or post title) is required."}, status=400)
 
-    image = fetch_pexels_image(topic)
-    if not image:
-        return JsonResponse(
-            {"error": "No image could be fetched. Check that PEXELS_API_KEY is set."},
-            status=502,
-        )
+    try:
+        image = fetch_pexels_image_or_raise(topic)
+    except BlogGenerationError as e:
+        return JsonResponse({"error": str(e)}, status=502)
     return JsonResponse({"success": True, "data": {"featured_image": image}})
