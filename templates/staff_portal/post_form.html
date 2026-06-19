@@ -111,8 +111,13 @@
                         {% endif %}
                         {{ form.featured_image }}
                         <input type="hidden" name="ai_featured_image" id="aiFeaturedImagePath" value="">
+                        <button type="button" class="btn btn-outline-primary btn-sm w-100 mt-2" id="fetchImageBtn">
+                            <i class="fas fa-wand-magic-sparkles me-1"></i>Fetch image automatically
+                        </button>
+                        <small class="text-muted d-block mt-1">Uses the post title to find a matching photo. Click Update Post to save it.</small>
+                        <div id="fetchImageStatus" class="small mt-1"></div>
                         <div id="aiImagePreview" style="display:none;" class="mt-2">
-                            <small class="text-success"><i class="fas fa-check me-1"></i>AI-generated image ready</small>
+                            <small class="text-success"><i class="fas fa-check me-1"></i>Image ready — click Update Post to save</small>
                             <img id="aiImagePreviewImg" src="" alt="AI image" class="img-fluid rounded mt-1">
                         </div>
                     </div>
@@ -380,6 +385,50 @@ document.addEventListener('DOMContentLoaded', function() {
         const offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('aiPanel'));
         if (offcanvas) offcanvas.hide();
     }
+
+    // One-click: fetch a featured image based on the post title, no full
+    // generation required. Works for new and already-published posts.
+    document.getElementById('fetchImageBtn').addEventListener('click', function() {
+        const btn = this;
+        const status = document.getElementById('fetchImageStatus');
+        const topic = (document.getElementById('id_title').value || '').trim();
+        if (!topic) {
+            status.className = 'small mt-1 text-danger';
+            status.textContent = 'Enter a post title first, then fetch an image.';
+            return;
+        }
+
+        btn.disabled = true;
+        status.className = 'small mt-1 text-muted';
+        status.textContent = 'Fetching image…';
+
+        fetch('{% url "staff_portal:fetch_image_api" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+            },
+            body: JSON.stringify({ topic: topic }),
+        })
+        .then(response => response.json().then(data => ({ ok: response.ok, data })))
+        .then(({ ok, data }) => {
+            btn.disabled = false;
+            if (ok && data.success) {
+                aiData = Object.assign({}, aiData, { featured_image: data.data.featured_image });
+                applyFeaturedImage();
+                status.className = 'small mt-1 text-success';
+                status.textContent = 'Image ready — click Update Post to save it.';
+            } else {
+                status.className = 'small mt-1 text-danger';
+                status.textContent = (data && data.error) || 'Could not fetch an image.';
+            }
+        })
+        .catch(() => {
+            btn.disabled = false;
+            status.className = 'small mt-1 text-danger';
+            status.textContent = 'Network error. Please try again.';
+        });
+    });
 });
 </script>
 {% endblock %}

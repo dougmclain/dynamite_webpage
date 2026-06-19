@@ -9,7 +9,7 @@ from django.views.decorators.http import require_POST
 from blog.models import BlogPost
 from .decorators import staff_required
 from .forms import AIGenerationForm, BlogPostForm, StaffLoginForm
-from .services import BlogGenerationError, generate_blog_post
+from .services import BlogGenerationError, fetch_pexels_image, generate_blog_post
 
 
 def staff_login(request):
@@ -157,3 +157,27 @@ def generate_blog_api(request):
         return JsonResponse({"success": True, "data": result})
     except BlogGenerationError as e:
         return JsonResponse({"error": str(e)}, status=500)
+
+
+@staff_required
+@require_POST
+def fetch_image_api(request):
+    """Fetch a single featured image for a given topic (e.g. the post title)
+    without generating any blog text. Used by the 'Fetch image automatically'
+    button on the post editor."""
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({"error": "Invalid JSON"}, status=400)
+
+    topic = (data.get("topic") or "").strip()
+    if not topic:
+        return JsonResponse({"error": "A topic (or post title) is required."}, status=400)
+
+    image = fetch_pexels_image(topic)
+    if not image:
+        return JsonResponse(
+            {"error": "No image could be fetched. Check that PEXELS_API_KEY is set."},
+            status=502,
+        )
+    return JsonResponse({"success": True, "data": {"featured_image": image}})

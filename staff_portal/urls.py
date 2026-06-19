@@ -12,4 +12,5 @@ urlpatterns = [
     path("posts/<int:pk>/edit/", views.post_edit, name="post_edit"),
     path("posts/<int:pk>/delete/", views.post_delete, name="post_delete"),
     path("api/generate-blog/", views.generate_blog_api, name="generate_blog_api"),
+    path("api/fetch-image/", views.fetch_image_api, name="fetch_image_api"),
 ]
