@@ -1,6 +1,23 @@
-from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-from .models import BlogPost, Category, Tag
+from django.http import Http404, HttpResponsePermanentRedirect
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
+
+from .models import BlogPost, BlogRedirect, Category, Tag
+
+SITE = "https://dynamitemanagement.com"
+
+
+def _paged_canonical(path, page_obj):
+    """Self-referencing canonical for a paginated archive.
+
+    Page 2+ canonicalises to itself (with ?page=N) rather than to page 1, so
+    the posts that only appear on later pages stay discoverable.
+    """
+    url = f"{SITE}{path}"
+    if page_obj.number > 1:
+        url += f"?page={page_obj.number}"
+    return url
 
 
 def post_list(request):
@@ -26,16 +43,29 @@ def post_list(request):
             "posts": posts,
             "categories": categories,
             "current_category": category_slug,
+            "canonical_url": _paged_canonical(reverse("blog:post_list"), posts),
         },
     )
 
 
 def post_detail(request, slug):
-    post = get_object_or_404(
-        BlogPost.objects.select_related("author", "category").prefetch_related("tags"),
-        slug=slug,
-        status="published",
+    post = (
+        BlogPost.objects.select_related("author", "category")
+        .prefetch_related("tags")
+        .filter(slug=slug, status="published")
+        .first()
     )
+    if post is None:
+        # A renamed or replaced post leaves a BlogRedirect behind; honour it
+        # with a 301 so old links and search results keep working.
+        moved = (
+            BlogRedirect.objects.select_related("post")
+            .filter(old_slug=slug, post__status="published")
+            .first()
+        )
+        if moved is not None:
+            return HttpResponsePermanentRedirect(moved.post.get_absolute_url())
+        raise Http404("No published post with that slug.")
 
     related_posts = (
         BlogPost.objects.filter(status="published", category=post.category)
@@ -71,6 +101,9 @@ def category_detail(request, slug):
         {
             "category": category,
             "posts": posts,
+            "canonical_url": _paged_canonical(
+                reverse("blog:category_detail", kwargs={"slug": category.slug}), posts,
+            ),
         },
     )
 
@@ -93,5 +126,11 @@ def tag_detail(request, slug):
         {
             "tag": tag,
             "posts": posts,
+            # Tag archives are thin; keep them crawlable for link equity but
+            # out of the index (they are not in the sitemap either).
+            "robots_meta": "noindex, follow",
+            "canonical_url": _paged_canonical(
+                reverse("blog:tag_detail", kwargs={"slug": tag.slug}), posts,
+            ),
         },
     )

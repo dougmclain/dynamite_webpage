@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ post.title }} - Dynamite Management Blog{% endblock %}
+{% block title %}{{ post.seo_title|default:post.title }} | Dynamite Management{% endblock %}
 {% block meta_description %}{{ post.meta_description|default:post.excerpt }}{% endblock %}
 {% block meta_keywords %}{% if post.meta_keywords %}<meta name="keywords" content="{{ post.meta_keywords }}">{% endif %}{% endblock %}
 
@@ -79,6 +79,11 @@
     ]
 }
 </script>
+{% if post.structured_data %}
+<script type="application/ld+json">
+{{ post.structured_data_html }}
+</script>
+{% endif %}
 {% endblock %}
 
 {% block content %}

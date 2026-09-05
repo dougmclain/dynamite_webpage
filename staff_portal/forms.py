@@ -1,3 +1,5 @@
+import json
+
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from tinymce.widgets import TinyMCE
@@ -42,7 +44,7 @@ class BlogPostForm(forms.ModelForm):
         fields = [
             "title", "slug", "content", "excerpt", "featured_image",
             "category", "tags", "status", "published_at",
-            "meta_description", "meta_keywords",
+            "seo_title", "meta_description", "meta_keywords", "structured_data",
         ]
         widgets = {
             "title": forms.TextInput(attrs={"class": "form-control", "placeholder": "Post title"}),
@@ -58,6 +60,14 @@ class BlogPostForm(forms.ModelForm):
             ),
             "meta_description": forms.Textarea(attrs={"class": "form-control", "rows": 2, "placeholder": "SEO meta description (160 chars max)"}),
             "meta_keywords": forms.TextInput(attrs={"class": "form-control", "placeholder": "keyword1, keyword2, keyword3"}),
+            "seo_title": forms.TextInput(attrs={
+                "class": "form-control", "maxlength": "70",
+                "placeholder": "Search result title (under 60 characters; defaults to the post title)",
+            }),
+            "structured_data": forms.Textarea(attrs={
+                "class": "form-control font-monospace", "rows": 6,
+                "placeholder": '{"@context": "https://schema.org", "@type": "FAQPage", ...}',
+            }),
         }
         labels = {
             "published_at": "Publish date",
@@ -72,6 +82,18 @@ class BlogPostForm(forms.ModelForm):
         self.fields["published_at"].required = False
         # The HTML datetime-local input needs the right input format
         self.fields["published_at"].input_formats = ["%Y-%m-%dT%H:%M", "%Y-%m-%d %H:%M:%S", "%Y-%m-%d"]
+
+    def clean_structured_data(self):
+        raw = (self.cleaned_data.get("structured_data") or "").strip()
+        if not raw:
+            return ""
+        try:
+            parsed = json.loads(raw)
+        except ValueError as exc:
+            raise forms.ValidationError(f"Structured data must be valid JSON ({exc}).")
+        if not isinstance(parsed, (dict, list)):
+            raise forms.ValidationError("Structured data must be a JSON object or array.")
+        return raw
 
     def save(self, commit=True):
         instance = super().save(commit=False)

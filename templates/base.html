@@ -11,11 +11,12 @@
     <meta name="description" content="{% block meta_description %}Dynamite Management provides expert financial management, accounting, and tax preparation for homeowner and condominium associations across the United States.{% endblock %}">
     {% block meta_keywords %}{% endblock %}
 
-    <link rel="canonical" href="https://dynamitemanagement.com{{ request.path }}">
+    <link rel="canonical" href="{% if canonical_url %}{{ canonical_url }}{% else %}https://dynamitemanagement.com{{ request.path }}{% endif %}">
+    <meta name="robots" content="{{ robots_meta|default:'index, follow, max-image-preview:large' }}">
 
     <meta property="og:type" content="{% block og_type %}website{% endblock %}">
     <meta property="og:site_name" content="Dynamite Management">
-    <meta property="og:url" content="https://dynamitemanagement.com{{ request.path }}">
+    <meta property="og:url" content="{% if canonical_url %}{{ canonical_url }}{% else %}https://dynamitemanagement.com{{ request.path }}{% endif %}">
     <meta property="og:title" content="{% block og_title %}Dynamite Management - Trusted Financial Management for HOAs and Condominiums{% endblock %}">
     <meta property="og:description" content="{% block og_description %}Dynamite Management provides expert financial management, accounting, and tax preparation for homeowner and condominium associations across the United States.{% endblock %}">
     <meta property="og:image" content="{% block og_image %}https://dynamitemanagement.com{% static 'images/lit-fuse.png' %}{% endblock %}">

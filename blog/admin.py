@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Tag, BlogPost
+from .models import BlogRedirect, Category, Tag, BlogPost
 
 
 @admin.register(Category)
@@ -24,3 +24,10 @@ class BlogPostAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     raw_id_fields = ("author",)
     date_hierarchy = "created_at"
+
+
+@admin.register(BlogRedirect)
+class BlogRedirectAdmin(admin.ModelAdmin):
+    list_display = ("old_slug", "post", "created_at")
+    search_fields = ("old_slug", "post__title", "post__slug")
+    raw_id_fields = ("post",)

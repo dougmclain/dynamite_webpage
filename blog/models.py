@@ -67,6 +67,15 @@ class BlogPost(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
     meta_description = models.CharField(max_length=160, blank=True)
     meta_keywords = models.CharField(max_length=255, blank=True)
+    seo_title = models.CharField(
+        max_length=70,
+        blank=True,
+        help_text='Title tag shown in search results. Keep it under 60 characters; the site name is added automatically. Falls back to the post title.',
+    )
+    structured_data = models.TextField(
+        blank=True,
+        help_text='Optional extra JSON-LD for this post (for example an FAQPage block), rendered verbatim in the page head. Must be valid JSON.',
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     published_at = models.DateTimeField(null=True, blank=True)
@@ -81,6 +90,28 @@ class BlogPost(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse("blog:post_detail", kwargs={"slug": self.slug})
+
+    @classmethod
+    def from_db(cls, db, field_names, values):
+        # Remember the slug as loaded so save() can leave a 301 behind
+        # when a published post is renamed.
+        instance = super().from_db(db, field_names, values)
+        instance._loaded_slug = instance.slug
+        return instance
+
+    @property
+    def structured_data_html(self):
+        """Extra JSON-LD ready to inline in a <script> tag.
+
+        The form validates it as JSON; this only defuses a literal '</'
+        so the block can never close the script tag early.
+        """
+        from django.utils.safestring import mark_safe
+        return mark_safe((self.structured_data or "").replace("</", "<\\/"))
 
     def save(self, *args, **kwargs):
         # Auto-generate slug
@@ -103,6 +134,17 @@ class BlogPost(models.Model):
             self.excerpt = clean_text[:300].rsplit(" ", 1)[0] + "..."
 
         super().save(*args, **kwargs)
+
+        # A published post that changes slug keeps its old URL alive as a
+        # 301 (see BlogRedirect and blog.views.post_detail).
+        old_slug = getattr(self, "_loaded_slug", None)
+        if old_slug and old_slug != self.slug and self.status == "published":
+            BlogRedirect.objects.update_or_create(
+                old_slug=old_slug, defaults={"post": self},
+            )
+            # The new slug is live again, so any redirect away from it is stale.
+            BlogRedirect.objects.filter(old_slug=self.slug).delete()
+        self._loaded_slug = self.slug
 
     @property
     def _media_upload_persists(self):
@@ -150,3 +192,23 @@ class BlogPost(models.Model):
         word_count = len(clean_text.split())
         minutes = max(1, round(word_count / 200))
         return minutes
+
+
+class BlogRedirect(models.Model):
+    """Permanent redirect from a retired blog slug to a live post.
+
+    Created automatically when a published post's slug changes, and added by
+    hand in the admin when one post replaces another. The public
+    post_detail view consults it before returning a 404, so old links,
+    bookmarks and search results keep working after a rename.
+    """
+
+    old_slug = models.SlugField(max_length=200, unique=True)
+    post = models.ForeignKey(BlogPost, on_delete=models.CASCADE, related_name="redirects")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["old_slug"]
+
+    def __str__(self):
+        return f"/blog/{self.old_slug}/ -> /blog/{self.post.slug}/"

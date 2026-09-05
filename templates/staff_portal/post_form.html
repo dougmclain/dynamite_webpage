@@ -64,12 +64,24 @@
                     <div class="card-header"><h6 class="mb-0">SEO Settings</h6></div>
                     <div class="card-body">
                         <div class="mb-3">
+                            <label for="id_seo_title" class="form-label">Search result title</label>
+                            {{ form.seo_title }}
+                            {% if form.seo_title.errors %}<div class="text-danger small">{{ form.seo_title.errors }}</div>{% endif %}
+                            <small class="text-muted">Shown as the blue link in Google. Under 60 characters; "| Dynamite Management" is added automatically. Leave blank to use the post title.</small>
+                        </div>
+                        <div class="mb-3">
                             <label for="id_meta_description" class="form-label">Meta Description</label>
                             {{ form.meta_description }}
                         </div>
                         <div class="mb-3">
                             <label for="id_meta_keywords" class="form-label">Meta Keywords</label>
                             {{ form.meta_keywords }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_structured_data" class="form-label">Structured data (JSON-LD)</label>
+                            {{ form.structured_data }}
+                            {% if form.structured_data.errors %}<div class="text-danger small">{{ form.structured_data.errors }}</div>{% endif %}
+                            <small class="text-muted">Optional. Paste an FAQPage or HowTo JSON-LD block for this post; the article and breadcrumb schema are generated automatically.</small>
                         </div>
                     </div>
                 </div>
