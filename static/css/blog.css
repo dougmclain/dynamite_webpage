@@ -232,6 +232,40 @@
     font-style: italic;
 }
 
+/* Tables inside posts (statute tables, comparison grids) */
+.blog-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+    line-height: 1.45;
+}
+
+.blog-content th,
+.blog-content td {
+    border: 1px solid #dee2e6;
+    padding: 0.55rem 0.75rem;
+    vertical-align: top;
+    text-align: left;
+}
+
+.blog-content thead th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.blog-content tbody tr:nth-child(even) {
+    background-color: #fcfcfd;
+}
+
+@media (max-width: 767.98px) {
+    .blog-content table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
 /* Tags */
 .blog-tags {
     display: flex;
