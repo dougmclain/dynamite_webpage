@@ -87,8 +87,10 @@ def post_create(request):
                 if "blog/featured_images/" in ai_image_path:
                     post.featured_image = ai_image_path
 
-            post.save()
-            form.save_m2m()
+            # form.save() (not post.save() + save_m2m()) so BlogPostForm.save
+            # also creates the comma-separated "new tags" - with commit=False
+            # that branch never ran and new tags were silently dropped.
+            form.save()
             messages.success(request, "Post created successfully!")
             return redirect("staff_portal:post_edit", pk=post.pk)
     else:
@@ -114,8 +116,7 @@ def post_edit(request, pk):
                 if "blog/featured_images/" in ai_image_path:
                     post_obj.featured_image = ai_image_path
 
-            post_obj.save()
-            form.save_m2m()
+            form.save()
             messages.success(request, "Post updated successfully!")
             return redirect("staff_portal:post_edit", pk=post.pk)
     else:
