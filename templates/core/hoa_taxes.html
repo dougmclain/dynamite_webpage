@@ -1,279 +1,532 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}HOA Tax Return Preparation - Form 1120-H | Dynamite Management{% endblock %}
-{% block meta_description %}Professional Form 1120-H preparation for homeowner and condominium associations at a flat $150 fee. Federal tax compliance handled by HOA tax specialists.{% endblock %}
-{% block og_description %}Professional Form 1120-H preparation for homeowner and condominium associations at a flat $150 fee. Federal tax compliance handled by HOA tax specialists.{% endblock %}
+{% block title %}HOA Tax Preparation: Form 1120-H for $175, Any State | Dynamite Management{% endblock %}
+{% block meta_description %}Dynamite Management prepares your HOA's federal Form 1120-H for $175 flat, any state. State return $100 more. Included on the HOA Fiscal Managed plan.{% endblock %}
+{% block og_title %}HOA Tax Preparation: Form 1120-H for $175, Any State{% endblock %}
+{% block og_description %}Dynamite Management prepares your HOA's federal Form 1120-H for $175 flat, any state. State return $100 more. Included on the HOA Fiscal Managed plan.{% endblock %}
+{% block twitter_title %}HOA Tax Preparation: Form 1120-H for $175, Any State{% endblock %}
+{% block twitter_description %}Dynamite Management prepares your HOA's federal Form 1120-H for $175 flat, any state. State return $100 more. Included on the HOA Fiscal Managed plan.{% endblock %}
+{% block extra_css %}<link href="{% static 'css/hoa_taxes.css' %}" rel="stylesheet">{% endblock %}
+{% block jsonld %}
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "HOA Tax Preparation — Form 1120-H",
+    "serviceType": "Tax return preparation",
+    "description": "Preparation of federal Form 1120-H for homeowners and condominium associations from the association's ledger and year-end statements, $175 flat in any state, with state returns prepared for $100 where one is owed.",
+    "url": "https://dynamitemanagement.com/hoa-taxes/",
+    "provider": {
+      "@type": "Organization",
+      "name": "Dynamite Management",
+      "url": "https://dynamitemanagement.com"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "US"
+    },
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "Homeowners associations and condominium associations"
+    },
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Federal Form 1120-H preparation",
+        "description": "Preparation of the association's federal Form 1120-H, any state, any size association.",
+        "price": "175",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      {
+        "@type": "Offer",
+        "name": "State return preparation",
+        "description": "Preparation of the association's state income tax return where the state requires one.",
+        "price": "100",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does an HOA have to file a tax return?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. An association is a corporation for federal tax purposes whether or not it makes a profit, and whether or not it is incorporated in your state. Most residential associations file Form 1120-H, which excludes member assessments from taxable income. Filing is not optional just because the association's only nonexempt income was a few hundred dollars of bank interest."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is Form 1120-H?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Form 1120-H is the two-page federal income tax return for homeowners associations under Internal Revenue Code Section 528. Filing it is an election: assessments and member fees are excluded from income as exempt function income, and the association is taxed at a flat 30% (32% for timeshare associations) on what remains, after a $100 specific deduction. For most associations, what remains is interest on reserves."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does HOA tax preparation cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Dynamite Management charges $175 flat for federal Form 1120-H preparation, any state, any size association, and $100 more for a state return where one is owed. There is no hourly billing and no per-schedule add-on. The return is included at no extra charge on the HOA Fiscal Managed plan. A Form 1120 for an association that does not qualify or does not elect is quoted separately."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When is Form 1120-H due?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For a calendar-year association, April 15 — the 15th day of the 4th month after year end. An association with a fiscal year ending June 30 files by the 15th day of the 3rd month, September 15. Any other fiscal year is the 15th day of the 4th month after year end. If the date lands on a weekend or legal holiday, the next business day works. Form 7004 buys an automatic six-month extension of time to file, not to pay."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can an HOA file Form 1120-H late?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It can be filed late, and it usually should be rather than not at all. The IRS instructions say the election must generally be made by the due date, including extensions, but they also allow an automatic 12-month extension to make it if corrective action is taken within 12 months of that due date (Regulations section 301.9100-2). Beyond 12 months the election is no longer automatic, and the fallback is Form 1120, where assessments are not excluded. Late filing also runs 5% of unpaid tax per month up to 25%. File the extension if you are going to be late."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does my HOA have to file a state tax return?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It depends on the state, and the answers are not consistent. Florida does not require a return from an association that files federal Form 1120-H. Arizona requires one in so many words. Oregon requires Form OR-20 only if there is nonexempt function income. California usually wants Form 100 once nonexempt income passes $100. Washington and Texas have no corporate income tax. Where a state return is owed, Dynamite Management prepares it for $100."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What documents do you need to prepare our 1120-H?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The year-end balance sheet, the income statement, general ledger detail, December bank and investment statements, any Forms 1099-INT, and last year's return if the association has one. If an amenity was rented to nonmembers or the association has a cell-tower or antenna lease, send those agreements too. On HOA Fiscal we pull all of it from the ledger and only ask you for the 1099s."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you prepare taxes for associations outside Washington?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Dynamite Management prepares Form 1120-H for associations in every state. The work is administrative and financial and is done remotely — we are not on site, and the price does not change with your location. The state return, if your state requires one, is the same $100 anywhere."
+        }
+      }
+    ]
+  }
+]
+</script>
+{% endblock %}
 
 {% block content %}
-<!-- Tax Header Section -->
+<!-- Header -->
 <div class="location-header py-3">
     <div class="container-fluid px-4">
-        <h1 class="location-main-title">HOA Tax Preparation</h1>
+        <h1 class="location-main-title">HOA Tax Preparation: Form 1120-H for $175</h1>
     </div>
 </div>
 
-<!-- Tax Service Content Section -->
-<section class="process-section py-5" style="margin-bottom: 3rem !important;">
+<!-- Hero: what it is, price, CTA -->
+<section class="process-section tax-hero py-5">
     <div class="container-fluid px-4">
-        <div class="row">
-            <!-- Text Content (Left) -->
-            <div class="col-lg-5 col-md-12 order-2 order-lg-1 mb-4 mb-lg-0">
-                <div class="process-box h-100">
-                    <h2 class="section-title mb-3">Professional Tax Preparation for Homeowner Associations</h2>
-                    <p class="section-text mb-4">
-                        At Dynamite Management, we specialize in preparing Form 1120-H, "U.S. Income Tax Return for Homeowner Associations," 
-                        ensuring your association remains compliant with federal tax requirements.
-                    </p>
-                    
-                    <p class="section-text mb-4">
-                        Our experienced team understands the unique tax considerations for HOAs and condominiums, 
-                        helping to maximize legitimate deductions while maintaining full compliance.
-                    </p>
-                    
-                    <h3 class="tax-pricing-title mt-4 mb-3">Flat Rate Pricing: <span class="tax-price">$150</span></h3>
-                    <p class="section-text">
-                        Unlike other firms that charge variable or hourly rates, we offer a simple, transparent flat fee 
-                        of just $150 for complete HOA tax return preparation.
-                    </p>
-                    
+        <div class="row align-items-stretch">
+            <div class="col-lg-6 col-md-12 order-2 order-lg-1 mb-4 mb-lg-0">
+                <div class="process-box h-100 blog-content tax-copy">
+                    <p>Your association is a corporation, and corporations file tax returns. Most homeowners and condominium associations file federal Form 1120-H, a two-page return that excludes assessments from income and taxes what is left — usually just interest on the bank balances. Dynamite Management prepares that return for $175 flat, in any state, for self-managed associations and for boards paying a CPA several times that for the same two pages.</p>
+<p>You send the year-end statements. We prepare the return from the ledger, and you get back a completed Form 1120-H ready for an officer to sign, plus a one-page memo the treasurer can read out at a board meeting.</p>
+                    <div class="tax-price-block"><p>$175 federal Form 1120-H · +$100 state return where one is owed · included on the <a href="https://www.hoafiscal.com/plans/">HOA Fiscal Managed plan</a></p></div>
                     <div class="contact-cta mt-4">
-                        <a href="{% url 'core:contact' %}" class="btn btn-primary cta-button">Contact Us Today</a>
+                        <a href="{% url 'core:contact' %}" class="btn btn-primary cta-button">Get on the December list</a>
                     </div>
                 </div>
             </div>
-            
-            <!-- Image (Right) -->
-            <div class="col-lg-7 col-md-12 mb-4 mb-lg-0 order-1 order-lg-2">
+            <div class="col-lg-6 col-md-12 mb-4 mb-lg-0 order-1 order-lg-2">
                 <div class="process-image-container">
-                    <img src="{% static 'images/condo-accounting-financial-data.jpg' %}" alt="HOA Tax Preparation" class="process-image">
+                    <img src="{% static 'images/condo-accounting-financial-data.jpg' %}" alt="Year-end association financial statements ready for Form 1120-H preparation" class="process-image">
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Tax Process Steps Section -->
+<!-- Who this is for -->
 <section class="tax-process-section py-5 bg-light">
     <div class="container-fluid px-4">
         <div class="row justify-content-center">
             <div class="col-lg-10 col-md-12">
-                <h2 class="section-title text-center mb-5">Our Simple Tax Preparation Process</h2>
-                
+                <h2 class="section-title text-center mb-5">Who this is for</h2>
                 <div class="row">
-                    <!-- Step 1 -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="tax-step-card text-start">
+                            <div class="tax-step-icon"><i class="fa-solid fa-people-roof"></i></div>
+                            <h3 class="tax-step-title">Self-managed associations</h3>
+                            <div class="tax-step-text"><p>Nobody on a volunteer board wakes up wanting to learn Section 528. The return is short, the rules are narrow, and the mistake that costs money is not a wrong number — it is a return that never gets filed. If your board handles its own books and nobody has owned this task, this is the task to hand off.</p></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="tax-step-card text-start">
+                            <div class="tax-step-icon"><i class="fa-solid fa-laptop-file"></i></div>
+                            <h3 class="tax-step-title">Associations already on HOA Fiscal</h3>
+                            <div class="tax-step-text"><p>The return is prepared straight from the ledger that is already in the platform: the trial balance, the income statement, the reserve interest. There is nothing to gather and nothing to reconcile twice. The price is the same $175 on the Essentials and Automate plans, and the return is included at no extra charge on the Managed plan.</p></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="tax-step-card text-start">
+                            <div class="tax-step-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                            <h3 class="tax-step-title">Associations that have fallen behind</h3>
+                            <div class="tax-step-text"><p>Some boards discover at a transition that the association has never filed, or that three years were missed when a treasurer resigned. That is more common than boards think and it is fixable. We prepare each missing year as its own return. See &ldquo;Behind on filings?&rdquo; below.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- What's included -->
+<section class="blue-section tax-blue py-5">
+    <div class="container-fluid px-4">
+        <div class="row align-items-stretch">
+            <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+                <div class="blue-box h-100 tax-included">
+                    <h2 class="section-title mb-3">What's included</h2>
+                    <div class="section-text"><p>The $175 covers the whole return, not a starting point that grows. Working from your year-end statements, we do the following:</p></div>
+                    <div class="section-list-wrap"><ul>
+<li>Run the two Section 528 qualification tests from the ledger — the 60% gross income test and the 90% expenditure test — and tell you the result in writing before we file.</li>
+<li>Classify every dollar as exempt function income or nonexempt income: assessments and member fees on one side; bank and reserve interest, laundry income, clubhouse and amenity rentals to nonmembers, cell-tower and antenna leases, and similar items on the other.</li>
+<li>Allocate expenses to nonexempt income where the law allows, so you are not taxed on gross receipts.</li>
+<li>Apply the $100 specific deduction and compute the tax at the flat 30% rate (32% for timeshare associations).</li>
+<li>Make the Section 528 election by preparing and filing a complete, timely Form 1120-H — the election exists only because the return is filed.</li>
+<li>Track the due date and, if the year-end statements are late, prepare Form 7004 for the automatic extension.</li>
+<li>Prepare the state return where the association owes one, for $100 more.</li>
+<li>Return a PDF for the association&rsquo;s official records file, so the return sits with the minutes and the reserve study instead of in a former treasurer&rsquo;s inbox.</li>
+<li>Write a plain-English cover memo — what the association owed, why, and what changed from last year — short enough that the treasurer can read it into the minutes.</li>
+</ul></div>
+                    <div class="section-text"><p>Dynamite signs as paid preparer. An officer of the association signs the return itself. The board decides; we prepare.</p></div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+                <div class="blue-image-container">
+                    <img src="{% static 'images/computer-desk.jpg' %}" alt="Preparing an association tax return from the ledger" class="blue-image">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How it works -->
+<section class="tax-process-section py-5">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12">
+                <h2 class="section-title text-center mb-5">How it works</h2>
+                <div class="row">
                     <div class="col-lg-3 col-md-6 mb-4">
                         <div class="tax-step-card">
                             <div class="tax-step-number">1</div>
-                            <div class="tax-step-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <h3 class="tax-step-title">Contact Us</h3>
-                            <p class="tax-step-text">
-                                Reach out to us with your association's basic information to get the process started.
-                            </p>
+                            <div class="tax-step-icon"><i class="fa-solid fa-file-signature"></i></div>
+                            <h3 class="tax-step-title">Engagement letter (December, 10 minutes)</h3>
+                            <div class="tax-step-text text-start"><p>We send an engagement letter in December, before year-end statements exist. It names the association, the tax year, the fee, and who at the association we deal with. The board approves the engagement — a motion in the minutes is enough — and one officer signs it.</p></div>
                         </div>
                     </div>
-                    
-                    <!-- Step 2 -->
                     <div class="col-lg-3 col-md-6 mb-4">
                         <div class="tax-step-card">
                             <div class="tax-step-number">2</div>
-                            <div class="tax-step-icon">
-                                <i class="fas fa-file-contract"></i>
-                            </div>
-                            <h3 class="tax-step-title">Engagement Letter</h3>
-                            <p class="tax-step-text">
-                                We'll send you an electronic engagement letter outlining our services and responsibilities.
-                            </p>
+                            <div class="tax-step-icon"><i class="fa-solid fa-folder-open"></i></div>
+                            <h3 class="tax-step-title">Documents (January, an hour at most)</h3>
+                            <div class="tax-step-text text-start"><p>We ask for the year-end balance sheet, income statement, general ledger detail, the December bank and investment statements, any Forms 1099-INT, and last year&rsquo;s return if one exists. We want these by the end of January. On HOA Fiscal we pull them ourselves and ask you for nothing but the 1099s. If you are missing a piece, tell us what you have — we will work out whether it matters before you go hunting.</p></div>
                         </div>
                     </div>
-                    
-                    <!-- Step 3 -->
                     <div class="col-lg-3 col-md-6 mb-4">
                         <div class="tax-step-card">
                             <div class="tax-step-number">3</div>
-                            <div class="tax-step-icon">
-                                <i class="fas fa-list-check"></i>
-                            </div>
-                            <h3 class="tax-step-title">Document Collection</h3>
-                            <p class="tax-step-text">
-                                We'll provide a list of required documents and work with you to collect all necessary information.
-                            </p>
+                            <div class="tax-step-icon"><i class="fa-solid fa-calculator"></i></div>
+                            <h3 class="tax-step-title">Preparation (usually within two weeks of complete statements)</h3>
+                            <div class="tax-step-text text-start"><p>We run the qualification tests, classify the income, and prepare the return. If something in the ledger does not fit — a large clubhouse rental, an insurance settlement, a developer transition payment — we come back with a question rather than guessing. This is where an auditor&rsquo;s habits help: the odd line item is usually a coding decision nobody revisited.</p></div>
                         </div>
                     </div>
-                    
-                    <!-- Step 4 -->
                     <div class="col-lg-3 col-md-6 mb-4">
                         <div class="tax-step-card">
                             <div class="tax-step-number">4</div>
-                            <div class="tax-step-icon">
-                                <i class="fas fa-check-double"></i>
-                            </div>
-                            <h3 class="tax-step-title">Preparation & Filing</h3>
-                            <p class="tax-step-text">
-                                We prepare your return and send it to you for review and filing with the IRS.
-                            </p>
+                            <div class="tax-step-icon"><i class="fa-solid fa-paper-plane"></i></div>
+                            <h3 class="tax-step-title">Review and filing (a week, mostly waiting on you)</h3>
+                            <div class="tax-step-text text-start"><p>You get the draft return, the cover memo, and a note on anything the board should know. An officer signs. We file, and you get the filed copy and the acknowledgment. From signature to acknowledgment is usually a few days.</p></div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="text-center mt-4">
-                    <a href="{% url 'core:contact' %}" class="btn btn-primary">Get Started Today</a>
-                </div>
+                <div class="tax-callout mt-3"><p><strong>Start the season early.</strong> We open engagement letters in December and want year-end statements by the end of January. Associations that come to us in April get filed, but they get filed on an extension. <a href="{% url 'core:contact' %}">Contact us</a> to get on the list.</p></div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Tax Benefits Section -->
-<section class="blue-section py-5">
+<!-- Pricing and deadlines -->
+<section class="py-5 bg-light">
     <div class="container-fluid px-4">
-        <div class="row">
-            <!-- Text Column (Left) -->
-            <div class="col-lg-5 col-md-12 mb-4 mb-lg-0">
-                <div class="blue-box h-100">
-                    <h2 class="section-title mb-3">Benefits of Professional HOA Tax Preparation</h2>
-                    <p class="section-text mb-4">
-                        Filing taxes for homeowner associations requires specialized knowledge of tax laws and regulations that apply 
-                        specifically to HOAs and condominiums. Our team has the expertise needed to correctly prepare your Form 1120-H.
-                    </p>
-                    
-                    <h2 class="section-title mb-3 mt-4">What We Need From You</h2>
-                    <p class="section-text">
-                        To prepare your association's taxes, we'll need some basic information including:
-                    </p>
-                    <ul class="section-list">
-                        <li>Association's legal name and EIN</li>
-                        <li>Name and contact information for an officer</li>
-                        <li>Financial statements for the tax year</li>
-                        <li>Previous year's tax return (if available)</li>
-                    </ul>
-                    
-                    <div class="contact-cta mt-4">
-                        <a href="{% url 'core:contact' %}" class="btn btn-primary cta-button">Contact Us For Details</a>
-                    </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-12 mb-4">
+                <div class="blog-content tax-copy">
+                    <h2 class="section-title mb-3">Pricing</h2>
+                    <p>One price, set in advance. There is no hourly billing, no per-schedule add-on, and no surcharge for a larger association — a 300-unit condominium and a 22-unit townhome association pay the same, because the return is the same two pages.</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Federal Form 1120-H preparation</td>
+<td>$175 flat</td>
+</tr>
+<tr>
+<td>State return, where the association owes one</td>
+<td>+$100 flat</td>
+</tr>
+<tr>
+<td>HOA Fiscal Managed plan</td>
+<td>Included</td>
+</tr>
+</tbody>
+</table>
+<p>Two things are not in that price. If the association does not qualify for Section 528 or the board decides not to elect, the return is a Form 1120, which is a real corporate return with a balance sheet and reconciliations — we quote that separately. Amended prior-year returns are also quoted separately. Prior years that were simply never filed are not amendments; those are $175 each, same as any other year.</p>
                 </div>
             </div>
-            
-            <!-- Image Column (Right) -->
-            <div class="col-lg-7 col-md-12 mb-4 mb-lg-0">
-                <div class="blue-image-container">
-                    <img src="{% static 'images/conference-room.jpg' %}" alt="HOA Tax Benefits" class="blue-image">
+            <div class="col-lg-5 col-md-12 mb-4">
+                <div class="blog-content tax-copy">
+                    <h2 class="section-title mb-3">Deadlines</h2>
+                    <p>Form 1120-H is due on a schedule set by the association&rsquo;s tax year, not by the calendar. Most associations are calendar-year filers, which puts the return on the same April date individuals know.</p>
+<table>
+<thead>
+<tr>
+<th>Association&rsquo;s tax year</th>
+<th>Form 1120-H due</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Calendar year, ending December 31</td>
+<td>15th day of the 4th month — April 15</td>
+</tr>
+<tr>
+<td>Fiscal year ending June 30</td>
+<td>15th day of the 3rd month — September 15</td>
+</tr>
+<tr>
+<td>Any other fiscal year</td>
+<td>15th day of the 4th month after year end</td>
+</tr>
+<tr>
+<td>With an extension</td>
+<td>Form 7004 — automatic 6 months</td>
+</tr>
+</tbody>
+</table>
+<p>The IRS instructions state the rule directly:</p>
+<blockquote>
+<p>Generally, an association must file Form 1120-H by the 15th day of the 4th month after the end of its tax year. However, an association with a fiscal year ending June 30 must file by the 15th day of the 3rd month after the end of its tax year. If the due date falls on a Saturday, Sunday, or legal holiday, the association may file on the next business day.</p>
+<p>— <a href="https://www.irs.gov/instructions/i1120h">Instructions for Form 1120-H, IRS.gov</a></p>
+</blockquote>
+<p>An extension is an extension of time to file, not of time to pay. If the association expects to owe tax, pay the estimate with the extension.</p>
+<p>Filing late has a price:</p>
+<blockquote>
+<p>A homeowners association that doesn&rsquo;t file its tax return by the due date, including extensions, may be penalized 5% of the unpaid tax for each month or part of a month the return is late, up to a maximum of 25% of the unpaid tax. The minimum penalty for a return that is over 60 days late is the smaller of the tax due or $525.</p>
+<p>— <a href="https://www.irs.gov/instructions/i1120h">Instructions for Form 1120-H, IRS.gov</a></p>
+</blockquote>
+<p>Read that carefully, because the arithmetic matters for associations that are behind. The penalty is a percentage of <em>unpaid tax</em>. An association whose only nonexempt income was $900 of reserve interest owes very little tax, so 5% a month of very little is very little, and the minimum penalty for a badly late return is capped at the tax due. The real cost of not filing is not the penalty. It is the election, which is described below.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- FAQ Section -->
-<section class="faq-section py-5" style="background-color: #f8f9fa;">
+<!-- 1120-H or 1120 -->
+<section class="py-5">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12">
+                <div class="blog-content tax-copy">
+                    <h2 class="section-title mb-3">1120-H or 1120?</h2>
+                    <p>Form 1120-H is not automatic. It is an election an association qualifies for and then claims, one year at a time. Three tests decide whether the association qualifies, and the IRS states them in these words:</p>
+<blockquote>
+<p>At least 60% of the association&rsquo;s gross income for the tax year must consist of exempt function income.</p>
+<p>At least 90% of the association&rsquo;s expenses for the tax year must consist of expenses to acquire, build, manage, maintain, and care for its property.</p>
+<p>No private shareholder or individual can profit from the association&rsquo;s net earnings except by acquiring, building, managing, maintaining, or caring for association property or by a rebate of excess membership dues, fees, or assessments.</p>
+<p>— <a href="https://www.irs.gov/instructions/i1120h">Instructions for Form 1120-H, IRS.gov</a></p>
+</blockquote>
+<p>Exempt function income is the assessment revenue: &ldquo;membership dues, fees, or assessments from (a) owners of condominium housing units; (b) owners of real property in the case of a residential real estate management association; or (c) owners of timeshare rights to use, or timeshare ownership interests in, real property in the case of a timeshare association.&rdquo; The association also has to be residential in character — a condominium management association is one caring for a project &ldquo;substantially all of whose units are homes for individuals,&rdquo; and a residential real estate management association one caring for a development &ldquo;substantially all of whose lots or buildings are homes for individuals.&rdquo;</p>
+<p>Qualifying income is taxed at &ldquo;a flat rate of 30% for condominium management associations and residential real estate management associations,&rdquo; and 32% for timeshare associations, after a $100 specific deduction. The election &ldquo;is made separately for each tax year and must generally be made by the due date, including extensions, of the income tax return,&rdquo; and &ldquo;if the association does not elect to use Form 1120-H, it must file the applicable income tax return, for example, Form 1120, U.S. Corporation Income Tax Return.&rdquo;</p>
+<p>For nearly every self-managed residential association, 1120-H is the right answer, and the entire taxable amount on the return is interest earned on reserve and operating balances. The risk on this return is not the tax. It is the missed election. The instructions give an association an automatic 12-month extension to make the Section 528 election, &ldquo;provided corrective action is taken within 12 months of the due date (including extension) of the return&rdquo; (Regulations section 301.9100-2). Past that window the election is no longer automatic, and the year&rsquo;s default is Form 1120, where assessments are not excluded by Section 528. For the line-by-line version, HOA Fiscal publishes <a href="https://www.hoafiscal.com/blog/form-1120-h-instructions/">Form 1120-H instructions for treasurers</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- State returns -->
+<section class="py-5 bg-light">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12">
+                <div class="blog-content tax-copy">
+                    <h2 class="section-title mb-3">State returns</h2>
+                    <p>Filing federal Form 1120-H does not settle the state question, and the answer is genuinely different from state to state — Florida excuses you outright, Arizona says the opposite in so many words, and Oregon splits the difference. Where a state return is owed, we prepare it for $100.</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>State return when you file federal 1120-H?</th>
+<th>Form and due date (calendar-year)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Washington</td>
+<td>No income tax return</td>
+<td>No corporate income tax and no state income tax return. Washington&rsquo;s business and occupation (B&amp;O) tax has its own rules for associations — member assessments spent on repair, maintenance, replacement or improvement of commonly held property are deductible; ask us if the association has nonmember revenue</td>
+</tr>
+<tr>
+<td>Oregon</td>
+<td>Only if there is nonexempt function income</td>
+<td>Form OR-20 with a copy of federal 1120-H, due the 15th day of the month after the federal due date (May 15). With no nonexempt function income, file only a copy of the 1120-H</td>
+</tr>
+<tr>
+<td>California</td>
+<td>Usually</td>
+<td>Form 100 if nonexempt function income exceeds $100, due the 15th day of the 4th month (April 15); Form 199 if average gross receipts exceed $50,000, due the 15th day of the 5th month (May 15)</td>
+</tr>
+<tr>
+<td>Florida</td>
+<td>No</td>
+<td>An association that files federal 1120-H is not required to file a Florida corporate income tax return (Form F-1120 is required only if it files federal Form 1120)</td>
+</tr>
+<tr>
+<td>Arizona</td>
+<td>Yes</td>
+<td>Form 120 or Form 120A, due the 15th day of the 4th month (April 15). 4.9% rate, $50 minimum tax</td>
+</tr>
+<tr>
+<td>Texas</td>
+<td>No income tax return</td>
+<td>Franchise tax instead. A qualifying HOA applies for exemption on Form AP-206; without an exemption the entity files franchise reports, due May 15. At or below the $2,650,000 no-tax-due threshold for 2026 and 2027, file the Public Information Report or Ownership Information Report</td>
+</tr>
+<tr>
+<td>Colorado</td>
+<td>Ask us</td>
+<td>Colorado publishes no homeowners-association rule in its C corporation guidance; we check each association&rsquo;s facts. Colorado C corporation returns are due May 15 for calendar-year filers, with an automatic six-month extension</td>
+</tr>
+</tbody>
+</table>
+<p>Two rows deserve a sentence more. Oregon&rsquo;s own instructions put it plainly — &ldquo;Don&rsquo;t file Form OR-20 if you don&rsquo;t have nonexempt function income for Oregon tax purposes. Only file a copy of your federal Form 1120-H with us&rdquo; — so an Oregon association with nothing but assessments and a checking account sends Oregon a copy and stops. Arizona goes the other way: &ldquo;Homeowners associations that file federal Form 1120-H or federal Form 1120 are not exempt from Arizona income tax. These associations must file an Arizona corporate income tax return on Arizona Form 120 or Arizona Form 120A.&rdquo; An Arizona association that files only the federal return is not finished.</p>
+<p>California is the one to get advice on rather than to read off a table. An association that has been granted California exempt status under R&amp;TC Section 23701t files Form 100 once nonexempt function income passes $100, and Form 199 once average gross receipts pass $50,000. An association that never obtained that status is treated as an ordinary corporation on Form 100, and if it is incorporated it pays &ldquo;minimum franchise tax or measured tax, whichever is greater.&rdquo; Plenty of California associations are in the second category without knowing it.</p>
+<p class="small text-muted">Sources: <a href="https://dor.wa.gov/forms-publications/publications-subject/tax-topics/homeowners-associations">Washington DOR — homeowners associations</a>; <a href="https://www.oregon.gov/dor/programs/businesses/pages/corp-nonprofit.aspx">Oregon DOR — nonprofit, co-ops and HOAs</a> and the <a href="https://www.oregon.gov/DOR/forms/FormsPubs/form-or-20-instructions_102-020-1_2025.pdf">2025 Form OR-20 instructions</a>; <a href="https://www.ftb.ca.gov/forms/misc/1028.html">FTB Publication 1028</a>; <a href="https://floridarevenue.com/faq/Pages/FAQDetails.aspx?FAQID=1302">Florida DOR corporate income tax FAQ</a>; <a href="https://azdor.gov/sites/default/files/document/FORMS_CORPORATE_2025_120_i.pdf">Arizona Form 120 instructions (2025)</a>; <a href="https://comptroller.texas.gov/taxes/exempt/hoa.php">Texas Comptroller — HOA exemption</a> and <a href="https://comptroller.texas.gov/taxes/franchise/">franchise tax</a>; <a href="https://tax.colorado.gov/DR0112Book">Colorado DOR — DR 0112 C corporation filing guide</a>.</p>
+<p>Other states on request, same $100.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Behind on filings -->
+<section class="py-5">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12">
+                <div class="blog-content tax-copy">
+                    <h2 class="section-title mb-3">Behind on filings?</h2>
+                    <p>An association that never filed, or missed a stretch of years, is usually in less trouble than the board fears. We prepare each missing year as its own return, in order, using that year&rsquo;s statements. The election is made year by year — a filed 2023 return elects Section 528 for 2023 and does nothing for 2024 — so each year has to be prepared and filed separately. A year that is less than 12 months past its due date still makes the election automatically under Regulations section 301.9100-2; a year further back than that needs a conversation before it is filed, because the election for it is no longer automatic.</p>
+<p>The financial exposure is usually small, and the IRS instructions are the reason: the failure-to-file penalty runs at 5% of <em>unpaid tax</em> per month to a 25% maximum, and the minimum penalty on a return over 60 days late is capped at &ldquo;the smaller of the tax due or $525.&rdquo; An association whose only nonexempt income was reserve interest owes little tax, so it owes little penalty. That is a statement about arithmetic, not a promise about your association — a year with a large clubhouse rental, a settlement, or nonmember revenue can look very different, and we will tell you before we file.</p>
+<p>The IRS also offers <a href="https://www.irs.gov/payments/penalty-relief-due-to-first-time-abate-or-other-administrative-waiver">First Time Abate</a> relief for a first slip, but it requires the same return to have been &ldquo;timely filed for the prior three years&rdquo; — which is precisely why it rarely rescues an association that has never filed at all. Getting current is what fixes it.</p>
+<p>Bring us the years you know about. If you are not sure how many are missing, bring what you have and we will work it out.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section py-5 bg-light">
     <div class="container-fluid px-4">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <h2 class="section-title text-center mb-5">Frequently Asked Questions</h2>
-                
+                <h2 class="section-title text-center mb-5">Frequently asked questions</h2>
                 <div class="accordion" id="taxFaqAccordion">
-                    <!-- FAQ Item 1 -->
                     <div class="accordion-item mb-3 border rounded shadow-sm">
-                        <h3 class="accordion-header" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                What is Form 1120-H and why does my HOA need to file it?
-                            </button>
+                        <h3 class="accordion-header" id="taxFaqHeading1">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#taxFaqCollapse1" aria-expanded="true" aria-controls="taxFaqCollapse1">Does an HOA have to file a tax return?</button>
                         </h3>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#taxFaqAccordion">
-                            <div class="accordion-body">
-                                <p>
-                                    Form 1120-H is the "U.S. Income Tax Return for Homeowner Associations." HOAs are required to file annual tax returns with the IRS, even if they operate as nonprofit organizations. This form allows associations to be taxed only on specific income like interest earnings and fees for services, rather than membership dues and assessments.
-                                </p>
-                                <p>
-                                    Filing this form helps maintain your association's tax-exempt status for membership income and protects your organization from potential penalties or audits.
-                                </p>
-                            </div>
+                        <div id="taxFaqCollapse1" class="accordion-collapse collapse show" aria-labelledby="taxFaqHeading1" data-bs-parent="#taxFaqAccordion">
+                            <div class="accordion-body"><p>Yes. An association is a corporation for federal tax purposes whether or not it makes a profit, and whether or not it is incorporated in your state. Most residential associations file Form 1120-H, which excludes member assessments from taxable income. Filing is not optional just because the association&rsquo;s only nonexempt income was a few hundred dollars of bank interest.</p></div>
                         </div>
                     </div>
-                    
-                    <!-- FAQ Item 2 -->
                     <div class="accordion-item mb-3 border rounded shadow-sm">
-                        <h3 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                When is the filing deadline for Form 1120-H?
-                            </button>
+                        <h3 class="accordion-header" id="taxFaqHeading2">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#taxFaqCollapse2" aria-expanded="false" aria-controls="taxFaqCollapse2">What is Form 1120-H?</button>
                         </h3>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#taxFaqAccordion">
-                            <div class="accordion-body">
-                                <p>
-                                    For most HOAs operating on a calendar year (January 1 - December 31), Form 1120-H is due by April 15th of the following year. If your association operates on a fiscal year, the return is due on the 15th day of the 4th month after the close of your fiscal year.
-                                </p>
-                                <p>
-                                    Extensions are available if needed, but must be requested before the original due date. We recommend starting the preparation process at least 6-8 weeks before the deadline to ensure timely filing.
-                                </p>
-                            </div>
+                        <div id="taxFaqCollapse2" class="accordion-collapse collapse" aria-labelledby="taxFaqHeading2" data-bs-parent="#taxFaqAccordion">
+                            <div class="accordion-body"><p>Form 1120-H is the two-page federal income tax return for homeowners associations under Internal Revenue Code Section 528. Filing it is an election: assessments and member fees are excluded from income as exempt function income, and the association is taxed at a flat 30% (32% for timeshare associations) on what remains, after a $100 specific deduction. For most associations, what remains is interest on reserves.</p></div>
                         </div>
                     </div>
-                    
-                    <!-- FAQ Item 3 -->
                     <div class="accordion-item mb-3 border rounded shadow-sm">
-                        <h3 class="accordion-header" id="headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                What if our association has never filed taxes before?
-                            </button>
+                        <h3 class="accordion-header" id="taxFaqHeading3">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#taxFaqCollapse3" aria-expanded="false" aria-controls="taxFaqCollapse3">How much does HOA tax preparation cost?</button>
                         </h3>
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#taxFaqAccordion">
-                            <div class="accordion-body">
-                                <p>
-                                    If your association has never filed taxes, we can help you get into compliance. The IRS has programs for organizations that have fallen behind on filing requirements, and we can guide you through this process.
-                                </p>
-                                <p>
-                                    We'll work with you to gather historical information as needed and develop a strategy to bring your association current with tax filings while minimizing potential penalties.
-                                </p>
-                                <p>
-                                    Contact us for a consultation specific to your association's situation.
-                                </p>
-                            </div>
+                        <div id="taxFaqCollapse3" class="accordion-collapse collapse" aria-labelledby="taxFaqHeading3" data-bs-parent="#taxFaqAccordion">
+                            <div class="accordion-body"><p>Dynamite Management charges $175 flat for federal Form 1120-H preparation, any state, any size association, and $100 more for a state return where one is owed. There is no hourly billing and no per-schedule add-on. The return is included at no extra charge on the <a href="https://www.hoafiscal.com/plans/">HOA Fiscal Managed plan</a>. A Form 1120 for an association that does not qualify or does not elect is quoted separately.</p></div>
                         </div>
                     </div>
-                    
-                    <!-- FAQ Item 4 -->
                     <div class="accordion-item mb-3 border rounded shadow-sm">
-                        <h3 class="accordion-header" id="headingFour">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                Why is your flat rate so much lower than other firms?
-                            </button>
+                        <h3 class="accordion-header" id="taxFaqHeading4">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#taxFaqCollapse4" aria-expanded="false" aria-controls="taxFaqCollapse4">When is Form 1120-H due?</button>
                         </h3>
-                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#taxFaqAccordion">
-                            <div class="accordion-body">
-                                <p>
-                                    We're able to offer our flat rate of $150 because we've specialized in HOA and condominium association tax preparation, allowing us to develop efficient processes specifically for Form 1120-H preparation.
-                                </p>
-                                <p>
-                                    Unlike general accounting firms that may charge higher rates due to less familiarity with HOA-specific returns, our focus allows us to pass savings on to our clients while still providing expert service.
-                                </p>
-                                <p>
-                                    Our goal is to make professional tax preparation accessible to associations of all sizes.
-                                </p>
-                            </div>
+                        <div id="taxFaqCollapse4" class="accordion-collapse collapse" aria-labelledby="taxFaqHeading4" data-bs-parent="#taxFaqAccordion">
+                            <div class="accordion-body"><p>For a calendar-year association, April 15 — the 15th day of the 4th month after year end. An association with a fiscal year ending June 30 files by the 15th day of the 3rd month, September 15. Any other fiscal year is the 15th day of the 4th month after year end. If the date lands on a weekend or legal holiday, the next business day works. Form 7004 buys an automatic six-month extension of time to file, not to pay.</p></div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3 border rounded shadow-sm">
+                        <h3 class="accordion-header" id="taxFaqHeading5">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#taxFaqCollapse5" aria-expanded="false" aria-controls="taxFaqCollapse5">Can an HOA file Form 1120-H late?</button>
+                        </h3>
+                        <div id="taxFaqCollapse5" class="accordion-collapse collapse" aria-labelledby="taxFaqHeading5" data-bs-parent="#taxFaqAccordion">
+                            <div class="accordion-body"><p>It can be filed late, and it usually should be rather than not at all. The IRS instructions say the election &ldquo;must generally be made by the due date, including extensions,&rdquo; but they also allow an automatic 12-month extension to make it if corrective action is taken within 12 months of that due date (Regulations section 301.9100-2). Beyond 12 months the election is no longer automatic, and the fallback is Form 1120, where assessments are not excluded. Late filing also runs 5% of unpaid tax per month up to 25%. File the extension if you are going to be late.</p></div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3 border rounded shadow-sm">
+                        <h3 class="accordion-header" id="taxFaqHeading6">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#taxFaqCollapse6" aria-expanded="false" aria-controls="taxFaqCollapse6">Does my HOA have to file a state tax return?</button>
+                        </h3>
+                        <div id="taxFaqCollapse6" class="accordion-collapse collapse" aria-labelledby="taxFaqHeading6" data-bs-parent="#taxFaqAccordion">
+                            <div class="accordion-body"><p>It depends on the state, and the answers are not consistent. Florida does not require a return from an association that files federal 1120-H. Arizona requires one in so many words. Oregon requires Form OR-20 only if there is nonexempt function income. California usually wants Form 100 once nonexempt income passes $100. Washington and Texas have no corporate income tax. See the state table above; where one is owed, we prepare it for $100.</p></div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3 border rounded shadow-sm">
+                        <h3 class="accordion-header" id="taxFaqHeading7">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#taxFaqCollapse7" aria-expanded="false" aria-controls="taxFaqCollapse7">What documents do you need to prepare our 1120-H?</button>
+                        </h3>
+                        <div id="taxFaqCollapse7" class="accordion-collapse collapse" aria-labelledby="taxFaqHeading7" data-bs-parent="#taxFaqAccordion">
+                            <div class="accordion-body"><p>The year-end balance sheet, the income statement, general ledger detail, December bank and investment statements, any Forms 1099-INT, and last year&rsquo;s return if the association has one. If an amenity was rented to nonmembers or the association has a cell-tower or antenna lease, send those agreements too. On HOA Fiscal we pull all of it from the ledger and only ask you for the 1099s.</p></div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3 border rounded shadow-sm">
+                        <h3 class="accordion-header" id="taxFaqHeading8">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#taxFaqCollapse8" aria-expanded="false" aria-controls="taxFaqCollapse8">Do you prepare taxes for associations outside Washington?</button>
+                        </h3>
+                        <div id="taxFaqCollapse8" class="accordion-collapse collapse" aria-labelledby="taxFaqHeading8" data-bs-parent="#taxFaqAccordion">
+                            <div class="accordion-body"><p>Yes. Dynamite Management prepares Form 1120-H for associations in every state. The work is administrative and financial and is done remotely — we are not on site, and the price does not change with your location. The state return, if your state requires one, is the same $100 anywhere.</p></div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="text-center mt-5">
-                    <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg">Contact Us With Your Questions</a>
-                </div>
+                <div class="tax-callout mt-5"><p><strong>Form 1120-H preparation — $175 flat, any state.</strong> Send the year-end statements; get back a signed-ready return, the filed copy for the official records, and a one-page memo for the board. State return $100 more where one is owed, included on the <a href="https://www.hoafiscal.com/plans/">HOA Fiscal Managed plan</a>. Engagement letters go out in December. <a href="{% url 'core:contact' %}">Get in touch</a>.</p></div>
+                <p class="small text-muted mt-4 mb-0">Prices set by Dynamite Management. Deadlines, penalties and eligibility tests from the IRS Instructions for Form 1120-H; state rules from each state's revenue department, as linked above. Last checked September 9, 2026. General information for board members, not tax advice for a particular association.</p>
             </div>
         </div>
     </div>
 </section>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-    // Initialize the first accordion item as open
-    document.addEventListener('DOMContentLoaded', function() {
-        const firstAccordionButton = document.querySelector('.accordion-button');
-        if (firstAccordionButton) {
-            firstAccordionButton.classList.add('show');
-        }
-    });
-</script>
 {% endblock %}

@@ -55,7 +55,7 @@ CONTENT_HTML = """<p><em>Last updated: May 23, 2026.</em></p>
 <tr><th>Provider</th><th>Best-For</th><th>Service Area</th><th>Pricing Model</th><th>Standout Feature</th></tr>
 </thead>
 <tbody>
-<tr><td><strong>Dynamite Management</strong></td><td>Self-managed boards</td><td>Nationwide</td><td>Flat-fee ($150 1120-H; $750/mo WA condo)</td><td>Fraud-detection focus + HOA Fiscal portal</td></tr>
+<tr><td><strong>Dynamite Management</strong></td><td>Self-managed boards</td><td>Nationwide</td><td>Flat-fee ($175 1120-H; $750/mo WA condo)</td><td>Fraud-detection focus + HOA Fiscal portal</td></tr>
 <tr><td>Community Financials</td><td>Nationwide coverage</td><td>Nationwide</td><td>Quote-based</td><td>BBB A+, veteran-owned, CMCA founder</td></tr>
 <tr><td>Clark Simson Miller</td><td>Remote back-office</td><td>Nationwide (TN HQ)</td><td>Quote-based</td><td>Full remote management model</td></tr>
 <tr><td>HOA Accounting Services LLC</td><td>West Coast associations</td><td>CA, WA, TX, NV, HI</td><td>Quote-based</td><td>CAI/CACM/ECHO membership</td></tr>
@@ -88,17 +88,17 @@ CONTENT_HTML = """<p><em>Last updated: May 23, 2026.</em></p>
 <li>Monthly financial reporting with board-ready packet.</li>
 <li>AP/AR with positive pay and dual-approval controls.</li>
 <li>ACH dues collection through the HOA Fiscal owner portal.</li>
-<li><a href="/hoa-taxes/">Form 1120-H preparation</a> at a flat $150.</li>
+<li><a href="/hoa-taxes/">Form 1120-H preparation</a> at a flat $175.</li>
 <li>Audit support across compilation, review, and full CPA audit.</li>
 </ul>
 <p><strong>Real strengths:</strong></p>
 <ul>
-<li><strong>Flat-fee pricing.</strong> Most providers in this category hide pricing behind a quote form. Dynamite publishes it: $150 for 1120-H prep, $750/mo all-in for the <a href="/wa-condo/">Washington self-managed condo package</a> (8&ndash;99 unit buildings).</li>
+<li><strong>Flat-fee pricing.</strong> Most providers in this category hide pricing behind a quote form. Dynamite publishes it: $175 for 1120-H prep, $750/mo all-in for the <a href="/wa-condo/">Washington self-managed condo package</a> (8&ndash;99 unit buildings).</li>
 <li><strong>Fraud-detection focus.</strong> The firm built its practice around catching the mistakes and outright fraud that destroy small-association reserves &mdash; segregation of duties, positive pay, and dual approval are default workflow, not upsells.</li>
 <li><strong>Dedicated back-office team.</strong> Your accounting team isn't shared with a management company's wider portfolio. That's a structural difference in incentive alignment.</li>
 </ul>
 <p><strong>Honest tradeoffs:</strong> Dynamite is back-office financial management only &mdash; they don't do on-site property management, maintenance coordination, or vendor walk-throughs. Boards needing a single firm to handle physical property plus accounting will need a different model (see Associa, below).</p>
-<p><strong>Pricing:</strong> Flat-fee. $150 Form 1120-H prep; $750/month all-in for the WA self-managed condo package; other engagements quoted by unit count and scope.</p>
+<p><strong>Pricing:</strong> Flat-fee. $175 Form 1120-H prep; $750/month all-in for the WA self-managed condo package; other engagements quoted by unit count and scope.</p>
 <p><strong>Best for:</strong> Self-managed boards (especially 8&ndash;99 unit condominiums) and boards that keep property management separate from their accountant.</p>
 
 <h3>2. Community Financials &mdash; Best for Nationwide Coverage</h3>
@@ -182,7 +182,7 @@ CONTENT_HTML = """<p><em>Last updated: May 23, 2026.</em></p>
 </ul>
 
 <h2>Frequently Asked Questions</h2>
-<p><strong>What does HOA accounting cost?</strong> It depends on the model. Flat-fee specialists like Dynamite Management publish rates (<a href="/hoa-taxes/">$150 for Form 1120-H prep</a>; $750/mo for the WA self-managed condo package). Most providers are quote-based, with monthly engagements ranging from a few hundred dollars for a small association up to thousands for full-service large communities.</p>
+<p><strong>What does HOA accounting cost?</strong> It depends on the model. Flat-fee specialists like Dynamite Management publish rates (<a href="/hoa-taxes/">$175 for Form 1120-H prep</a>; $750/mo for the WA self-managed condo package). Most providers are quote-based, with monthly engagements ranging from a few hundred dollars for a small association up to thousands for full-service large communities.</p>
 <p><strong>How is HOA bookkeeping different from full financial management?</strong> Bookkeeping is recording transactions: dues received, bills paid, ledger maintained. Financial management is the full picture: monthly reporting, AP/AR, bank reconciliation, audit support, tax filing, reserve tracking, and board advisory. Most boards need the full picture.</p>
 <p><strong>Do small HOAs really need outsourced accounting?</strong> Even 8-unit condominiums benefit, because the fraud-control case is structural. A board of three volunteers can't realistically run dual approval and segregation of duties internally &mdash; an outside firm closes that gap.</p>
 <p><strong>What is Form 1120-H?</strong> The federal tax return designed specifically for HOAs and condominium associations. It's simpler than Form 1120 (the corporate return) and usually lower-tax, but it has to be filed correctly to qualify. Missing it is the most common HOA tax problem.</p>

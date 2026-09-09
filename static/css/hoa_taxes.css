@@ -1,4 +1,4 @@
-/* HOA Taxes Page Specific Styles */
+/* HOA Taxes Page Specific Styles — rebuilt September 2026 */
 
 /* Tax Pricing Styles */
 .tax-pricing-title {
@@ -11,6 +11,125 @@
     font-size: 2rem;
     font-weight: 700;
     color: var(--dynamite-orange);
+}
+
+/* Hero: let the row grow with the copy (style.css pins .process-section .row to 450px) */
+@media (min-width: 992px) {
+    .tax-hero .row {
+        height: auto;
+    }
+
+    .tax-hero .process-image-container {
+        height: 100%;
+        min-height: 450px;
+        max-height: 620px;
+    }
+
+    .tax-blue .row {
+        height: auto;
+    }
+
+    .tax-blue .blue-image-container {
+        height: 100%;
+        min-height: 450px;
+        max-height: 700px;
+    }
+}
+
+/* Price block under the hero copy */
+.tax-price-block {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    border-left: 4px solid var(--dynamite-orange);
+    background-color: #f8f9fa;
+    border-radius: 0 8px 8px 0;
+}
+
+.tax-price-block p {
+    margin: 0;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--dynamite-navy);
+}
+
+.tax-price-block a {
+    color: var(--dynamite-navy);
+    text-decoration: underline;
+}
+
+/* Prose sections reuse the blog typography; keep headings in the site style */
+.tax-copy h2.section-title {
+    margin-top: 0;
+}
+
+.tax-copy p,
+.tax-copy li {
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.tax-copy blockquote {
+    border-left: 4px solid var(--dynamite-orange);
+    background-color: #f8f9fa;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.tax-copy blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+.tax-copy table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    background-color: #fff;
+}
+
+.tax-copy th,
+.tax-copy td {
+    border: 1px solid #d9dee5;
+    padding: 0.6rem 0.75rem;
+    vertical-align: top;
+    text-align: left;
+}
+
+.tax-copy thead th {
+    background-color: var(--dynamite-navy);
+    color: #fff;
+    font-weight: 600;
+}
+
+.tax-copy tbody tr:nth-child(even) {
+    background-color: #f3f5f8;
+}
+
+/* Callout boxes (season note, final CTA) */
+.tax-callout {
+    padding: 1.25rem 1.5rem;
+    border-radius: 8px;
+    background-color: var(--dynamite-navy);
+    color: #fff;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.tax-callout p {
+    margin: 0;
+}
+
+.tax-callout a {
+    color: #fff;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.tax-callout strong {
+    color: #ffd9c7;
 }
 
 /* Tax Process Steps Styles */
@@ -75,17 +194,27 @@
     line-height: 1.5;
 }
 
+.tax-step-text p:last-child {
+    margin-bottom: 0;
+}
+
 /* List styles in the blue section */
-.section-list {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 1.1rem;
-    line-height: 1.8;
-    padding-left: 1.5rem;
+.section-list,
+.tax-included .section-list-wrap ul {
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    padding-left: 1.4rem;
     margin-bottom: 1.5rem;
 }
 
-.section-list li {
+.section-list li,
+.tax-included .section-list-wrap li {
     margin-bottom: 0.5rem;
+}
+
+.tax-included .section-text p:last-child {
+    margin-bottom: 0;
 }
 
 /* FAQ Styles */
@@ -115,6 +244,10 @@
     line-height: 1.6;
 }
 
+.accordion-body p:last-child {
+    margin-bottom: 0;
+}
+
 .accordion-body ul {
     padding-left: 1.5rem;
     margin-bottom: 1rem;
@@ -130,7 +263,7 @@
         padding: 1.5rem 1rem;
         margin-bottom: 1.5rem;
     }
-    
+
     .tax-step-icon i {
         font-size: 2rem;
     }
@@ -141,27 +274,34 @@
         font-size: 1.3rem;
         text-align: center;
     }
-    
+
     .tax-price {
         font-size: 1.8rem;
     }
-    
+
     .contact-cta {
         text-align: center;
     }
-    
+
     .tax-step-card {
-        max-width: 300px;
+        max-width: 340px;
         margin-left: auto;
         margin-right: auto;
     }
-    
+
     .accordion-button {
         font-size: 1rem;
         padding: 1rem;
     }
-    
-    .section-list {
+
+    .section-list,
+    .tax-included .section-list-wrap ul {
         font-size: 1rem;
+    }
+
+    .tax-copy table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 }
