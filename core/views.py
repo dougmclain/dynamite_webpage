@@ -217,3 +217,20 @@ def contact(request):
         form = ContactForm()
     
     return render(request, 'core/contact.html', {'form': form})
+
+
+# ---------------------------------------------------------------------------
+# llms.txt (https://llmstxt.org) -- added Sep 2026 for the AI-search /
+# authority track. A plain-text summary of the site and its guides for AI
+# assistants and crawlers; lists every published post so it never goes stale.
+# ---------------------------------------------------------------------------
+
+def llms_txt(request):
+    from blog.models import BlogPost
+    posts = BlogPost.objects.filter(status='published').order_by('-published_at')
+    return render(
+        request,
+        'llms.txt',
+        {'posts': posts},
+        content_type='text/plain; charset=utf-8',
+    )

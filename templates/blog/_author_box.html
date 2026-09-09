@@ -1,0 +1,20 @@
+{% load static %}
+{# About-the-author credibility box (E-E-A-T). Single-author blog, so this renders the founder bio on every post. Keep the wording aligned with /about/ and with the same box on hoafiscal.com and hoameeting.com. Styles: .blog-author-box in static/css/blog.css. #}
+<aside class="blog-author-box mt-5" aria-label="About the author">
+    <div class="blog-author-box__avatar" aria-hidden="true">
+        <img src="{% static 'images/doug-profile.jpg' %}" alt="" loading="lazy">
+    </div>
+    <div class="blog-author-box__body">
+        <div class="blog-author-box__eyebrow">About the author</div>
+        <h2 class="blog-author-box__name"><a href="{% url 'core:about' %}#doug-mclain" rel="author">Doug McLain</a></h2>
+        <p class="blog-author-box__bio">
+            Doug McLain is a partner in Dynamite Management, LLC and the founder of
+            <a href="https://www.hoafiscal.com/" target="_blank" rel="noopener">HOA Fiscal</a>.
+            He has provided audit, management and tax services to homeowner and condominium associations
+            for more than 20 years, was a partner in an audit and tax firm serving associations nationwide,
+            and is a co-author of
+            <a href="https://www.amazon.com/Trade-HOA-Stress-Success-Managing/dp/0692354166" target="_blank" rel="noopener"><em>Trade HOA Stress for Success</em></a>,
+            a board of directors' guide to running an association. General information, not legal or tax advice.
+        </p>
+    </div>
+</aside>

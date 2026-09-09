@@ -5,6 +5,58 @@
 {% block meta_description %}Learn how Dynamite Management protects HOA and condominium money through dedicated accounting, fraud detection, and a system built to safeguard association funds at scale.{% endblock %}
 {% block og_description %}Learn how Dynamite Management protects HOA and condominium money through dedicated accounting, fraud detection, and a system built to safeguard association funds at scale.{% endblock %}
 
+{% block jsonld %}
+{% comment %}
+   AboutPage + the canonical Person node for Doug McLain (shared with
+   hoafiscal.com and hoameeting.com, see partials/person_jsonld.html) so
+   AI assistants and search engines resolve the team bio below to the same
+   entity the blog bylines point at.
+{% endcomment %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "@id": "https://dynamitemanagement.com/about/#webpage",
+    "url": "https://dynamitemanagement.com/about/",
+    "name": "About Dynamite Management",
+    "description": "Dynamite Management, LLC provides remote financial management, accounting and Form 1120-H tax preparation for homeowner and condominium associations in every state. Founded by Doug McLain, co-author of Trade HOA Stress for Success.",
+    "isPartOf": {
+        "@id": "https://dynamitemanagement.com/#website"
+    },
+    "about": {
+        "@id": "https://dynamitemanagement.com/#organization"
+    },
+    "mainEntity": {
+        "@id": "https://www.hoafiscal.com/about/#doug-mclain"
+    },
+    "inLanguage": "en-US"
+}
+</script>
+{% include 'partials/person_jsonld.html' %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Anthony Leverman",
+    "jobTitle": "Partner",
+    "worksFor": {
+        "@id": "https://dynamitemanagement.com/#organization"
+    },
+    "url": "https://dynamitemanagement.com/about/#anthony-leverman"
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://dynamitemanagement.com/"},
+        {"@type": "ListItem", "position": 2, "name": "About", "item": "https://dynamitemanagement.com/about/"}
+    ]
+}
+</script>
+{% endblock %}
+
 {% block content %}
 <!-- About Header Section -->
 <div class="location-header py-3">
@@ -87,12 +139,12 @@
                 
                 <div class="row">
                     <!-- Doug McLain -->
-                    <div class="col-lg-6 col-md-12 mb-5">
+                    <div class="col-lg-6 col-md-12 mb-5" id="doug-mclain">
                         <div class="team-member">
                             <div class="row">
                                 <div class="col-md-4 mb-3 mb-md-0">
                                     <div class="team-member-image">
-                                        <img src="{% static 'images/doug-profile.jpg' %}" alt="Doug McLain" class="img-fluid rounded shadow">
+                                        <img src="{% static 'images/doug-profile.jpg' %}" alt="Doug McLain, partner at Dynamite Management and co-author of Trade HOA Stress for Success" class="img-fluid rounded shadow">
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -100,28 +152,31 @@
                                     <h4 class="team-member-position">Partner</h4>
                                     <div class="team-member-bio">
                                         <p>
-                                            Doug has been providing audit, management, and tax services to HOAs for more than 20 years. 
-                                            He is the co-author of "Trade HOA Stress for Success" a board of directors' guide for managing 
-                                            an association, the all time best selling book on managing homeowner associations. 
+                                            Doug has been providing audit, management, and tax services to HOAs for more than 20 years.
+                                            He is the co-author of <a href="https://www.amazon.com/Trade-HOA-Stress-Success-Managing/dp/0692354166" target="_blank" rel="noopener">"Trade HOA Stress for Success"</a> a board of directors' guide for managing
+                                            an association, the all time best selling book on managing homeowner associations.
                                         </p>
                                         <p>
                                             Prior to founding Dynamite Management, LLC Services he was a partner in C.O.R.E. Services, LLC
-                                            a firm that provided auditing and tax filing for homeowner associations throughout the United States. 
-                                            Doug's experience with homeowner associations has led him to participate in the Oregon and Washington 
+                                            a firm that provided auditing and tax filing for homeowner associations throughout the United States.
+                                            Doug's experience with homeowner associations has led him to participate in the Oregon and Washington
                                             state chapters of Community Association Institute (CAI).
                                         </p>
                                         <p>
-                                            Doug co-founded Dynamite Management, LLC Services for the purpose of providing affordable 
+                                            Doug co-founded Dynamite Management, LLC Services for the purpose of providing affordable
                                             management services to both condominium and homeowner associations throughout the country.
+                                            He is also the founder of <a href="https://www.hoafiscal.com/about/" target="_blank" rel="noopener">HOA Fiscal</a>,
+                                            the software Dynamite runs its clients' books on, and publishes the
+                                            <a href="{% url 'blog:post_list' %}">HOA law and finance guides</a> on this site.
                                         </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Anthony Leverman -->
-                    <div class="col-lg-6 col-md-12 mb-5">
+                    <div class="col-lg-6 col-md-12 mb-5" id="anthony-leverman">
                         <div class="team-member">
                             <div class="row">
                                 <div class="col-md-4 mb-3 mb-md-0">

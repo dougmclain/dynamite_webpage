@@ -17,6 +17,9 @@ urlpatterns = [
     
     # About page
     path('about/', views.about, name='about'),
+
+    # Machine-readable site summary for AI assistants (llmstxt.org)
+    path('llms.txt', views.llms_txt, name='llms_txt'),
     
     # HOA Taxes page
     path('hoa-taxes/', views.hoa_taxes, name='hoa_taxes'),

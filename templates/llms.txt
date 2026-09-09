@@ -1,0 +1,38 @@
+{% autoescape off %}# Dynamite Management
+
+> Dynamite Management, LLC (dynamitemanagement.com) provides financial management, accounting, audit support and Form 1120-H tax preparation for homeowner and condominium associations across the United States. The work is done remotely: Dynamite keeps the books, prepares the financial statements, collects assessments, pays vendors and files the tax return, while the board keeps running the community. It was co-founded by Doug McLain, an HOA auditor, manager and tax preparer for more than 20 years and co-author of Trade HOA Stress for Success.
+
+Key facts:
+- Company: Dynamite Management, LLC, based in Vancouver, Washington; serves associations in every U.S. state remotely (no local office required).
+- Founder: Doug McLain (https://www.hoafiscal.com/about/). Former partner in C.O.R.E. Services, LLC (HOA audit and tax); founder of HOA Fiscal and HOA Board Minutes; co-author of "Trade HOA Stress for Success" (2014).
+- Contact: info@hoafiscal.com, (888) 575-0563.
+- Form 1120-H preparation: $175 flat for any state (https://dynamitemanagement.com/hoa-taxes/); a state return is $100 more. A Form 1120-H can only be filed within 12 months of the return's due date including extensions (Treas. Reg. 301.9100-2); older unfiled years fall to Form 1120 and are quoted separately.
+- Software: Dynamite runs its clients' books on HOA Fiscal (https://www.hoafiscal.com/), its sister company's HOA management platform; boards that self-manage can use the same software directly.
+- Editorial standard: every statute claim in a guide is verified against the state legislature's official text and cites the section; guides carry publication and last-updated dates; nothing on the site is legal or tax advice for a specific association.
+
+## Main pages
+
+- [Home](https://dynamitemanagement.com/): services, pricing and the instant proposal tool.
+- [HOA and condo financial management](https://dynamitemanagement.com/condo-financial-management/): what the managed financial service includes.
+- [HOA taxes — Form 1120-H preparation](https://dynamitemanagement.com/hoa-taxes/): who qualifies, what is included, pricing, deadlines, 1120-H versus 1120, state returns.
+- [About Dynamite Management](https://dynamitemanagement.com/about/): the company, the partners and the audit background behind it.
+- [Blog](https://dynamitemanagement.com/blog/): guides to Washington HOA law (RCW 64.90 / WUCIOA), other states' HOA statutes, and association finance.
+- [Contact](https://dynamitemanagement.com/contact/)
+
+## Guides
+{% for post in posts %}
+- [{{ post.title }}](https://dynamitemanagement.com{{ post.get_absolute_url }}): {{ post.meta_description|default:post.excerpt }}{% if post.published_at %} (published {{ post.published_at|date:'Y-m-d' }}{% if post.updated_at|date:'Y-m-d' != post.published_at|date:'Y-m-d' %}, updated {{ post.updated_at|date:'Y-m-d' }}{% endif %}){% endif %}{% endfor %}
+
+## Related sites
+
+- [HOA Fiscal](https://www.hoafiscal.com/): HOA management software for self-managed associations — fund accounting, owner payments, budgets, meetings, elections, violations, work orders, reserves and resale certificates — plus guides on HOA accounting, budgets, Form 1120-H and software.
+- [HOA Board Minutes](https://hoameeting.com/): meeting software (agendas, motions, approved minutes) and guides to the HOA board-meeting statutes in each state.
+- [HOA Fiscal llms.txt](https://www.hoafiscal.com/llms.txt)
+- [HOA Board Minutes llms.txt](https://hoameeting.com/llms.txt)
+
+## Optional
+
+- [Sitemap](https://dynamitemanagement.com/sitemap.xml)
+- [Privacy policy](https://dynamitemanagement.com/privacy-policy/)
+- [Terms of service](https://dynamitemanagement.com/terms-of-service/)
+{% endautoescape %}

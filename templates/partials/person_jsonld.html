@@ -1,0 +1,70 @@
+{# File: templates/partials/person_jsonld.html #}
+{% comment %}
+   Canonical Person entity for Doug McLain. The SAME node (same @id, same
+   sameAs list, same description) is published on hoafiscal.com,
+   dynamitemanagement.com and hoameeting.com so that search engines and AI
+   assistants resolve every byline to one person. The @id lives on
+   hoafiscal.com/about/, which is the hub site; the other two sites point at
+   it. Edit this file on all three sites together -- a drift in the
+   description or sameAs list weakens the entity match.
+{% endcomment %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://www.hoafiscal.com/about/#doug-mclain",
+    "name": "Doug McLain",
+    "url": "https://www.hoafiscal.com/about/",
+    "image": "https://dynamitemanagement.com/static/images/doug-profile.jpg",
+    "jobTitle": "Founder of HOA Fiscal and partner in Dynamite Management, LLC",
+    "description": "Doug McLain has provided audit, management and tax services to homeowner and condominium associations for more than 20 years. He was a partner in C.O.R.E. Services, LLC, a firm that audited and prepared tax returns for associations across the United States, co-founded Dynamite Management, LLC, and founded HOA Fiscal and HOA Board Minutes. He is a co-author of Trade HOA Stress for Success (2014), a board of directors' guide to managing an association, and participates in the Oregon and Washington chapters of Community Associations Institute.",
+    "homeLocation": {
+        "@type": "Place",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Vancouver",
+            "addressRegion": "WA",
+            "addressCountry": "US"
+        }
+    },
+    "worksFor": [
+        {
+            "@type": "Organization",
+            "@id": "https://www.hoafiscal.com/#organization",
+            "name": "HOA Fiscal",
+            "url": "https://www.hoafiscal.com/"
+        },
+        {
+            "@type": "ProfessionalService",
+            "@id": "https://dynamitemanagement.com/#organization",
+            "name": "Dynamite Management, LLC",
+            "url": "https://dynamitemanagement.com/"
+        },
+        {
+            "@type": "Organization",
+            "@id": "https://hoameeting.com/#organization",
+            "name": "HOA Board Minutes",
+            "url": "https://hoameeting.com/"
+        }
+    ],
+    "knowsAbout": [
+        "Homeowners association accounting and financial statements",
+        "Condominium association audits and reviews",
+        "IRS Form 1120-H and Form 1120 for homeowners associations",
+        "HOA budgets, assessments and reserve funding",
+        "Washington Uniform Common Interest Ownership Act (RCW 64.90)",
+        "Oregon Planned Community Act and Condominium Act (ORS 94 and ORS 100)",
+        "California Davis-Stirling Common Interest Development Act",
+        "Florida Chapters 718 and 720",
+        "HOA board meetings, minutes and records"
+    ],
+    "sameAs": [
+        "https://dynamitemanagement.com/about/",
+        "https://hoameeting.com/about/",
+        "https://www.amazon.com/Trade-HOA-Stress-Success-Managing/dp/0692354166",
+        "https://www.amazon.com/stores/author/B00SA8NFHO",
+        "https://books.google.com/books?id=LXkWrgEACAAJ",
+        "https://www.barnesandnoble.com/w/trade-hoa-stress-for-success-richard-thompson/1134531413"
+    ]
+}
+</script>

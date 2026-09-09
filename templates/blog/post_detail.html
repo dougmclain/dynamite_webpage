@@ -3,7 +3,7 @@
 
 {% block title %}{{ post.seo_title|default:post.title }} | Dynamite Management{% endblock %}
 {% block meta_description %}{{ post.meta_description|default:post.excerpt }}{% endblock %}
-{% block meta_keywords %}{% if post.meta_keywords %}<meta name="keywords" content="{{ post.meta_keywords }}">{% endif %}{% endblock %}
+{% block meta_keywords %}{% if post.meta_keywords %}<meta name="keywords" content="{{ post.meta_keywords }}">{% endif %}<meta name="author" content="{{ post.author.get_full_name|default:post.author.username }}">{% if post.published_at %}<meta property="article:published_time" content="{{ post.published_at|date:'c' }}">{% endif %}<meta property="article:modified_time" content="{{ post.updated_at|date:'c' }}">{% endblock %}
 
 {% block og_type %}article{% endblock %}
 {% block og_title %}{{ post.title }}{% endblock %}
@@ -14,33 +14,51 @@
 {% if post.has_featured_image %}{% block twitter_image %}https://dynamitemanagement.com{{ post.featured_image_src }}{% endblock %}{% endif %}
 
 {% block jsonld %}
+{% comment %}
+   BlogPosting.author and .publisher point at the site-wide entity @ids
+   (Person in partials/person_jsonld.html, ProfessionalService in
+   base.html) so every post resolves to the same author and publisher
+   across dynamitemanagement.com, hoafiscal.com and hoameeting.com.
+   Single-author blog; if a second author is ever added, key the Person
+   @id off post.author instead of hard-coding it.
+{% endcomment %}
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    "@id": "https://dynamitemanagement.com{% url 'blog:post_detail' slug=post.slug %}#article",
     "headline": "{{ post.title|escapejs }}",
     "description": "{{ post.meta_description|default:post.excerpt|escapejs }}",
     "author": {
         "@type": "Person",
-        "name": "{{ post.author.get_full_name|default:post.author.username|escapejs }}"
+        "@id": "https://www.hoafiscal.com/about/#doug-mclain",
+        "name": "{{ post.author.get_full_name|default:post.author.username|escapejs }}",
+        "url": "https://www.hoafiscal.com/about/"
     },
     "datePublished": "{{ post.published_at|date:'c' }}",
     "dateModified": "{{ post.updated_at|date:'c' }}",
     "publisher": {
         "@type": "Organization",
+        "@id": "https://dynamitemanagement.com/#organization",
         "name": "Dynamite Management",
+        "url": "https://dynamitemanagement.com/",
         "logo": {
             "@type": "ImageObject",
-            "url": "https://dynamitemanagement.com{% load static %}{% static 'images/lit-fuse.png' %}"
+            "url": "https://dynamitemanagement.com{% static 'images/lit-fuse.png' %}"
         }
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "https://dynamitemanagement.com{% url 'blog:post_detail' slug=post.slug %}"
-    }{% if post.has_featured_image %},
+    },
+    "isPartOf": {
+        "@id": "https://dynamitemanagement.com/#website"
+    },
+    "inLanguage": "en-US"{% if post.has_featured_image %},
     "image": "https://dynamitemanagement.com{{ post.featured_image_src }}"{% endif %}
 }
 </script>
+{% include 'partials/person_jsonld.html' %}
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -114,8 +132,9 @@
                     {% endif %}
                     <h1 class="blog-detail-title">{{ post.title }}</h1>
                     <div class="blog-detail-meta">
-                        <span><i class="far fa-user me-1"></i>{{ post.author.get_full_name|default:post.author.username }}</span>
-                        <span><i class="far fa-calendar-alt me-1"></i>{{ post.published_at|date:"F d, Y" }}</span>
+                        <span><i class="far fa-user me-1"></i><a href="{% url 'core:about' %}#doug-mclain" rel="author">{{ post.author.get_full_name|default:post.author.username }}</a></span>
+                        <span><i class="far fa-calendar-alt me-1"></i><time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:"F d, Y" }}</time></span>
+                        {% if post.updated_at|date:'Y-m-d' != post.published_at|date:'Y-m-d' %}<span><i class="fas fa-sync-alt me-1"></i>Updated <time datetime="{{ post.updated_at|date:'c' }}">{{ post.updated_at|date:"F d, Y" }}</time></span>{% endif %}
                         <span><i class="far fa-clock me-1"></i>{{ post.reading_time }} min read</span>
                     </div>
                 </header>
@@ -140,6 +159,8 @@
                     {% endfor %}
                 </div>
                 {% endif %}
+
+                {% include 'blog/_author_box.html' %}
             </div>
         </div>
 

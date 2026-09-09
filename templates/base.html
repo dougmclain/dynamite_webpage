@@ -46,18 +46,70 @@
     <!-- Ahrefs Web Analytics -->
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="0krGrAUSWgRv3t8CsSo/+g" async></script>
 
+    {% comment %}
+       Site-wide entity data. The ProfessionalService node carries a stable
+       @id that the blog's BlogPosting.publisher, the About page and the
+       Person node for Doug McLain (partials/person_jsonld.html, shared with
+       hoafiscal.com and hoameeting.com) all reference. Name, phone and email
+       must match the footer and the other two sites exactly; the sameAs
+       entry disambiguates this company from unrelated businesses with a
+       similar name.
+    {% endcomment %}
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
+      "@id": "https://dynamitemanagement.com/#organization",
       "name": "Dynamite Management",
-      "url": "https://dynamitemanagement.com",
+      "legalName": "Dynamite Management, LLC",
+      "url": "https://dynamitemanagement.com/",
       "logo": "https://dynamitemanagement.com{% static 'images/lit-fuse.png' %}",
-      "description": "Expert financial management, accounting, and tax preparation services for homeowner and condominium associations across the United States.",
-      "telephone": "(888) 575-0563",
+      "image": "https://dynamitemanagement.com{% static 'images/lit-fuse.png' %}",
+      "description": "Dynamite Management, LLC provides financial management, accounting, audit support and Form 1120-H tax preparation for homeowner and condominium associations across the United States. The work is done remotely, so the board keeps running the community while Dynamite keeps the books. Founded by Doug McLain, co-author of Trade HOA Stress for Success.",
+      "telephone": "+1-888-575-0563",
       "email": "info@hoafiscal.com",
-      "areaServed": "United States",
-      "priceRange": "$$"
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Vancouver",
+        "addressRegion": "WA",
+        "addressCountry": "US"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "United States"
+      },
+      "priceRange": "$$",
+      "founder": {
+        "@type": "Person",
+        "@id": "https://www.hoafiscal.com/about/#doug-mclain",
+        "name": "Doug McLain",
+        "url": "https://www.hoafiscal.com/about/"
+      },
+      "knowsAbout": [
+        "HOA and condominium financial management",
+        "Association financial statements and fund accounting",
+        "IRS Form 1120-H and Form 1120 for homeowners associations",
+        "HOA assessment collections",
+        "Washington Uniform Common Interest Ownership Act (RCW 64.90)",
+        "State HOA and condominium statutes"
+      ],
+      "sameAs": [
+        "https://www.hoabudget.com/about",
+        "https://www.hoafiscal.com/about/#companies"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://dynamitemanagement.com/#website",
+      "name": "Dynamite Management",
+      "url": "https://dynamitemanagement.com/",
+      "publisher": {
+        "@id": "https://dynamitemanagement.com/#organization"
+      },
+      "inLanguage": "en-US"
     }
     </script>
     {% block jsonld %}{% endblock %}
@@ -65,12 +117,12 @@
 <body>
     {% include 'partials/header.html' %}
     {% include 'partials/navbar.html' %}
-    
+
     <main>
         {% block content %}
         {% endblock %}
     </main>
-    
+
     {% include 'partials/footer.html' %}
 
     <!-- Bootstrap Bundle with Popper -->

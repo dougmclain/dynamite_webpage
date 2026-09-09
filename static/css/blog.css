@@ -333,3 +333,81 @@
         height: 160px;
     }
 }
+
+/* ------------------------------------------------------------------
+   About-the-author box on post pages (templates/blog/_author_box.html)
+   Added Sep 2026 for the AI-search / authority track.
+   ------------------------------------------------------------------ */
+.blog-author-box {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    padding: 1.25rem 1.4rem;
+    border: 1px solid #e3e7ee;
+    border-left: 4px solid var(--dynamite-orange, #ff6f31);
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+.blog-author-box__avatar {
+    flex: 0 0 64px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: var(--dynamite-navy, #003366);
+}
+
+.blog-author-box__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.blog-author-box__eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--dynamite-orange, #ff6f31);
+    margin-bottom: 0.2rem;
+}
+
+.blog-author-box__name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 0.4rem;
+    color: var(--dynamite-navy, #003366);
+}
+
+.blog-author-box__name a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.blog-author-box__name a:hover {
+    text-decoration: underline;
+}
+
+.blog-author-box__bio {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.blog-detail-meta a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.blog-detail-meta a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 575px) {
+    .blog-author-box {
+        flex-direction: column;
+    }
+}
