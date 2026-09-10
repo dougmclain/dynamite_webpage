@@ -121,6 +121,13 @@
                             </div>
                         </div>
                         
+                        {% if turnstile_site_key %}
+                        <!-- Cloudflare Turnstile: invisible bot check. Verified server-side in core.views.contact. -->
+                        <div class="mb-3">
+                            <div class="cf-turnstile" data-sitekey="{{ turnstile_site_key }}" data-theme="light"></div>
+                        </div>
+                        {% endif %}
+
                         <!-- Submit Button -->
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
@@ -134,6 +141,9 @@
 {% endblock %}
 
 {% block extra_js %}
+{% if turnstile_site_key %}
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+{% endif %}
 <script>
     // Form validation (client-side)
     document.getElementById('contactForm').addEventListener('submit', function(event) {

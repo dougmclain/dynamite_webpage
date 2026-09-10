@@ -185,6 +185,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 RECAPTCHA_SITE_KEY = os.environ.get('RECAPTCHA_SITE_KEY', '')
 RECAPTCHA_SECRET_KEY = os.environ.get('RECAPTCHA_SECRET_KEY', '')
 
+# Cloudflare Turnstile (contact-form bot protection).
+# Both keys come from the Cloudflare dashboard -> Turnstile -> the hoafiscal.com widget.
+# If either key is missing the form still works but skips the check (and logs a warning),
+# so a missing env var never blocks real visitors.
+TURNSTILE_SITE_KEY = os.environ.get('TURNSTILE_SITE_KEY', '')
+TURNSTILE_SECRET_KEY = os.environ.get('TURNSTILE_SECRET_KEY', '')
+
 # Email Settings - Secure configuration using environment variables
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.sendgrid.net')

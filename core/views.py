@@ -5,6 +5,47 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .forms import ContactForm
 from honeypot.decorators import check_honeypot  # Add this import
+import logging
+import requests
+
+logger = logging.getLogger(__name__)
+
+TURNSTILE_VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
+
+
+def turnstile_passed(request):
+    """
+    Verify the Cloudflare Turnstile token posted with a form.
+
+    Returns True when the token checks out, or when Turnstile isn't configured
+    (so a missing env var degrades to "no check" rather than a broken form).
+    Returns False for a missing/invalid token or a Cloudflare error.
+    """
+    secret = settings.TURNSTILE_SECRET_KEY
+    if not secret:
+        logger.warning("TURNSTILE_SECRET_KEY not set; skipping Turnstile verification")
+        return True
+
+    token = request.POST.get('cf-turnstile-response', '')
+    if not token:
+        return False
+
+    payload = {'secret': secret, 'response': token}
+    remote_ip = request.META.get('HTTP_X_FORWARDED_FOR', '').split(',')[0].strip() \
+        or request.META.get('REMOTE_ADDR')
+    if remote_ip:
+        payload['remoteip'] = remote_ip
+
+    try:
+        resp = requests.post(TURNSTILE_VERIFY_URL, data=payload, timeout=5)
+        result = resp.json()
+    except (requests.RequestException, ValueError) as e:
+        logger.error("Turnstile verification request failed: %s", e)
+        return False
+
+    if not result.get('success'):
+        logger.info("Turnstile rejected submission: %s", result.get('error-codes'))
+    return bool(result.get('success'))
 
 # Create your views here.
 def home(request):
@@ -166,7 +207,9 @@ def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         
-        if form.is_valid():
+        if not turnstile_passed(request):
+            messages.error(request, "We couldn't confirm you're not a robot. Please try submitting the form again.")
+        elif form.is_valid():
             try:
                 # Extract form data
                 first_name = form.cleaned_data['first_name']
@@ -216,7 +259,10 @@ def contact(request):
     else:
         form = ContactForm()
     
-    return render(request, 'core/contact.html', {'form': form})
+    return render(request, 'core/contact.html', {
+        'form': form,
+        'turnstile_site_key': settings.TURNSTILE_SITE_KEY,
+    })
 
 
 # ---------------------------------------------------------------------------
