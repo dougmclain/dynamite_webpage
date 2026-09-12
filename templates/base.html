@@ -3,7 +3,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Google tag (gtag.js) -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="Gu2LZbjSxqwyoVnTYtZq_SVnXvYIshph5Q5teWLTQc8" />
+
+    <!-- Google tag (gtag.js) — GA4 / Google Ads measurement for dynamitemanagement.com -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PR5BDPQWYK"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -11,9 +15,22 @@
       gtag('js', new Date());
       gtag('config', 'G-PR5BDPQWYK');
     </script>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-site-verification" content="Gu2LZbjSxqwyoVnTYtZq_SVnXvYIshph5Q5teWLTQc8" />
+
+    <!-- Google Ads click-to-call conversion (AW-18447045503). Phone links call gtag_report_conversion('tel:8885750563') -->
+    <script>
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') { window.location = url; }
+        };
+        gtag('event', 'conversion', {
+          'send_to': 'AW-18447045503/j1BfCJymrPUcEP-mntxE',
+          'value': 1.0,
+          'currency': 'USD',
+          'event_callback': callback
+        });
+        return false;
+      }
+    </script>
 
     <title>{% block title %}Dynamite Management - Trusted Financial Management for HOAs and Condominiums{% endblock %}</title>
     <meta name="description" content="{% block meta_description %}Dynamite Management provides expert financial management, accounting, and tax preparation for homeowner and condominium associations across the United States.{% endblock %}">
