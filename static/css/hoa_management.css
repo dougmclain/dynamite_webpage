@@ -1,0 +1,262 @@
+/* HOA Management Company landing page — September 2026 */
+
+/* Hero: let the row grow with the copy (style.css pins .process-section .row to 450px) */
+@media (min-width: 992px) {
+    .hm-hero .row {
+        height: auto;
+    }
+
+    .hm-hero .process-image-container {
+        height: 100%;
+        min-height: 450px;
+        max-height: 640px;
+    }
+
+    .hm-blue .row {
+        height: auto;
+    }
+
+    .hm-blue .blue-image-container {
+        height: 100%;
+        min-height: 450px;
+        max-height: 700px;
+    }
+}
+
+/* Proof points under the hero copy */
+.hm-proof {
+    list-style: none;
+    padding: 0;
+    margin: 1.25rem 0 0;
+}
+
+.hm-proof li {
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--dynamite-navy);
+}
+
+.hm-proof li i {
+    position: absolute;
+    left: 0;
+    top: 0.3rem;
+    color: var(--dynamite-orange);
+    font-size: 1.1rem;
+}
+
+/* CTA row: button plus phone side by side, stacks on phones */
+.hm-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+}
+
+.hm-phone {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--dynamite-navy);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.hm-phone i {
+    color: var(--dynamite-orange);
+    margin-right: 0.35rem;
+}
+
+.hm-phone:hover {
+    color: var(--dynamite-orange);
+}
+
+.hm-fineprint {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* Services intro: keep the site style but left-align at width */
+.hm-intro {
+    text-align: left;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Cards (who this is for) */
+.hm-cards-section {
+    background-color: #f8f9fa;
+}
+
+.hm-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.hm-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+}
+
+.hm-card-icon {
+    margin-bottom: 1.25rem;
+}
+
+.hm-card-icon i {
+    font-size: 2.25rem;
+    color: var(--dynamite-navy);
+}
+
+.hm-card-title {
+    font-family: 'Roboto', sans-serif;
+    color: var(--dynamite-navy);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.hm-card-text {
+    font-family: 'Roboto', sans-serif;
+    color: #555;
+    font-size: 0.98rem;
+    line-height: 1.55;
+}
+
+.hm-card-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* Section titles on light backgrounds (style.css defaults them to white for the blue band) */
+.hm-cards-section .section-title,
+.hm-about .section-title,
+.hm-area .section-title,
+.faq-section .section-title {
+    color: var(--dynamite-navy);
+}
+
+.hm-cards-section .section-title.text-center::after,
+.faq-section .section-title.text-center::after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* How it works (blue band): location_detail.css paints .section-title navy, so force white here */
+.hm-blue .section-title {
+    color: #fff;
+}
+
+.hm-steplist {
+    padding-left: 1.25rem;
+    margin: 0;
+}
+
+.hm-steplist li {
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 0.9rem;
+    font-weight: 300;
+}
+
+.hm-steplist li strong {
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Prose sections */
+.hm-copy .section-title {
+    margin-top: 0;
+}
+
+.hm-copy p,
+.hm-copy li {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #333;
+}
+
+.hm-copy a {
+    color: var(--dynamite-navy);
+    text-decoration: underline;
+}
+
+.hm-copy a.btn,
+.process-box a.btn {
+    text-decoration: none;
+}
+
+/* Quote box beside the about copy */
+.hm-quotebox {
+    background-color: #f8f9fa;
+    border-left: 4px solid var(--dynamite-orange);
+    border-radius: 0 8px 8px 0;
+    padding: 1.5rem;
+}
+
+.hm-quotebox-lead {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--dynamite-navy);
+    margin-bottom: 0.5rem;
+}
+
+.hm-quotebox p {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+.hm-quotebox a {
+    color: var(--dynamite-navy);
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.hm-quotebox .btn {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Final callout under the FAQ */
+.hm-callout {
+    padding: 1.25rem 1.5rem;
+    border-radius: 8px;
+    background-color: var(--dynamite-navy);
+    color: #fff;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.hm-callout p {
+    margin: 0;
+}
+
+.hm-callout a {
+    color: #fff;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.hm-callout strong {
+    color: #ffd9c7;
+}
+
+/* Phones */
+@media (max-width: 767.98px) {
+    .hm-phone {
+        font-size: 1.2rem;
+    }
+
+    .hm-card {
+        padding: 1.5rem 1.25rem;
+    }
+}

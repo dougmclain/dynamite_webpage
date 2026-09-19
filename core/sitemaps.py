@@ -28,6 +28,7 @@ class StaticViewSitemap(Sitemap):
             "core:about",
             "core:financial_management",
             "core:hoa_taxes",
+            "core:hoa_management_company",
             "core:wa_condo",
             "core:contact",
             "core:privacy_policy",

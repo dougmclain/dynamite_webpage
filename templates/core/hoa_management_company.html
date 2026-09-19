@@ -1,0 +1,345 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}HOA Management Company | Financial Management for Boards{% endblock %}
+{% block meta_description %}Dynamite Management runs the books for HOA and condo boards in Washington and Oregon: statements, dues, bills, bank recs, budgets and taxes. Led by a former CPA. Get a quote.{% endblock %}
+{% block og_title %}HOA Management Company | Financial Management for Boards{% endblock %}
+{% block og_description %}Dynamite Management runs the books for HOA and condo boards in Washington and Oregon: statements, dues, bills, bank recs, budgets and taxes. Led by a former CPA. Get a quote.{% endblock %}
+{% block twitter_title %}HOA Management Company | Financial Management for Boards{% endblock %}
+{% block twitter_description %}Financial management for HOA and condo boards in Washington and Oregon, led by a former CPA. Statements, dues, bills, bank recs, budgets and taxes.{% endblock %}
+{% block extra_css %}<link href="{% static 'css/hoa_management.css' %}" rel="stylesheet">{% endblock %}
+{% block jsonld %}
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "HOA Financial Management",
+    "serviceType": "Homeowners association financial management",
+    "description": "Monthly financial management for homeowners and condominium associations: financial statements, assessment billing and collections, vendor bill payment, bank reconciliations, budgets, reserve reporting and association tax returns. The board keeps control; Dynamite Management does the books.",
+    "url": "https://dynamitemanagement.com/hoa-management-company/",
+    "provider": {
+      "@type": "Organization",
+      "name": "Dynamite Management",
+      "url": "https://dynamitemanagement.com",
+      "telephone": "+1-888-575-0563",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Vancouver",
+        "addressRegion": "WA",
+        "addressCountry": "US"
+      }
+    },
+    "areaServed": [
+      { "@type": "State", "name": "Washington" },
+      { "@type": "State", "name": "Oregon" },
+      { "@type": "Country", "name": "US" }
+    ],
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "Homeowners association and condominium association boards"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Are you a full-service HOA management company?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No, and that is deliberate. Dynamite Management is the financial and administrative side of HOA management: the books, the billing, the bills, the bank accounts, the reports and the tax returns. We do not send someone to walk the property or run your landscaper. Your board keeps its vendors and its decisions, and pays for the part of management that actually needs an accountant."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does an HOA financial manager do every month?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Bill and collect assessments, follow up on late accounts, pay approved vendor invoices, reconcile every bank account to the statement, and deliver a monthly financial package the board can read: balance sheet, income statement against budget, bank reconciliations and an owner receivables report. Once a year we draft the budget with the board and prepare the association's Form 1120-H."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does HOA financial management cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A flat monthly fee quoted for your association, based on the number of units and what the board wants handled. There is no hourly billing for routine work. The association's federal tax return is a separate flat fee of $175. Ask for a quote and you get a straight answer on fees and scope."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you work with self-managed HOAs and condos?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Most boards that call us are self-managed and have a treasurer who is tired of doing the books, or are leaving a full-service manager and want to keep the savings without taking the accounting back on themselves. Both work well with this model."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which areas do you serve?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We are based in Vancouver, Washington, and most of our associations are in Washington and Oregon, including Clark County, the Portland metro area and the Puget Sound region. Because the work is financial and administrative, it is done remotely, and we serve associations in other states as well."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What do you need from us to get started?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The governing documents, the current budget, the most recent financial statements and bank statements, the owner roster with balances, and the vendor list. From there we set up the books, load owner accounts and take over billing at the next assessment cycle."
+        }
+      }
+    ]
+  }
+]
+</script>
+{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="location-header py-3">
+    <div class="container-fluid px-4">
+        <h1 class="location-main-title">HOA Management Company for Boards That Want the Books Done Right</h1>
+    </div>
+</div>
+
+<!-- Hero -->
+<section class="process-section hm-hero py-5">
+    <div class="container-fluid px-4">
+        <div class="row align-items-stretch">
+            <div class="col-lg-6 col-md-12 order-2 order-lg-1 mb-4 mb-lg-0">
+                <div class="process-box h-100 hm-copy">
+                    <h2 class="section-title mb-3">Financial management for HOAs and condos in Washington and Oregon</h2>
+                    <p class="section-text">
+                        Dynamite Management handles the money side of running an association: assessments billed and collected,
+                        vendor bills paid, every bank account reconciled, and a monthly financial package your board can actually read.
+                        Your board keeps its vendors and its decisions. We do the books.
+                    </p>
+                    <ul class="hm-proof">
+                        <li><i class="fa-solid fa-user-tie"></i> Led by Doug McLain, a former CPA who has audited associations since 2011</li>
+                        <li><i class="fa-solid fa-file-invoice-dollar"></i> Monthly statements, bank reconciliations and owner balances, every month</li>
+                        <li><i class="fa-solid fa-map-location-dot"></i> Vancouver, WA based; serving Washington and Oregon boards, remotely anywhere</li>
+                    </ul>
+                    <div class="hm-cta-row mt-4">
+                        <a href="{% url 'core:contact' %}" class="btn btn-primary cta-button">Get a quote for your board</a>
+                        <a href="tel:8885750563" class="hm-phone" onclick="return gtag_report_conversion('tel:8885750563');">
+                            <i class="fas fa-phone"></i> (888) 575-0563
+                        </a>
+                    </div>
+                    <p class="hm-fineprint mt-3 mb-0">Not a full-service property manager. If your board wants someone on site every week, we are not the right fit, and we will say so.</p>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 mb-4 mb-lg-0 order-1 order-lg-2">
+                <div class="process-image-container">
+                    <img src="{% static 'images/condo-accounting-financial-data.jpg' %}" alt="Monthly HOA financial statements prepared for a board meeting" class="process-image">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- What we handle -->
+<section class="services-section hm-services py-5">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12">
+                <div class="services-header text-center mb-5">
+                    <h2 class="services-title">What we handle for your association</h2>
+                    <p class="services-intro hm-intro">
+                        Everything a treasurer would otherwise do at the kitchen table, done by people who do it all day.
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="service-item"><div class="service-icon"><img src="{% static 'images/lit-fuse.png' %}" alt="" width="30"><span>Assessment billing and collections</span></div></div>
+                        <div class="service-item"><div class="service-icon"><img src="{% static 'images/lit-fuse.png' %}" alt="" width="30"><span>Late-account follow-up and notices</span></div></div>
+                        <div class="service-item"><div class="service-icon"><img src="{% static 'images/lit-fuse.png' %}" alt="" width="30"><span>Vendor bill payment</span></div></div>
+                        <div class="service-item"><div class="service-icon"><img src="{% static 'images/lit-fuse.png' %}" alt="" width="30"><span>Bank reconciliations, every account</span></div></div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="service-item"><div class="service-icon"><img src="{% static 'images/lit-fuse.png' %}" alt="" width="30"><span>Monthly financial statements</span></div></div>
+                        <div class="service-item"><div class="service-icon"><img src="{% static 'images/lit-fuse.png' %}" alt="" width="30"><span>Budget preparation with the board</span></div></div>
+                        <div class="service-item"><div class="service-icon"><img src="{% static 'images/lit-fuse.png' %}" alt="" width="30"><span>Reserve fund tracking and reporting</span></div></div>
+                        <div class="service-item"><div class="service-icon"><img src="{% static 'images/lit-fuse.png' %}" alt="" width="30"><span>Association tax returns (Form 1120-H)</span></div></div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="service-item"><div class="service-icon"><img src="{% static 'images/lit-fuse.png' %}" alt="" width="30"><span>Owner portal with statements and online payments</span></div></div>
+                        <div class="service-item"><div class="service-icon"><img src="{% static 'images/lit-fuse.png' %}" alt="" width="30"><span>Resale certificates</span></div></div>
+                        <div class="service-item"><div class="service-icon"><img src="{% static 'images/lit-fuse.png' %}" alt="" width="30"><span>Financial controls and fraud prevention</span></div></div>
+                        <div class="service-item"><div class="service-icon"><img src="{% static 'images/lit-fuse.png' %}" alt="" width="30"><span>Board treasurer training</span></div></div>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <a href="{% url 'core:contact' %}" class="btn btn-primary">Request a quote</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Who this is for -->
+<section class="hm-cards-section py-5">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12">
+                <h2 class="section-title text-center mb-5">Who this is for</h2>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="hm-card text-start">
+                            <div class="hm-card-icon"><i class="fa-solid fa-people-roof"></i></div>
+                            <h3 class="hm-card-title">Self-managed HOAs and condos</h3>
+                            <div class="hm-card-text"><p>Your board runs the community well, but the treasurer is doing the books at night and nobody wants the job next year. We take the accounting, the billing and the bank work; the board keeps everything else.</p></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="hm-card text-start">
+                            <div class="hm-card-icon"><i class="fa-solid fa-right-left"></i></div>
+                            <h3 class="hm-card-title">Boards leaving a full-service manager</h3>
+                            <div class="hm-card-text"><p>You are paying full-service rates for a manager who mostly forwards emails. Keep your own vendors, keep the savings, and hand the part that needs an accountant to an accountant.</p></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="hm-card text-start">
+                            <div class="hm-card-icon"><i class="fa-solid fa-magnifying-glass-dollar"></i></div>
+                            <h3 class="hm-card-title">Boards that want clean, audit-ready books</h3>
+                            <div class="hm-card-text"><p>An auditor, an escrow company or an owner has asked for records, and the answer took weeks. Statements that reconcile to the bank every month mean the next request takes a day.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How it works -->
+<section class="blue-section hm-blue py-5">
+    <div class="container-fluid px-4">
+        <div class="row align-items-stretch">
+            <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+                <div class="blue-box h-100 hm-steps">
+                    <h2 class="section-title mb-3">How it works</h2>
+                    <ol class="hm-steplist">
+                        <li><strong>Ask for a quote.</strong> Tell us the number of units, where the association is, and what the board wants handled. You get a flat monthly fee and a clear scope, not a sales call.</li>
+                        <li><strong>Send us the records.</strong> Governing documents, current budget, latest statements and bank statements, owner roster with balances, vendor list.</li>
+                        <li><strong>We set up the books.</strong> Chart of accounts, owner accounts and balances, vendors, bank feeds. Owners get portal access for statements and online payments.</li>
+                        <li><strong>The monthly rhythm starts.</strong> Assessments go out, contracted and recurring bills are paid on schedule, other invoices wait for board approval, accounts are reconciled, and the financial package lands in the board's inbox before the meeting.</li>
+                    </ol>
+                    <div class="contact-cta mt-4">
+                        <a href="{% url 'core:contact' %}" class="btn cta-button">Start with a quote</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+                <div class="blue-image-container">
+                    <img src="{% static 'images/computer-desk.jpg' %}" alt="Reconciling an association's bank accounts" class="blue-image">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why a former CPA -->
+<section class="py-5 hm-about">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-7 col-md-12 mb-4">
+                <div class="hm-copy">
+                    <h2 class="section-title mb-3">Run by someone who has audited the books, not just kept them</h2>
+                    <p>Dynamite Management is led by Doug McLain, a former CPA who has audited and prepared tax returns for homeowners and condominium associations since 2011. Auditing other managers' books for years is a good way to learn what goes wrong in association accounting, and how to keep it from going wrong in yours.</p>
+                    <p>The company's rule is simple: boards decide, we do the books. Bills the board has already committed to, such as vendor contracts, insurance installments and utilities on autopay, are paid on schedule; any other invoice waits for a board member's approval in the system before it goes out. Every account is reconciled to the bank statement every month, and the association's accounts stay in the association's name. If a board member wants to see any transaction, it is a login away, not a records request.</p>
+                    <p>We are a small firm on purpose. You will deal with the people who actually do the work, and your monthly package will look the same in month twenty-four as it did in month one.</p>
+                    <p class="mb-0"><a href="/about/">More about Doug and the firm</a></p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12 mb-4">
+                <div class="hm-quotebox">
+                    <p class="hm-quotebox-lead">Ready when your board is.</p>
+                    <p>Call <a href="tel:8885750563" onclick="return gtag_report_conversion('tel:8885750563');">(888) 575-0563</a> or send us the basics and we will come back with a fee and a scope.</p>
+                    <a href="{% url 'core:contact' %}" class="btn btn-primary cta-button w-100">Get a quote</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Service area -->
+<section class="py-5 bg-light hm-area">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12">
+                <div class="hm-copy">
+                    <h2 class="section-title mb-3">Where we work</h2>
+                    <p>Dynamite Management is based in Vancouver, Washington. Most of the associations we serve are in Washington and Oregon: Clark County, the Portland metro area and the Puget Sound region, along with communities in Central and Eastern Washington. Because the work is financial and administrative rather than on site, distance does not change what you get or what it costs, and we serve associations in other states as well. See our <a href="/locations/washington/">Washington</a> page for state-specific notes on WUCIOA and association accounting rules.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section py-5">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <h2 class="section-title text-center mb-5">Questions boards ask first</h2>
+                <div class="accordion" id="hmFaqAccordion">
+                    <div class="accordion-item mb-3 border rounded shadow-sm">
+                        <h3 class="accordion-header" id="hmFaqHeading1">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#hmFaqCollapse1" aria-expanded="true" aria-controls="hmFaqCollapse1">Are you a full-service HOA management company?</button>
+                        </h3>
+                        <div id="hmFaqCollapse1" class="accordion-collapse collapse show" aria-labelledby="hmFaqHeading1" data-bs-parent="#hmFaqAccordion">
+                            <div class="accordion-body"><p>No, and that is deliberate. Dynamite Management is the financial and administrative side of HOA management: the books, the billing, the bills, the bank accounts, the reports and the tax returns. We do not send someone to walk the property or run your landscaper. Your board keeps its vendors and its decisions, and pays for the part of management that actually needs an accountant.</p></div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3 border rounded shadow-sm">
+                        <h3 class="accordion-header" id="hmFaqHeading2">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#hmFaqCollapse2" aria-expanded="false" aria-controls="hmFaqCollapse2">What does an HOA financial manager do every month?</button>
+                        </h3>
+                        <div id="hmFaqCollapse2" class="accordion-collapse collapse" aria-labelledby="hmFaqHeading2" data-bs-parent="#hmFaqAccordion">
+                            <div class="accordion-body"><p>Bill and collect assessments, follow up on late accounts, pay approved vendor invoices, reconcile every bank account to the statement, and deliver a monthly financial package the board can read: balance sheet, income statement against budget, bank reconciliations and an owner receivables report. Once a year we draft the budget with the board and prepare the association's Form 1120-H.</p></div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3 border rounded shadow-sm">
+                        <h3 class="accordion-header" id="hmFaqHeading3">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#hmFaqCollapse3" aria-expanded="false" aria-controls="hmFaqCollapse3">How much does HOA financial management cost?</button>
+                        </h3>
+                        <div id="hmFaqCollapse3" class="accordion-collapse collapse" aria-labelledby="hmFaqHeading3" data-bs-parent="#hmFaqAccordion">
+                            <div class="accordion-body"><p>A flat monthly fee quoted for your association, based on the number of units and what the board wants handled. There is no hourly billing for routine work. The association's federal tax return is a separate flat fee of <a href="/hoa-taxes/">$175</a>. Ask for a quote and you get a straight answer on fees and scope.</p></div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3 border rounded shadow-sm">
+                        <h3 class="accordion-header" id="hmFaqHeading4">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#hmFaqCollapse4" aria-expanded="false" aria-controls="hmFaqCollapse4">Do you work with self-managed HOAs and condos?</button>
+                        </h3>
+                        <div id="hmFaqCollapse4" class="accordion-collapse collapse" aria-labelledby="hmFaqHeading4" data-bs-parent="#hmFaqAccordion">
+                            <div class="accordion-body"><p>Yes. Most boards that call us are self-managed and have a treasurer who is tired of doing the books, or are leaving a full-service manager and want to keep the savings without taking the accounting back on themselves. Both work well with this model.</p></div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3 border rounded shadow-sm">
+                        <h3 class="accordion-header" id="hmFaqHeading5">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#hmFaqCollapse5" aria-expanded="false" aria-controls="hmFaqCollapse5">Which areas do you serve?</button>
+                        </h3>
+                        <div id="hmFaqCollapse5" class="accordion-collapse collapse" aria-labelledby="hmFaqHeading5" data-bs-parent="#hmFaqAccordion">
+                            <div class="accordion-body"><p>We are based in Vancouver, Washington, and most of our associations are in Washington and Oregon, including Clark County, the Portland metro area and the Puget Sound region. Because the work is financial and administrative, it is done remotely, and we serve associations in other states as well.</p></div>
+                        </div>
+                    </div>
+                    <div class="accordion-item mb-3 border rounded shadow-sm">
+                        <h3 class="accordion-header" id="hmFaqHeading6">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#hmFaqCollapse6" aria-expanded="false" aria-controls="hmFaqCollapse6">What do you need from us to get started?</button>
+                        </h3>
+                        <div id="hmFaqCollapse6" class="accordion-collapse collapse" aria-labelledby="hmFaqHeading6" data-bs-parent="#hmFaqAccordion">
+                            <div class="accordion-body"><p>The governing documents, the current budget, the most recent financial statements and bank statements, the owner roster with balances, and the vendor list. From there we set up the books, load owner accounts and take over billing at the next assessment cycle.</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hm-callout mt-5">
+                    <p><strong>Get a quote for your association.</strong> Send the number of units and what the board wants handled through the <a href="{% url 'core:contact' %}">contact form</a>, or call <a href="tel:8885750563" onclick="return gtag_report_conversion('tel:8885750563');">(888) 575-0563</a>. Straight answers on fees, scope and what your board gets every month.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

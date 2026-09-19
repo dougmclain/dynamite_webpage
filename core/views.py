@@ -186,6 +186,12 @@ def hoa_taxes(request):
     """
     return render(request, 'core/hoa_taxes.html')
 
+def hoa_management_company(request):
+    """
+    Landing page for the Google Ads "HOA & Condo Management" ad group.
+    """
+    return render(request, 'core/hoa_management_company.html')
+
 def wa_condo(request):
     """
     Landing page for the Washington self-managed condo postcard campaign.

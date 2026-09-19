@@ -24,6 +24,9 @@ urlpatterns = [
     # HOA Taxes page
     path('hoa-taxes/', views.hoa_taxes, name='hoa_taxes'),
 
+    # HOA management company landing page (Google Ads)
+    path('hoa-management-company/', views.hoa_management_company, name='hoa_management_company'),
+
     # Washington self-managed condo postcard campaign landing page
     path('wa-condo/', views.wa_condo, name='wa_condo'),
 
