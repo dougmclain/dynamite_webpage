@@ -49,3 +49,10 @@ dj-database-url
 psycopg2-binary
 cloudinary==1.44.2
 django-cloudinary-storage==0.3.0
+# content_pipeline (content_pipeline/requirements-pipeline.txt); anthropic, pillow
+# and requests above already satisfy its other lines
+cairosvg>=2.7
+markdown>=3.5
+pypdf>=4
+google-api-python-client>=2.100
+google-auth>=2.20

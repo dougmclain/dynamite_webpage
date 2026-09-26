@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "staff_portal",
     "honeypot",
     "captcha",
+    "content_pipeline",
 ]
 
 if USE_CLOUDINARY:
@@ -236,4 +237,32 @@ TINYMCE_DEFAULT_CONFIG = {
                "alignleft aligncenter alignright alignjustify | "
                "bullist numlist outdent indent | removeformat | help",
     "content_css": "default",
+}
+
+# Blog content pipeline (content_pipeline/README.md). Drafts are written by a
+# Claude Cowork scheduled task through /pipeline/api/ (PIPELINE_TOKEN env var)
+# and land here as DRAFT BlogPosts; approval happens in the admin.
+CONTENT_PIPELINE = {
+    "SITE_KEY": "dynamite",
+    "SITE_URL": "https://dynamitemanagement.com",
+    "DRAFT_ENGINE": "cowork",
+    "POST_MODEL": "blog.BlogPost",
+    "CATEGORY_MODEL": "blog.Category",
+    "TAG_MODEL": "blog.Tag",
+    "BODY_FORMAT": "html",  # BlogPost.content is TinyMCE HTML
+    "FIELD_MAP": {
+        "title": "title", "slug": "slug", "body": "content", "excerpt": "excerpt",
+        "seo_title": "seo_title", "meta_description": "meta_description",
+        "meta_keywords": "meta_keywords", "structured_data": "structured_data",
+        "image": "featured_image",                # Cloudinary in production
+        "image_static": "featured_image_static",  # cleared when a cover is uploaded
+        "image_alt": None,                        # BlogPost has no alt-text field
+        "status": "status", "published_at": "published_at",
+        "author": "author", "category": "category", "tags": "tags",
+    },
+    # seo_title is max_length=70 on BlogPost
+    "FIELD_LIMITS": {"title": 200, "seo_title": 70, "meta_description": 160, "meta_keywords": 255},
+    "AUTHOR_USERNAME": "dmclain",
+    "GSC_PROPERTY": "https://dynamitemanagement.com/",
+    "CROSS_SITE_SITEMAPS": ["https://www.hoafiscal.com/sitemap.xml", "https://hoameeting.com/sitemap.xml"],
 }

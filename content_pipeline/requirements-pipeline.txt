@@ -1,0 +1,8 @@
+anthropic>=0.40
+cairosvg>=2.7
+Pillow>=10
+markdown>=3.5
+requests>=2.31
+pypdf>=4
+google-api-python-client>=2.100
+google-auth>=2.20

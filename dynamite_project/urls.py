@@ -31,6 +31,7 @@ urlpatterns = [
     path("blog/", include("blog.urls")),
     path("staff/", include("staff_portal.urls")),
     path("tinymce/", include("tinymce.urls")),
+    path("pipeline/api/", include("content_pipeline.urls")),
     path(
         "sitemap.xml",
         sitemap,

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static pipeline_tags %}
 
 {% block title %}{{ post.seo_title|default:post.title }} | Dynamite Management{% endblock %}
 {% block meta_description %}{{ post.meta_description|default:post.excerpt }}{% endblock %}
@@ -8,10 +8,18 @@
 {% block og_type %}article{% endblock %}
 {% block og_title %}{{ post.title }}{% endblock %}
 {% block og_description %}{{ post.meta_description|default:post.excerpt }}{% endblock %}
-{% if post.has_featured_image %}{% block og_image %}https://dynamitemanagement.com{{ post.featured_image_src }}{% endblock %}{% endif %}
+{% comment %}
+   Share images. The {% if %} must sit inside the block: in a child template
+   anything outside a block is ignored, so an outer {% if %} never ran and
+   posts without an image sent og:image "https://dynamitemanagement.com".
+   Cloudinary covers are already absolute, so they go through absolute_url
+   rather than getting the domain glued on; repo-static covers are site
+   paths and keep the https domain prefix.
+{% endcomment %}
+{% block og_image %}{% if post.featured_image_static %}https://dynamitemanagement.com{{ post.featured_image_src }}{% elif post.has_featured_image %}{{ post.featured_image_src|absolute_url:request }}{% else %}{{ block.super }}{% endif %}{% endblock %}
 {% block twitter_title %}{{ post.title }}{% endblock %}
 {% block twitter_description %}{{ post.meta_description|default:post.excerpt }}{% endblock %}
-{% if post.has_featured_image %}{% block twitter_image %}https://dynamitemanagement.com{{ post.featured_image_src }}{% endblock %}{% endif %}
+{% block twitter_image %}{% if post.featured_image_static %}https://dynamitemanagement.com{{ post.featured_image_src }}{% elif post.has_featured_image %}{{ post.featured_image_src|absolute_url:request }}{% else %}{{ block.super }}{% endif %}{% endblock %}
 
 {% block jsonld %}
 {% comment %}
@@ -55,7 +63,7 @@
         "@id": "https://dynamitemanagement.com/#website"
     },
     "inLanguage": "en-US"{% if post.has_featured_image %},
-    "image": "https://dynamitemanagement.com{{ post.featured_image_src }}"{% endif %}
+    "image": "{% if post.featured_image_static %}https://dynamitemanagement.com{{ post.featured_image_src }}{% else %}{{ post.featured_image_src|absolute_url:request }}{% endif %}"{% endif %}
 }
 </script>
 {% include 'partials/person_jsonld.html' %}
