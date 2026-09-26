@@ -150,13 +150,14 @@ class BlogPost(models.Model):
     def _media_upload_persists(self):
         """True only when an uploaded ``featured_image`` will actually survive a
         Render deploy. MEDIA uploads live on Render's ephemeral disk and are
-        wiped on every deploy unless Cloudinary is the active media backend
-        (``CLOUDINARY_URL`` set). When it isn't, linking the upload would render
-        a broken <img> after the next deploy, so we treat the post as having no
-        image and let the template fall back to its placeholder instead."""
+        wiped on every deploy unless Azure or Cloudinary is the active media
+        backend (``settings.MEDIA_PERSISTS``). When it isn't, linking the upload
+        would render a broken <img> after the next deploy, so we treat the post
+        as having no image and let the template fall back to its placeholder
+        instead."""
         from django.conf import settings
 
-        return bool(self.featured_image) and getattr(settings, "USE_CLOUDINARY", False)
+        return bool(self.featured_image) and getattr(settings, "MEDIA_PERSISTS", False)
 
     @staticmethod
     def _static_url(path):

@@ -110,9 +110,10 @@ def save_cover(post, jpg: bytes, slug: str, alt: str, credit: str = "", page: st
         if _has(M, "image_static"):
             setattr(post, _fm("image_static"), "")
     elif _has(M, "image_static"):
-        from django.core.files.storage import default_storage
-        path = default_storage.save(f"blog/covers/{slug}.jpg", ContentFile(jpg))
-        setattr(post, _fm("image_static"), default_storage.url(path))
+        from .models import cover_storage
+        storage = cover_storage()
+        path = storage.save(f"blog/covers/{slug}.jpg", ContentFile(jpg))
+        setattr(post, _fm("image_static"), storage.url(path))
     if _has(M, "image_alt"):
         setattr(post, _fm("image_alt"), alt[:255])
 

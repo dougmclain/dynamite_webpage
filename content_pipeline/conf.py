@@ -32,6 +32,9 @@ DEFAULTS = {
     "FIELD_LIMITS": {"title": 200, "meta_description": 160, "meta_keywords": 255},
     # covers: "photo" (Pexels, then Openverse CC0) with illustration fallback, or "illustration"
     "COVER_MODE": "photo",
+    # STORAGES alias covers are saved to: the brief's preview, and the post image on sites whose post
+    # model has no ImageField. None = default storage. Must give public, permanent URLs.
+    "COVER_STORAGE": None,
     # other sites' sitemaps, for cross-links
     "CROSS_SITE_SITEMAPS": [],
     # law radar (turn on in ONE site only — the dynamite repo)

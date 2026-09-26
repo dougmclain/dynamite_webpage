@@ -56,3 +56,5 @@ markdown>=3.5
 pypdf>=4
 google-api-python-client>=2.100
 google-auth>=2.20
+# blog images in the public Azure container (STORAGES in settings.py)
+django-storages[azure]==1.14.2

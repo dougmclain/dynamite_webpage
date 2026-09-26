@@ -88,8 +88,10 @@ client-supplied image URL is ever downloaded.
   again.
 - Pexels covers get an automatic "Cover: Photo by … on Pexels" credit line, as their API guidelines ask.
 - The branded illustration is used only if no photo can be found.
-- Covers are saved through the post's image field, so each site's media storage is used (Cloudinary on Dynamite and
-  hoameeting, Azure on hoafiscal).
+- Covers are saved through the post's image field, so that field's storage is used. A post model with no ImageField
+  (hoafiscal) gets its cover saved to `CONTENT_PIPELINE["COVER_STORAGE"]` (a `STORAGES` alias), and the URL goes in
+  its image-URL field. The brief's own preview image uses the same storage. All three sites set it to `"blog_images"`,
+  the public Azure container `hoafiscalweb/blog-images`, with one folder per site.
 - To change a cover: edit **Photo queries** on the brief, then run the admin action **Different photo**.
 - `python manage.py backfill_covers` gives every post that has no cover a real photo. In "cowork" mode, run it from
   a Cowork session.

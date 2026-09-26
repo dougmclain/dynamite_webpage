@@ -1,6 +1,15 @@
 from django.db import models
 
 
+def cover_storage():
+    """The storage covers go to (settings CONTENT_PIPELINE["COVER_STORAGE"], else the default)."""
+    from django.core.files.storage import default_storage, storages
+
+    from . import conf
+    alias = conf.get("COVER_STORAGE")
+    return storages[alias] if alias else default_storage
+
+
 class ContentBrief(models.Model):
     QUEUED, DRAFTING, DRAFTED, APPROVED, PUBLISHED, FAILED = (
         "queued", "drafting", "drafted", "approved", "published", "failed")
@@ -32,7 +41,7 @@ class ContentBrief(models.Model):
     body = models.TextField(blank=True)
     faq = models.JSONField(default=list, blank=True)
     cover_spec = models.JSONField(default=dict, blank=True)
-    cover = models.ImageField(upload_to="pipeline/covers/", blank=True)
+    cover = models.ImageField(upload_to="pipeline/covers/", storage=cover_storage, blank=True)
     cover_alt = models.CharField(max_length=255, blank=True)
     photo_queries = models.JSONField(default=list, blank=True, help_text="Stock-photo searches for the cover")
     cover_photo_id = models.CharField(max_length=80, blank=True)

@@ -160,23 +160,48 @@ STORAGES = {
     },
 }
 
-# When CLOUDINARY_URL is set (production on Render), store uploaded media in
-# Cloudinary so featured images persist across deploys. Locally CLOUDINARY_URL
-# is unset, so uploads continue to write to MEDIA_ROOT for normal development.
-if USE_CLOUDINARY:
+# Uploaded media (this site only uploads blog images) goes to the public Azure
+# container hoafiscalweb/blog-images, shared with hoafiscal.com and
+# hoameeting.com (one folder per site). The container allows anonymous reads
+# of single blobs (no listing), so URLs are plain and permanent and work as
+# og:image. Cloudinary is the fallback while BLOG_IMAGES_AZURE_ACCOUNT_KEY is
+# unset; with neither, uploads write to MEDIA_ROOT for local development.
+USE_AZURE_BLOG_IMAGES = bool(os.environ.get("BLOG_IMAGES_AZURE_ACCOUNT_KEY"))
+if USE_AZURE_BLOG_IMAGES:
+    STORAGES["default"] = {
+        "BACKEND": "storages.backends.azure_storage.AzureStorage",
+        "OPTIONS": {
+            "account_name": os.environ.get("BLOG_IMAGES_AZURE_ACCOUNT_NAME", "hoafiscalweb"),
+            "account_key": os.environ.get("BLOG_IMAGES_AZURE_ACCOUNT_KEY"),
+            "azure_container": os.environ.get("BLOG_IMAGES_AZURE_CONTAINER", "blog-images"),
+            "location": "dynamite",
+            "expiration_secs": None,  # no SAS: public, permanent URLs
+            "overwrite_files": False,
+            "cache_control": "public, max-age=2592000",
+        },
+    }
+elif USE_CLOUDINARY:
     STORAGES["default"]["BACKEND"] = "cloudinary_storage.storage.MediaCloudinaryStorage"
 elif os.environ.get("RENDER"):
-    # Running on Render without Cloudinary means media is written to the
-    # ephemeral filesystem and wiped on the next deploy. Make that loud in the
-    # deploy/runtime logs so this misconfiguration can never silently recur.
+    # Running on Render without Azure or Cloudinary means media is written to
+    # the ephemeral filesystem and wiped on the next deploy. Make that loud in
+    # the deploy/runtime logs so this misconfiguration can never silently recur.
     import warnings
 
     warnings.warn(
-        "CLOUDINARY_URL is not set on Render: uploaded media will be stored on "
-        "the ephemeral filesystem and LOST on the next deploy. Set CLOUDINARY_URL "
-        "in the Render environment to persist blog images.",
+        "BLOG_IMAGES_AZURE_ACCOUNT_KEY is not set on Render: uploaded media will "
+        "be stored on the ephemeral filesystem and LOST on the next deploy. Set "
+        "the BLOG_IMAGES_AZURE_* variables in the Render environment to persist "
+        "blog images.",
         RuntimeWarning,
     )
+
+# The content pipeline's covers use the same storage (CONTENT_PIPELINE below).
+STORAGES["blog_images"] = STORAGES["default"]
+
+# True when uploaded media survives a deploy (Azure or Cloudinary, not the
+# local disk). BlogPost only links an upload when this is set.
+MEDIA_PERSISTS = USE_AZURE_BLOG_IMAGES or USE_CLOUDINARY
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -250,11 +275,12 @@ CONTENT_PIPELINE = {
     "CATEGORY_MODEL": "blog.Category",
     "TAG_MODEL": "blog.Tag",
     "BODY_FORMAT": "html",  # BlogPost.content is TinyMCE HTML
+    "COVER_STORAGE": "blog_images",
     "FIELD_MAP": {
         "title": "title", "slug": "slug", "body": "content", "excerpt": "excerpt",
         "seo_title": "seo_title", "meta_description": "meta_description",
         "meta_keywords": "meta_keywords", "structured_data": "structured_data",
-        "image": "featured_image",                # Cloudinary in production
+        "image": "featured_image",                # public Azure container in production
         "image_static": "featured_image_static",  # cleared when a cover is uploaded
         "image_alt": None,                        # BlogPost has no alt-text field
         "status": "status", "published_at": "published_at",
