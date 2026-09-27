@@ -6,7 +6,8 @@ GET  /pipeline/api/queue/?days=10            briefs ready to write (oldest publi
 GET  /pipeline/api/briefs/<id>/context/      everything needed to write one brief (incl. official source text)
 GET  /pipeline/api/briefs/<id>/photos/?q=..  real-photo candidates (not already used on this site)
 POST /pipeline/api/briefs/<id>/draft/        the finished draft JSON -> quote check, cover, site DRAFT post
-POST /pipeline/api/briefs/                   create a brief (used by the law-radar skill)
+POST /pipeline/api/briefs/                   create a brief (used by the law-radar skill and the blog writer)
+POST /pipeline/api/briefs/<id>/              update a brief's fields (title, keywords, sources, publish date...)
 GET  /pipeline/api/status/                   drafted / approved / published counts + last week's search numbers
 """
 import hmac
@@ -21,7 +22,7 @@ from django.urls import path
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
-from . import conf, drafting, photos
+from . import conf, drafting, photos, publisher
 from .models import ContentBrief, SearchSnapshot
 
 
@@ -97,6 +98,21 @@ def submit_draft(request, pk):
                          "review_url": _admin_url(request, b)})
 
 
+BRIEF_FIELDS = {"title", "target_keyword", "secondary_keywords", "state", "is_law_post", "category_name", "tags",
+                "angle", "source_urls", "refresh_slug", "publish_at"}
+
+
+def _brief_fields(d):
+    d = dict(d)
+    if "working_title" in d and "title" not in d:  # accept the name the context endpoint uses
+        d["title"] = d.pop("working_title")
+    fields = {k: v for k, v in d.items() if k in BRIEF_FIELDS}
+    for k in ("secondary_keywords", "source_urls"):
+        if isinstance(fields.get(k), list):
+            fields[k] = "\n".join(fields[k])
+    return fields
+
+
 @_auth
 def create_brief(request):
     if request.method != "POST":
@@ -104,18 +120,51 @@ def create_brief(request):
     d = json.loads(request.body)
     if ContentBrief.objects.filter(target_keyword__iexact=d["target_keyword"]).exists():
         return JsonResponse({"ok": False, "reason": "a brief for this keyword already exists"})
-    allowed = {"title", "target_keyword", "secondary_keywords", "state", "is_law_post", "category_name", "tags",
-               "angle", "source_urls", "refresh_slug", "publish_at"}
-    fields = {k: v for k, v in d.items() if k in allowed}
-    for k in ("secondary_keywords", "source_urls"):
-        if isinstance(fields.get(k), list):
-            fields[k] = "\n".join(fields[k])
+    fields = _brief_fields(d)
+    if not fields.get("title"):
+        fields["title"] = d["target_keyword"]
     b = ContentBrief.objects.create(**fields)
     return JsonResponse({"ok": True, "brief_id": b.pk, "review_url": _admin_url(request, b)})
 
 
 @_auth
+def update_brief(request, pk):
+    """Edit a brief after it was created. Works in any status; the cached source text is refetched when sources change."""
+    if request.method != "POST":
+        return JsonResponse({"error": "POST only"}, status=405)
+    b = ContentBrief.objects.get(pk=pk)
+    fields = _brief_fields(json.loads(request.body))
+    if "target_keyword" in fields and ContentBrief.objects.exclude(pk=pk).filter(
+            target_keyword__iexact=fields["target_keyword"]).exists():
+        return JsonResponse({"ok": False, "reason": "another brief already uses that keyword"})
+    for k, v in fields.items():
+        setattr(b, k, v)
+    if "source_urls" in fields:
+        b.source_text = ""
+        if b.status == ContentBrief.FAILED:
+            b.status, b.error = ContentBrief.QUEUED, ""
+    b.save()
+    return JsonResponse({"ok": True, "brief_id": b.pk, "status": b.status, "review_url": _admin_url(request, b)})
+
+
+def sync_published():
+    """If Doug publishes a draft post in the blog admin / staff portal, mark its brief published too."""
+    M = publisher.post_model()
+    fm = conf.get("FIELD_MAP")
+    if fm.get("status") not in publisher.field_names(M):
+        return
+    live = conf.get("STATUS_VALUES")["published"]
+    for b in ContentBrief.objects.filter(status__in=[ContentBrief.DRAFTED, ContentBrief.APPROVED]).exclude(post_id=""):
+        if b.refresh_slug:
+            continue  # rewrites of live posts are published through the brief (see publisher.publish)
+        if M.objects.filter(pk=b.post_id, **{fm["status"]: live}).exists():
+            b.status = ContentBrief.PUBLISHED
+            b.save(update_fields=["status"])
+
+
+@_auth
 def status(request):
+    sync_published()
     counts = {s: ContentBrief.objects.filter(status=s).count() for s, _ in ContentBrief.STATUS_CHOICES}
     last = SearchSnapshot.objects.order_by("-week_start").values_list("week_start", flat=True).first()
     week = SearchSnapshot.objects.filter(week_start=last).aggregate(c=Sum("clicks"), i=Sum("impressions")) if last else {}
@@ -130,6 +179,7 @@ urlpatterns = [
     path("queue/", queue),
     path("status/", status),
     path("briefs/", create_brief),
+    path("briefs/<int:pk>/", update_brief),
     path("briefs/<int:pk>/context/", context),
     path("briefs/<int:pk>/photos/", photo_candidates),
     path("briefs/<int:pk>/draft/", submit_draft),

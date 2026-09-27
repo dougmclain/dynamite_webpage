@@ -118,6 +118,29 @@ def save_cover(post, jpg: bytes, slug: str, alt: str, credit: str = "", page: st
         setattr(post, _fm("image_alt"), alt[:255])
 
 
+def _is_live(post):
+    M = post.__class__
+    if not _has(M, "status"):
+        return True
+    return getattr(post, _fm("status")) == conf.get("STATUS_VALUES")["published"]
+
+
+def _apply_content(post, brief, jpg=None):
+    M = post.__class__
+    fm = conf.get("FIELD_MAP")
+    setattr(post, fm["title"], _clip("title", brief.draft_title))
+    setattr(post, fm["body"], _to_body(brief.body))
+    for key, val in (("excerpt", brief.excerpt), ("seo_title", brief.seo_title),
+                     ("meta_description", brief.meta_description), ("meta_keywords", brief.meta_keywords),
+                     ("structured_data", _faq_jsonld(brief.faq))):
+        if _has(M, key) and val:
+            setattr(post, fm[key], _clip(key, val))
+    _set_taxonomy(post, brief)
+    if jpg:
+        save_cover(post, jpg, getattr(post, fm["slug"]), brief.cover_alt,
+                   brief.cover_credit, brief.cover_source_page)
+
+
 def upsert_draft(brief, jpg: bytes | None):
     """Create (or rewrite in place) the site's post as a DRAFT. Returns the post."""
     M = post_model()
@@ -131,6 +154,10 @@ def upsert_draft(brief, jpg: bytes | None):
     if new:
         post = M()
         setattr(post, fm["slug"], brief.post_slug)
+    elif brief.refresh_slug and _is_live(post):
+        # Rewriting a post that is already live: keep the live version untouched until the brief is
+        # approved/published. The new text waits on the brief; publish() copies it over.
+        return post
     setattr(post, fm["title"], _clip("title", brief.draft_title))
     setattr(post, fm["body"], _to_body(brief.body))
     for key, val in (("excerpt", brief.excerpt), ("seo_title", brief.seo_title),
@@ -138,7 +165,7 @@ def upsert_draft(brief, jpg: bytes | None):
                      ("structured_data", _faq_jsonld(brief.faq))):
         if _has(M, key) and val:
             setattr(post, fm[key], _clip(key, val))
-    # a refreshed live post stays live; everything else is a draft until approved
+    # new posts start as drafts until approved
     if _has(M, "status") and new:
         setattr(post, fm["status"], conf.get("STATUS_VALUES")["draft"])
     if _has(M, "author") and conf.get("AUTHOR_USERNAME"):
@@ -159,6 +186,13 @@ def publish(brief):
     M = post_model()
     fm = conf.get("FIELD_MAP")
     post = M.objects.get(pk=brief.post_id)
+    if brief.refresh_slug and brief.body:
+        # the rewrite was held back at draft time; apply it now
+        jpg = brief.cover.read() if brief.cover else None
+        _apply_content(post, brief, jpg)
+        post.save()
+        _set_tags(post, brief)
+        return post
     if _has(M, "status"):
         setattr(post, fm["status"], conf.get("STATUS_VALUES")["published"])
     if _has(M, "published_at"):
