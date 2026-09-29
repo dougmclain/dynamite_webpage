@@ -8,7 +8,7 @@ GET  /pipeline/api/briefs/<id>/photos/?q=..  real-photo candidates (not already 
 POST /pipeline/api/briefs/<id>/draft/        the finished draft JSON -> quote check, cover, site DRAFT post
 POST /pipeline/api/briefs/                   create a brief (used by the law-radar skill and the blog writer)
 POST /pipeline/api/briefs/<id>/              update a brief's fields (title, keywords, sources, publish date...)
-GET  /pipeline/api/status/                   drafted / approved / published counts + last week's search numbers
+GET  /pipeline/api/status/                   drafted / approved / published counts, last week's search numbers, leads
 """
 import hmac
 import json
@@ -22,7 +22,7 @@ from django.urls import path
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
-from . import conf, drafting, photos, publisher
+from . import conf, drafting, leads, photos, publisher
 from .models import ContentBrief, SearchSnapshot
 
 
@@ -172,7 +172,8 @@ def status(request):
                          "awaiting_review": [{"id": b.pk, "title": b.draft_title, "quotes_verified": b.quotes_verified,
                                               "review_url": _admin_url(request, b)}
                                              for b in ContentBrief.objects.filter(status=ContentBrief.DRAFTED)],
-                         "search_last_week": {"week_start": str(last) if last else None, **week}})
+                         "search_last_week": {"week_start": str(last) if last else None, **week},
+                         "leads": {"last_7_days": leads.summary(7), "last_28_days": leads.summary(28)}})
 
 
 urlpatterns = [

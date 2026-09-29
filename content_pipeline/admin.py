@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.utils.html import format_html
 
 from . import drafting, publisher
-from .models import ContentBrief, LawAlert, SearchSnapshot
+from .models import ContentBrief, LawAlert, Lead, SearchSnapshot
 
 
 @admin.register(ContentBrief)
@@ -125,3 +125,14 @@ class SearchSnapshotAdmin(admin.ModelAdmin):
     @admin.display(description="CTR")
     def ctr_pct(self, obj):
         return f"{obj.ctr * 100:.1f}%"
+
+
+@admin.register(Lead)
+class LeadAdmin(admin.ModelAdmin):
+    list_display = ("created", "form", "channel", "landing_page", "form_page", "referrer")
+    list_filter = ("form", "channel", "created")
+    search_fields = ("landing_page", "referrer", "form_page", "utm_campaign")
+    readonly_fields = [f.name for f in Lead._meta.fields]
+
+    def has_add_permission(self, request):
+        return False

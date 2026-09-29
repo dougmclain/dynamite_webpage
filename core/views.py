@@ -3,6 +3,7 @@ from django.http import Http404
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
+from content_pipeline.leads import record_lead
 from .forms import ContactForm
 from honeypot.decorators import check_honeypot  # Add this import
 import logging
@@ -250,6 +251,7 @@ def contact(request):
                     fail_silently=False,
                 )
                 
+                record_lead(request, "contact")
                 messages.success(request, "Thank you for contacting us! Your message has been sent successfully.")
                 return redirect('core:contact')
                 

@@ -101,3 +101,28 @@ class SearchSnapshot(models.Model):
     class Meta:
         ordering = ["-week_start", "-clicks"]
         unique_together = [("week_start", "page")]
+
+
+class Lead(models.Model):
+    """One contact / demo / sign-up form submission, with where the visitor first came from.
+
+    No personal details are stored here (the form's own email or model keeps those); this table
+    only answers "which pages and channels bring inquiries?" for the weekly search report.
+    """
+    CHANNELS = [("search", "Search engine"), ("ai", "AI assistant"), ("paid", "Paid ads"),
+                ("our_sites", "Our other sites"), ("referral", "Other website"), ("direct", "Direct / unknown")]
+    created = models.DateTimeField(auto_now_add=True, db_index=True)
+    form = models.CharField(max_length=40, help_text="contact, signup, register…")
+    channel = models.CharField(max_length=20, choices=CHANNELS, default="direct")
+    landing_page = models.CharField(max_length=500, blank=True, help_text="First page of the visit")
+    referrer = models.CharField(max_length=500, blank=True, help_text="Where the visit came from")
+    form_page = models.CharField(max_length=500, blank=True, help_text="Page the form was sent from")
+    utm_source = models.CharField(max_length=100, blank=True)
+    utm_medium = models.CharField(max_length=100, blank=True)
+    utm_campaign = models.CharField(max_length=150, blank=True)
+
+    class Meta:
+        ordering = ["-created"]
+
+    def __str__(self):
+        return f"{self.form} via {self.channel} — {self.landing_page or '?'} ({self.created:%Y-%m-%d})"
