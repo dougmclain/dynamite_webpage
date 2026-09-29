@@ -28,7 +28,7 @@ SITE_ROLE = {
 }
 
 EDITORIAL_RULES = """
-Author: Doug McLain — former CPA, auditing community associations since 2011, founder of Dynamite Management (2025) and HOA Fiscal.
+Author: Doug McLain — CPA licensed in Washington, auditing community associations since 2011, founder of Dynamite Management (2025) and HOA Fiscal.
 Voice: plain, practical, written for volunteer board members. Answer-first: the first paragraph directly answers the target query.
 Standing editorial rules (never break these):
 - Never advise a condo to pursue Fannie Mae warrantability. You may explain the rules and what they mean for owners' loans.
