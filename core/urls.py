@@ -1,10 +1,18 @@
 from django.urls import path
+from django.views.generic import RedirectView
 from . import views
 
 app_name = 'core'
 
 urlpatterns = [
     path('', views.home, name='home'),
+
+    # Old URLs Google still requests (Search Console 404s, Oct 2026) -> 301 to the live pages.
+    path('index.php', RedirectView.as_view(url='/', permanent=True)),
+    path('locations/washington-condo-association-accounting/vancouver-condo-association-accounting/',
+         RedirectView.as_view(url='/locations/washington/', permanent=True)),
+    path('locations/texas-condo-association-accounting/',
+         RedirectView.as_view(url='/locations/texas/', permanent=True)),
     
     # State location pages
     path('locations/<str:location_name>/', views.location_detail, {'location_type': 'state'}, name='state_detail'),

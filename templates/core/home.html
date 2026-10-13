@@ -150,7 +150,7 @@
                         <div class="service-item">
                             <div class="service-icon">
                                 <img src="{% static 'images/lit-fuse.png' %}" alt="Dynamite Icon" width="30">
-                                <span>Financial Statements</span>
+                                <span><a href="{% url 'core:financial_management' %}">Financial Statements</a></span>
                             </div>
                         </div>
                         <div class="service-item">
@@ -162,7 +162,7 @@
                         <div class="service-item">
                             <div class="service-icon">
                                 <img src="{% static 'images/lit-fuse.png' %}" alt="Dynamite Icon" width="30">
-                                <span>Association Tax Preparation</span>
+                                <span><a href="{% url 'core:hoa_taxes' %}">Association Tax Preparation</a></span>
                             </div>
                         </div>
                         <div class="service-item">
@@ -229,6 +229,17 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Guides and services links (internal linking to cornerstone pages; see blog/_law_guides.html) -->
+<section class="guides-section py-4">
+    <div class="container-fluid px-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12">
+                {% include 'blog/_law_guides.html' %}
             </div>
         </div>
     </div>

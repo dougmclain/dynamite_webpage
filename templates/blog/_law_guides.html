@@ -1,0 +1,44 @@
+{% comment %}
+  HOA law guides + services: fixed, crawlable links to cornerstone pages.
+
+  Why it exists (Oct 2026): Search Console listed /blog/, the Arizona pillar,
+  the SB 5686 collections post, /hoa-management-company/ and /wa-condo/ as
+  "Discovered - currently not indexed". The homepage linked only to location
+  pages and Contact, and the two landing pages had no internal links at all.
+  Included on the homepage, every blog post and the blog index. The current
+  page is skipped so a page never links to itself.
+{% endcomment %}
+{% with p=request.path %}
+<aside class="law-guides mt-5 p-4 rounded border bg-white" aria-labelledby="law-guides-heading">
+    <h2 id="law-guides-heading" class="h5 mb-3">HOA and condo law guides</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <h3 class="h6 text-muted text-uppercase small mb-2">State law roundups</h3>
+            <ul class="list-unstyled mb-3">
+                {% if p != '/blog/washington-hoa-laws-wucioa-guide/' %}<li class="mb-2"><a href="/blog/washington-hoa-laws-wucioa-guide/">Washington HOA laws (WUCIOA)</a></li>{% endif %}
+                {% if p != '/blog/florida-hoa-laws-2026/' %}<li class="mb-2"><a href="/blog/florida-hoa-laws-2026/">Florida HOA laws in 2026</a></li>{% endif %}
+                {% if p != '/blog/arizona-hoa-laws-2026/' %}<li class="mb-2"><a href="/blog/arizona-hoa-laws-2026/">Arizona HOA laws in 2026</a></li>{% endif %}
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h3 class="h6 text-muted text-uppercase small mb-2">Money and collections</h3>
+            <ul class="list-unstyled mb-3">
+                {% if p != '/blog/rcw-64-90-485-sb-5686-hoa-collections/' %}<li class="mb-2"><a href="/blog/rcw-64-90-485-sb-5686-hoa-collections/">Washington HOA collections (RCW 64.90.485, SB 5686)</a></li>{% endif %}
+                {% if p != '/blog/california-hoa-delinquent-assessments-civil-code-5650/' %}<li class="mb-2"><a href="/blog/california-hoa-delinquent-assessments-civil-code-5650/">California delinquent assessments (Civil Code 5650)</a></li>{% endif %}
+                {% if p != '/blog/rcw-64-90-525-budget-ratification/' %}<li class="mb-2"><a href="/blog/rcw-64-90-525-budget-ratification/">Washington budget ratification (RCW 64.90.525)</a></li>{% endif %}
+                {% if p != '/blog/rcw-64-90-545-reserve-study/' %}<li class="mb-2"><a href="/blog/rcw-64-90-545-reserve-study/">Washington reserve studies (RCW 64.90.545)</a></li>{% endif %}
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h3 class="h6 text-muted text-uppercase small mb-2">Work with Dynamite</h3>
+            <ul class="list-unstyled mb-0">
+                {% if p != '/condo-financial-management/' %}<li class="mb-2"><a href="/condo-financial-management/">Condo and HOA financial management</a></li>{% endif %}
+                {% if p != '/hoa-management-company/' %}<li class="mb-2"><a href="/hoa-management-company/">HOA management company services</a></li>{% endif %}
+                {% if p != '/wa-condo/' %}<li class="mb-2"><a href="/wa-condo/">Washington self-managed condo program</a></li>{% endif %}
+                {% if p != '/hoa-taxes/' %}<li class="mb-2"><a href="/hoa-taxes/">HOA tax returns (Form 1120-H)</a></li>{% endif %}
+                {% if p != '/blog/' %}<li class="mb-2"><a href="/blog/">All guides</a></li>{% endif %}
+            </ul>
+        </div>
+    </div>
+</aside>
+{% endwith %}
