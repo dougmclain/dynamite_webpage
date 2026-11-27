@@ -5,9 +5,10 @@ Schedule it hourly ("5 * * * *"). Times below are UTC:
   13:xx daily        draft_posts --limit 2        (6am Pacific; only when DRAFT_ENGINE = "api" —
                      with "cowork", your Cowork scheduled task does the writing instead)
   14:xx Mondays      gsc_report, and law_radar if RUN_LAW_RADAR=1 in settings
+  15:xx Mondays      send_pipeline_report         (emails the weekly report, after gsc_report)
 """
 from django.core.management import call_command
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 
 from content_pipeline import conf
@@ -17,15 +18,17 @@ class Command(BaseCommand):
     help = "Hourly entry point: publishes due posts, drafts in the morning, reports on Mondays."
 
     def add_arguments(self, p):
-        p.add_argument("--force", choices=["draft", "report", "radar"], help="Run one step now regardless of the clock")
+        p.add_argument("--force", choices=["draft", "report", "radar", "email"], help="Run one step now regardless of the clock")
 
     def _step(self, name, *args):
         try:
             call_command(name, *args, stdout=self.stdout)
         except Exception as e:  # noqa: BLE001  one failing step shouldn't stop the others
+            self.failed.append(name)
             self.stdout.write(self.style.ERROR(f"{name} failed: {e}"))
 
     def handle(self, *a, force=None, **o):
+        self.failed = []
         now = timezone.now()  # UTC
         self._step("publish_scheduled")
         if force == "draft" or (force is None and now.hour == 13 and conf.get("DRAFT_ENGINE") == "api"):
@@ -34,3 +37,9 @@ class Command(BaseCommand):
             self._step("gsc_report")
         if force == "radar" or (force is None and now.weekday() == 0 and now.hour == 14 and conf.get("RUN_LAW_RADAR")):
             self._step("law_radar")
+        if force == "email" or (force is None and now.weekday() == 0 and now.hour == 15):
+            self._step("send_pipeline_report")
+        if self.failed:
+            # Every step still ran. Exit non-zero so the scheduler shows this run as failed
+            # instead of reporting success over an error nobody reads.
+            raise CommandError("failed: " + ", ".join(self.failed))
